@@ -39,9 +39,19 @@ namespace _02350_Gruppe5.Model
         // ViewModel properties. Den burde være i sin egen ViewModel klasse som Node klasserne wrappes af, men i dette tilfælde er det her meget lettere.
         private bool isSelected;
         public bool IsSelected { 
-            get { return isSelected; } 
-            set { isSelected = value; NotifyPropertyChanged("IsSelected"); NotifyPropertyChanged("SelectedColor"); } 
+            get 
+            { 
+                return isSelected; 
+            } 
+            set 
+            { 
+                isSelected = value; 
+                NotifyPropertyChanged("IsSelected"); 
+                NotifyPropertyChanged("SelectedColor"); 
+            }
+ 
         }
+        public Brush SelectedColor { get { return IsSelected ? Brushes.Aqua : Brushes.White; } }
 
 
     }

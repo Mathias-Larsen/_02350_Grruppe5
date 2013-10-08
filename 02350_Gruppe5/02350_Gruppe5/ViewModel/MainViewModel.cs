@@ -102,6 +102,7 @@ namespace _02350_Gruppe5.ViewModel
         public void AddEdge()
         {
             isAddingEdge = true;
+            RaisePropertyChanged("ModeOpacity");
         }
 
         // Tjekker om valgte kant/er kan fjernes. Det kan de hvis der er nogle der er valgt.
@@ -162,6 +163,7 @@ namespace _02350_Gruppe5.ViewModel
                     undoRedoController.AddAndExecute(new AddEdgeCommand(Edges, addingEdgeEndA, (ClassBox)movingClass.DataContext));
                     // De tilhørende værdier nulstilles.
                     isAddingEdge = false;
+                    RaisePropertyChanged("ModeOpacity");
                     addingEdgeEndA.IsSelected = false;
                     addingEdgeEndA = null;
                 }
@@ -186,6 +188,14 @@ namespace _02350_Gruppe5.ViewModel
         {
             dynamic parent = VisualTreeHelper.GetParent(o);
             return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
+        }
+        // Bruges til at gøre punkterne gennemsigtige når en ny kant tilføjes.
+        public double ModeOpacity
+        {
+            get
+            {
+                return isAddingEdge ? 0.4 : 1.0;
+            }
         }
     }
 }

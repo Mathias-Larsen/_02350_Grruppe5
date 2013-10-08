@@ -75,6 +75,9 @@
     <Compile Include="Command\MoveClassCommand.cs" />
     <Compile Include="Command\RemoveEdgesCommand.cs" />
     <Compile Include="Command\RemoveClassCommand.cs" />
+    <Compile Include="View\ClassBoxInfo.xaml.cs">
+      <DependentUpon>ClassBoxInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EdgeUserControl.xaml.cs">
       <DependentUpon>EdgeUserControl.xaml</DependentUpon>
     </Compile>
@@ -84,6 +87,10 @@
     <Compile Include="View\SidePanelUserControl.xaml.cs">
       <DependentUpon>SidePanelUserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\ClassBoxInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EdgeUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

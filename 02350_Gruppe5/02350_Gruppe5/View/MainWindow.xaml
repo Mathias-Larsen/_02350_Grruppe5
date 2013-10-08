@@ -61,8 +61,9 @@
 
         <StackPanel Orientation="Horizontal">
         <!--Her smides side panellets UserControl ind.-->
-        <View:SidePanelUserControl/>
-        <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
+            <View:SidePanelUserControl/>
+            <View:ClassBoxInfo/>
+            <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
         <Grid>
             <ItemsControl ItemsSource="{Binding Edges}"/>
             <ItemsControl ItemsSource="{Binding ClassBoxs}"/>

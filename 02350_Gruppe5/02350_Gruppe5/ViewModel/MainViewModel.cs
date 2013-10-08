@@ -26,6 +26,8 @@ namespace _02350_Gruppe5.ViewModel
         private bool isAddingEdge;
         // Bruges til at gemme det første punkt når en kant tilføjes. 
         private ClassBox addingEdgeEndA;
+        // Bruges til at gemme den valgte klasse. 
+       // private ClassBox selectedClassBox;
         // Gemmer det første punkt som punktet har under en flytning.
         private Point moveClassBoxPoint;
 
@@ -37,6 +39,8 @@ namespace _02350_Gruppe5.ViewModel
         // men den holder kun klasser af en type når den benyttes.
         public ObservableCollection<ClassBox> ClassBoxs { get; set; }
         public ObservableCollection<Edge> Edges { get; set; }
+        public ObservableCollection<ClassBox> SelectedClassBox { get; set; }
+        
 
         // Kommandoer som UI bindes til.
         public ICommand UndoCommand { get; private set; }
@@ -55,6 +59,7 @@ namespace _02350_Gruppe5.ViewModel
 
         public MainViewModel()
         {
+            SelectedClassBox = new ObservableCollection<ClassBox>();
             // Her fyldes listen af klasser med to klasser. Her benyttes et alternativ til konstruktorer med syntaksen 'new Type(){ Attribut = Værdi }'
             // Det der sker er at der først laves et nyt object og så sættes objektets attributer til de givne værdier.
             ClassBoxs = new ObservableCollection<ClassBox>() { 
@@ -78,6 +83,7 @@ namespace _02350_Gruppe5.ViewModel
             MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
             MouseUpClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpClassBox);
+           
         }
 
         // Tilføjer punkt med kommando.
@@ -120,7 +126,25 @@ namespace _02350_Gruppe5.ViewModel
         // Hvis der ikke er ved at blive tilføjet en kant så fanges musen når en musetast trykkes ned. Dette bruges til at flytte punkter.
         public void MouseDownClassBox(MouseButtonEventArgs e)
         {
-            if (!isAddingEdge) e.MouseDevice.Target.CaptureMouse();
+            if (!isAddingEdge)
+            {
+                e.MouseDevice.Target.CaptureMouse();
+                FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
+                ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
+                movingClassBox.IsSelected = true;
+
+                if (SelectedClassBox.Count == 0)
+                {
+                    SelectedClassBox.Add(movingClassBox);
+                }
+                else if(movingClassBox != SelectedClassBox.ElementAt(0))
+                {
+                    SelectedClassBox.ElementAt(0).IsSelected = false;
+                    SelectedClassBox.Clear();
+                    SelectedClassBox.Add(movingClassBox);
+                }
+                
+            }
         }
 
         // Bruges til at flytter punkter.
@@ -172,7 +196,6 @@ namespace _02350_Gruppe5.ViewModel
             {
                     Canvas canvas = FindParentOfType<Canvas>(movingClass);
                     Point mousePosition = Mouse.GetPosition(canvas);
-
                     undoRedoController.AddAndExecute(new MoveClassBoxCommand(movingClassBox, (int)mousePosition.X, (int)mousePosition.Y, (int)moveClassBoxPoint.X, (int)moveClassBoxPoint.Y));
                     // Nulstil værdier.
                     moveClassBoxPoint = new Point();

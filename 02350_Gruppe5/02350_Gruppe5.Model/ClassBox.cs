@@ -21,11 +21,11 @@ namespace _02350_Gruppe5.Model
         public int CenterY { get { return Y + Height / 2; } set { Y = value - Height / 2; NotifyPropertyChanged("Y"); } }
         
         private string className;
-        public string ClassName { get { return className; } set { className = value; } }
+        public string ClassName { get { return className; } set { className = value; NotifyPropertyChanged("ClassName"); } }
 
         private List<string> attNames, methodNames;
-        public List<string> AttNames { get { return attNames; } set { attNames = value; } }
-        public List<string> MethodNames { get { return methodNames; } set { methodNames = value; } }
+        public List<string> AttNames { get { return attNames; } set { attNames = value; NotifyPropertyChanged("AttNames"); } }
+        public List<string> MethodNames { get { return methodNames; } set { methodNames = value; NotifyPropertyChanged("MethodNames"); } }
 
         public ClassBox()
         {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
-
+//Test comment
 namespace _02350_Gruppe5.Model
 {
     public class ClassBox : NotifyBase

@@ -139,31 +139,45 @@ namespace _02350_Gruppe5.ViewModel
 
                 movingClassBox.X = (int)mousePosition.X;
                 movingClassBox.Y = (int)mousePosition.Y;
-
-
             }
         }
 
         // Benyttes til at flytte punkter og tilføje kanter.
         public void MouseUpClassBox(MouseButtonEventArgs e)
         {
+            FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
+            ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
+
             if (isAddingEdge)
             {
-
+                // Hvis det er den første klasse der er blevet trykket på under tilføjelsen af kanten, så gemmes punktet bare og punktet bliver markeret som valgt.
+                if (addingEdgeEndA == null)
+                {
+                    addingEdgeEndA = movingClassBox;
+                    addingEdgeEndA.IsSelected = true;
+                }
+                // Ellers hvis det ikke er den første og de to noder der hører til klasserne er forskellige, så oprettes kanten med kommando.
+                else if (addingEdgeEndA != movingClassBox)
+                {
+                    undoRedoController.AddAndExecute(new AddEdgeCommand(Edges, addingEdgeEndA, (ClassBox)movingClass.DataContext));
+                    // De tilhørende værdier nulstilles.
+                    isAddingEdge = false;
+                    addingEdgeEndA.IsSelected = false;
+                    addingEdgeEndA = null;
+                }
             }
             else
             {
-                FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
-                ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
-                Canvas canvas = FindParentOfType<Canvas>(movingClass);
-                Point mousePosition = Mouse.GetPosition(canvas);
+                    Canvas canvas = FindParentOfType<Canvas>(movingClass);
+                    Point mousePosition = Mouse.GetPosition(canvas);
 
-                undoRedoController.AddAndExecute(new MoveClassBoxCommand(movingClassBox, (int)mousePosition.X, (int)mousePosition.Y, (int)moveClassBoxPoint.X, (int)moveClassBoxPoint.Y));
-                // Nulstil værdier.
-                moveClassBoxPoint = new Point();
-                // Musen frigøres.
-                e.MouseDevice.Target.ReleaseMouseCapture(); 
-            }
+                    undoRedoController.AddAndExecute(new MoveClassBoxCommand(movingClassBox, (int)mousePosition.X, (int)mousePosition.Y, (int)moveClassBoxPoint.X, (int)moveClassBoxPoint.Y));
+                    // Nulstil værdier.
+                    moveClassBoxPoint = new Point();
+                    // Musen frigøres.
+                    e.MouseDevice.Target.ReleaseMouseCapture();
+                }
+            
         }
 
         // Rekursiv metode der benyttes til at finde et af et grafisk elements forfædre ved hjælp af typen, der ledes højere og højere op indtil en af typen findes.

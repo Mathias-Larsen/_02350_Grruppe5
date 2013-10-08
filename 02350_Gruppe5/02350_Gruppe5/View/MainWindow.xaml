@@ -1,0 +1,72 @@
+﻿<Window x:Class="_02350_Gruppe5.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Model="clr-namespace:_02350_Gruppe5.Model;assembly=02350_Gruppe5.Model"
+        xmlns:View="clr-namespace:_02350_Gruppe5.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        Title="02350_Gruppe5" Height="600" Width="800">
+        <!--Ovenover (DataContext="") bindes vinduet til MainViewModel ved hjælp af MVVM Light Toolkits ViewModelLocator.-->
+        <!--Derudover defineres de namespaces der skal benyttes ligesom det gøres med Using statements i C# koden.-->
+    <Window.Resources>
+        <!-- Dette DataTemplate fortæller vinduet hvordan Node klassen skal vises grafisk. Denne grafiske beskrivelse er samlet i NodeUserControl. -->
+        <DataTemplate DataType="{x:Type Model:ClassBox}">
+            <Canvas>
+                <View:ClassUserControl/>
+            </Canvas>
+        </DataTemplate>
+        <!-- Dette DataTemplate fortæller vinduet hvordan Edge klassen skal vises grafisk. Denne grafiske beskrivelse er samlet i EdgeUserControl. -->
+        <DataTemplate DataType="{x:Type Model:Edge}">
+            <Canvas>
+                <View:EdgeUserControl/>
+            </Canvas>
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open"/>
+                <MenuItem Header="_Close"/>
+                <MenuItem Header="_Save"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo"/>
+                <MenuItem Header="_Redo"/>
+                <MenuItem Header="_Cut"/>
+                <MenuItem Header="_Copy"/>
+                <MenuItem Header="_Paste"/>
+            </MenuItem>
+            <MenuItem Header="_Insert">
+                <MenuItem Header="_Klasse"/>
+                <MenuItem Header="_Kant"/>
+            </MenuItem>
+        </Menu>
+        <Border BorderBrush="Black" BorderThickness="2,2,2,2" DockPanel.Dock="Top" >
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <Button>
+                    <Image Source="pictures/undo.png" Height="25" Width="50"></Image>
+                </Button>
+                <Button>
+                    <Image Source="pictures/redo.png" Height="25" Width="50"></Image>
+                </Button>
+                <Button Command="{Binding AddClassCommand}">
+                    <Image Source="pictures/Plus_sign.png" Height="25" Width="50"></Image>
+                </Button>
+                <Button>
+                    <Image Source="pictures/Delete-icon.png" Height="25" Width="50"></Image>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Orientation="Horizontal">
+        <!--Her smides side panellets UserControl ind.-->
+        <View:SidePanelUserControl/>
+        <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
+        <Grid>
+            <ItemsControl ItemsSource="{Binding Edges}"/>
+            <ItemsControl ItemsSource="{Binding ClassBoxs}"/>
+        </Grid>
+    </StackPanel>
+    </DockPanel>
+</Window>

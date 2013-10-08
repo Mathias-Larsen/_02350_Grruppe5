@@ -1,0 +1,28 @@
+﻿<Application x:Class="_02350_Gruppe5.View.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:_02350_Gruppe5.ViewModel"
+             StartupUri="MainWindow.xaml">
+    <!--Her defineres ressourcer som alle vinduer benytter.-->
+    <Application.Resources>
+        <!--Denne ViewModelLocator bruges til at finde den tilhørende ViewModel for et vindue og er del af MVVM Light toolkit.-->
+        <vm:ViewModelLocator xmlns:vm="clr-namespace:_02350_Gruppe5.ViewModel" x:Key="Locator" />
+        <!--Denne del definere hvordan en knap som standard skal se ud i dette program.-->
+        <Style TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="False"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="14px"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                        <GradientStop Color="#FFFFD190" Offset="0.2"/>
+                        <GradientStop Color="Orange" Offset="0.85"/>
+                        <GradientStop Color="#FFFFD190" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="240">
+    
     <StackPanel Width="240">
-    <DataGrid x:Name="dgClass" Height="600" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Klassenavn: "/>
-        </DataGrid.Columns>
-    </DataGrid>
+    
+        <DataGrid x:Name="dgClass" Height="600" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Klassenavn: "/>
+            </DataGrid.Columns>
+        </DataGrid>
     </StackPanel>
+
 </UserControl>

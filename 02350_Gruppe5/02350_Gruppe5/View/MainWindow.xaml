@@ -23,19 +23,20 @@
             </Canvas>
         </DataTemplate>
     </Window.Resources>
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open"/>
+                <MenuItem Header="_Open" Command="ApplicationCommands.Open"/>
                 <MenuItem Header="_Close"/>
                 <MenuItem Header="_Save"/>
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Undo"/>
                 <MenuItem Header="_Redo"/>
-                <MenuItem Header="_Cut"/>
-                <MenuItem Header="_Copy"/>
-                <MenuItem Header="_Paste"/>
+                <MenuItem Header="_Cut" Command="ApplicationCommands.Cut"/>
+                <MenuItem Header="_Copy" Command="ApplicationCommands.Copy"/>
+                <MenuItem Header="_Paste" Command="ApplicationCommands.Paste"/>
             </MenuItem>
             <MenuItem Header="_Insert">
                 <MenuItem Header="_Klasse"/>
@@ -64,10 +65,12 @@
             <View:SidePanelUserControl/>
             <View:ClassBoxInfo/>
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
-        <Grid>
-            <ItemsControl ItemsSource="{Binding Edges}"/>
-            <ItemsControl ItemsSource="{Binding ClassBoxs}"/>
-        </Grid>
-    </StackPanel>
+            <Grid>
+                <ItemsControl ItemsSource="{Binding Edges}" />
+                <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class"/>
+            </Grid>
+            
+            
+        </StackPanel>
     </DockPanel>
 </Window>

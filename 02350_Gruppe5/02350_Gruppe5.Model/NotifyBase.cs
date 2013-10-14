@@ -10,7 +10,7 @@ namespace _02350_Gruppe5.Model
 {
     // Abstract base class. Bruges til at samle INotifyPropertyChanged funktionaliteten, så den ikke behøves implementeres i alle de almindelige model klasser.
     // Formålet med INotifyPropertyChanged er at når en attribut for en klasse ændres, så smides en event der giver GUI'en besked om ændringen.
-    public abstract class NotifyBase : INotifyPropertyChanged
+    public abstract class NotifyBase : INotifyPropertyChanged 
     {
         // Her defineres den event der skal smides for at GUI'en ved at en attribut er blevet ændret.
         public event PropertyChangedEventHandler PropertyChanged;

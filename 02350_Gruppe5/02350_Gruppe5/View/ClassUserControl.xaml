@@ -8,7 +8,7 @@
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Border BorderThickness="2" BorderBrush="Black" Background="{Binding SelectedColor}" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+    <Border BorderThickness="2" BorderBrush="{Binding SelectedColor}" Background="White" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseDown">
                 <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
@@ -21,8 +21,49 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <StackPanel>
+
         <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2"></TextBlock>
-        <TextBlock TextWrapping="Wrap" Text="{Binding AttNames}">sfdsasdasddf</TextBlock>
-    </StackPanel>
+
+            <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNames}" IsEnabled="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <!--Here you bind the array-->
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <!--Here you bind the value of each string-->
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView Name="MethodNames" VerticalAlignment="Top" ItemsSource="{Binding MethodNames}" IsEnabled="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <!--Here you bind the array-->
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <!--Here you bind the value of each string-->
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Border>
 </UserControl>

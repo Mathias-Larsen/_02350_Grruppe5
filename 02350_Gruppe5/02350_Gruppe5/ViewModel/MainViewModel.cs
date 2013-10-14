@@ -26,11 +26,9 @@ namespace _02350_Gruppe5.ViewModel
         private bool isAddingEdge;
         // Bruges til at gemme det første punkt når en kant tilføjes. 
         private ClassBox addingEdgeEndA;
-        // Bruges til at gemme den valgte klasse. 
-       // private ClassBox selectedClassBox;
+      
         // Gemmer det første punkt som punktet har under en flytning.
         private Point moveClassBoxPoint;
-
 
         // Formålet med at benytte en ObservableCollection er at den implementere INotifyCollectionChanged, der er forskellige fra INotifyPropertyChanged.
         // INotifyCollectionChanged smider en event når mængden af elementer i en kollektion ændres (altså når et element fjernes eller tilføjes).
@@ -40,7 +38,7 @@ namespace _02350_Gruppe5.ViewModel
         public ObservableCollection<ClassBox> ClassBoxs { get; set; }
         public ObservableCollection<Edge> Edges { get; set; }
         public ObservableCollection<ClassBox> SelectedClassBox { get; set; }
-        
+       
 
         // Kommandoer som UI bindes til.
         public ICommand UndoCommand { get; private set; }
@@ -65,6 +63,7 @@ namespace _02350_Gruppe5.ViewModel
             ClassBoxs = new ObservableCollection<ClassBox>() { 
                 new ClassBox() { X = 30, Y = 40, Width = 80, Height = 80 }, 
                 new ClassBox() { X = 140, Y = 230, Width = 100, Height = 100 } };
+            
             // ElementAt() er en LINQ udvidelses metode som ligesom mange andre kan benyttes på stort set alle slags kollektioner i .NET.
             Edges = new ObservableCollection<Edge>() { 
                 new Edge() { EndA = ClassBoxs.ElementAt(0), EndB = ClassBoxs.ElementAt(1) } };
@@ -72,6 +71,8 @@ namespace _02350_Gruppe5.ViewModel
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes. Her vidersendes metode kaldne til UndoRedoControlleren.
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
+
+            
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             AddClassCommand = new RelayCommand(AddClassBox);
@@ -137,12 +138,13 @@ namespace _02350_Gruppe5.ViewModel
                 {
                     SelectedClassBox.Add(movingClassBox);
                 }
-                else if(movingClassBox != SelectedClassBox.ElementAt(0))
+                else if (movingClassBox != SelectedClassBox.ElementAt(0))
                 {
                     SelectedClassBox.ElementAt(0).IsSelected = false;
                     SelectedClassBox.Clear();
                     SelectedClassBox.Add(movingClassBox);
                 }
+                
                 
             }
         }

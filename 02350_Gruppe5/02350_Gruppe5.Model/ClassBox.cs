@@ -12,11 +12,11 @@ namespace _02350_Gruppe5.Model
         private static int counter = 0;
         public int Number { get; private set; } // skal bruges til at finde nummeret på en enkelt klasse
         private int x, y;
-        public int X { get { return x; } set { x = value; NotifyPropertyChanged("X"); NotifyPropertyChanged("X"); } } // der skal også være noget notify property changed
-        public int Y { get { return y; } set { y = value; NotifyPropertyChanged("Y"); NotifyPropertyChanged("Y"); } }
+        public int X { get { return x; } set { x = value; NotifyPropertyChanged("X"); } } // der skal også være noget notify property changed
+        public int Y { get { return y; } set { y = value; NotifyPropertyChanged("Y");} }
         private int width, height;
-        public int Width { get { return width; } set { width = value; NotifyPropertyChanged("Width"); NotifyPropertyChanged("Width"); } }
-        public int Height { get { return height; } set { height = value; NotifyPropertyChanged("Height"); NotifyPropertyChanged("Height"); } }
+        public int Width { get { return width; } set { width = value; NotifyPropertyChanged("Width");} }
+        public int Height { get { return height; } set { height = value; NotifyPropertyChanged("Height"); } }
         public int CenterX { get { return X + Width / 2; } set { X = value - Width / 2; NotifyPropertyChanged("X"); } }
         public int CenterY { get { return Y + Height / 2; } set { Y = value - Height / 2; NotifyPropertyChanged("Y"); } }
         
@@ -35,6 +35,8 @@ namespace _02350_Gruppe5.Model
             className = "Class name";
             attNames = new List<string>();
             methodNames = new List<string>();
+            attNames.Add("test");
+            attNames.Add("Test");
         }
         // ViewModel properties. Den burde være i sin egen ViewModel klasse som Node klasserne wrappes af, men i dette tilfælde er det her meget lettere.
         private bool isSelected;
@@ -51,7 +53,7 @@ namespace _02350_Gruppe5.Model
             }
  
         }
-        public Brush SelectedColor { get { return IsSelected ? Brushes.Aqua : Brushes.White; } }
+        public Brush SelectedColor { get { return IsSelected ? Brushes.Aqua : Brushes.Black; } }
 
 
     }

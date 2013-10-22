@@ -45,19 +45,36 @@
                 <MenuItem Header="_Kant"/>
             </MenuItem>
         </Menu>
-        <Border BorderBrush="Black" BorderThickness="2,2,2,2" DockPanel.Dock="Top" >
+        <Border BorderBrush="Black" BorderThickness="2,2,2,2" DockPanel.Dock="Top" Name="TopToolbar">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button Command="{Binding UndoCommand}">
+                <Button Command="{Binding UndoCommand}" ToolTip="Undo">
                     <Image Source="pictures/undo.png" Height="25" Width="50"></Image>
                 </Button>
-                <Button Command="{Binding RedoCommand}">
+                <Button Command="{Binding RedoCommand}" ToolTip="Redo">
                     <Image Source="pictures/redo.png" Height="25" Width="50"></Image>
                 </Button>
-                <Button Command="{Binding AddClassCommand}">
+                <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox">
                     <Image Source="pictures/Plus_sign.png" Height="25" Width="50"></Image>
                 </Button>
-                <Button>
+                <Button ToolTip="Remove selected ClassBox" Name="Delete">
                     <Image Source="pictures/Delete-icon.png" Height="25" Width="50"></Image>
+                </Button>
+                <Button Name="Animation">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="SideToolbar"
+                                            Storyboard.TargetProperty="Width"
+                                            From="0" To="80" Duration="0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>      
+                    </Button.Triggers>
+                    <Button.Content>Animate in</Button.Content>
                 </Button>
             </StackPanel>
         </Border>
@@ -65,11 +82,13 @@
         <StackPanel Orientation="Horizontal">
         <!--Her smides side panellets UserControl ind.-->
             <View:SidePanelUserControl/>
-            <View:ClassBoxInfo/>
+            <View:ClassBoxInfo Width="80" x:Name="ClassBoxInfo"/>
+            <View:ClassBoxSidepanelUserControl Width="0" x:Name="SideToolbar"/>
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
             <Grid>
                 <ItemsControl ItemsSource="{Binding Edges}" />
-                <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class"/>
+                <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class">
+                </ItemsControl>
             </Grid>
             
             

@@ -47,10 +47,10 @@
         </Menu>
         <Border BorderBrush="Black" BorderThickness="2,2,2,2" DockPanel.Dock="Top" >
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button>
+                <Button Command="{Binding UndoCommand}">
                     <Image Source="pictures/undo.png" Height="25" Width="50"></Image>
                 </Button>
-                <Button>
+                <Button Command="{Binding RedoCommand}">
                     <Image Source="pictures/redo.png" Height="25" Width="50"></Image>
                 </Button>
                 <Button Command="{Binding AddClassCommand}">

@@ -23,7 +23,9 @@
             </Canvas>
         </DataTemplate>
     </Window.Resources>
-
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Copy"/>
+    </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -35,8 +37,8 @@
                 <MenuItem Header="_Undo"/>
                 <MenuItem Header="_Redo"/>
                 <MenuItem Header="_Cut" Command="ApplicationCommands.Cut"/>
-                <MenuItem Header="_Copy" Command="ApplicationCommands.Copy"/>
-                <MenuItem Header="_Paste" Command="ApplicationCommands.Paste"/>
+                <MenuItem Header="_Copy" Command="{Binding CopyClassCommand}"/>
+                <MenuItem Header="_Paste" Command="{Binding PasteClassCommand}"/>
             </MenuItem>
             <MenuItem Header="_Insert">
                 <MenuItem Header="_Klasse"/>

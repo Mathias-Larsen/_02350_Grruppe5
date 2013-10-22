@@ -38,6 +38,7 @@ namespace _02350_Gruppe5.ViewModel
         public ObservableCollection<ClassBox> ClassBoxs { get; set; }
         public ObservableCollection<Edge> Edges { get; set; }
         public ObservableCollection<ClassBox> SelectedClassBox { get; set; }
+        public ClassBox toPaste;
        
 
         // Kommandoer som UI bindes til.
@@ -54,6 +55,9 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand MouseDownClassBoxCommand { get; private set; }
         public ICommand MouseMoveClassBoxCommand { get; private set; }
         public ICommand MouseUpClassBoxCommand { get; private set; }
+
+        public ICommand PasteClassCommand { get; private set; }
+        public ICommand CopyClassCommand { get; private set; }
 
         public MainViewModel()
         {
@@ -84,6 +88,10 @@ namespace _02350_Gruppe5.ViewModel
             MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
             MouseUpClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpClassBox);
+
+            CopyClassCommand = new RelayCommand(CopyClass);
+            PasteClassCommand = new RelayCommand(PasteClass);
+
            
         }
 
@@ -91,6 +99,16 @@ namespace _02350_Gruppe5.ViewModel
         public void AddClassBox()
         {
             undoRedoController.AddAndExecute(new AddClassCommand(ClassBoxs));
+            MessageBox.Show("hello");
+        }
+        public void PasteClass()
+        {
+            undoRedoController.AddAndExecute(new PasteClassCommand(ClassBoxs,toPaste));
+        }
+        public void CopyClass()
+        {
+            toPaste = SelectedClassBox.ElementAt(0);
+            MessageBox.Show("hello");
         }
 
         // Tjekker om valgte punkt/er kan fjernes. Det kan de hvis der er nogle der er valgt.
@@ -143,8 +161,7 @@ namespace _02350_Gruppe5.ViewModel
                     SelectedClassBox.ElementAt(0).IsSelected = false;
                     SelectedClassBox.Clear();
                     SelectedClassBox.Add(movingClassBox);
-                }
-                
+                }           
                 
             }
         }

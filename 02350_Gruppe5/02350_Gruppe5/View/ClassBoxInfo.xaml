@@ -13,6 +13,8 @@
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Klassenavn: "/>
             </DataGrid.Columns>
         </DataGrid>
+
+
     </StackPanel>
 
 </UserControl>

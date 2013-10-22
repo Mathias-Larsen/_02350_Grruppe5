@@ -26,5 +26,6 @@ namespace _02350_Gruppe5.View
             // Skal være til stede og øverst i konstruktoren.
             InitializeComponent();
         }
+
     }
 }

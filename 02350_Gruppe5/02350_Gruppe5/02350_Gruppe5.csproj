@@ -70,6 +70,7 @@
     </ApplicationDefinition>
     <Compile Include="Command\AddEdgeCommand.cs" />
     <Compile Include="Command\AddClassCommand.cs" />
+    <Compile Include="Command\PasteClassCommand.cs" />
     <Compile Include="Command\UndoRedoController.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\MoveClassCommand.cs" />

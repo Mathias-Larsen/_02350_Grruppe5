@@ -22,7 +22,8 @@ namespace _02350_Gruppe5.Command
             newX = _newX; 
             newY = _newY; 
             x = _x; 
-            y = _y; }
+            y = _y; 
+        }
 
         public void Execute()
         {

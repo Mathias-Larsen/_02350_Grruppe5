@@ -23,9 +23,10 @@
             </Canvas>
         </DataTemplate>
     </Window.Resources>
-    <Window.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Copy"/>
-    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding CopyClassCommand}" Gesture="CTRL+c"/>
+        <KeyBinding Command="{Binding PasteClassCommand}" Gesture="CTRL+v"/>
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -41,8 +42,8 @@
                 <MenuItem Header="_Paste" Command="{Binding PasteClassCommand}"/>
             </MenuItem>
             <MenuItem Header="_Insert">
-                <MenuItem Header="_Klasse"/>
-                <MenuItem Header="_Kant"/>
+                <MenuItem Header="_Klasse" Command="{Binding AddClassCommand}"/>
+                <MenuItem Header="_Kant" Command="{Binding AddEdgeCommand}"/>
             </MenuItem>
         </Menu>
         <Border BorderBrush="Black" BorderThickness="2,2,2,2" DockPanel.Dock="Top" Name="TopToolbar">
@@ -56,7 +57,7 @@
                 <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox">
                     <Image Source="pictures/Plus_sign.png" Height="25" Width="50"></Image>
                 </Button>
-                <Button ToolTip="Remove selected ClassBox" Name="Delete">
+                <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox">
                     <Image Source="pictures/Delete-icon.png" Height="25" Width="50"></Image>
                 </Button>
                 <Button Name="Animation">

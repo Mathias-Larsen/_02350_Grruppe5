@@ -80,17 +80,17 @@ namespace _02350_Gruppe5.ViewModel
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             AddClassCommand = new RelayCommand(AddClassBox);
-            RemoveClassCommand = new RelayCommand<IList>(RemoveClassBox, CanRemoveClassBox);
+            RemoveClassCommand = new RelayCommand(RemoveClassBox, CanRemoveClassBox);
             AddEdgeCommand = new RelayCommand(AddEdge);
-            RemoveEdgesCommand = new RelayCommand<IList>(RemoveEdges, CanRemoveEdges);
+            RemoveEdgesCommand = new RelayCommand(RemoveEdges, CanRemoveEdges);
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
             MouseUpClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpClassBox);
 
-            CopyClassCommand = new RelayCommand(CopyClass);
-            PasteClassCommand = new RelayCommand(PasteClass);
+            CopyClassCommand = new RelayCommand(CopyClass, CanCopy);
+            PasteClassCommand = new RelayCommand(PasteClass, CanPaste);
 
            
         }
@@ -99,28 +99,37 @@ namespace _02350_Gruppe5.ViewModel
         public void AddClassBox()
         {
             undoRedoController.AddAndExecute(new AddClassCommand(ClassBoxs));
-            MessageBox.Show("hello");
+            //MessageBox.Show("hello");
         }
         public void PasteClass()
         {
             undoRedoController.AddAndExecute(new PasteClassCommand(ClassBoxs,toPaste));
+            toPaste = null;
         }
         public void CopyClass()
         {
             toPaste = SelectedClassBox.ElementAt(0);
-            MessageBox.Show("hello");
+            //MessageBox.Show("hello");
+        }
+        public bool CanCopy()
+        {
+            return SelectedClassBox.Count == 1;
+        }
+        public bool CanPaste()
+        {
+            return toPaste != null;
         }
 
         // Tjekker om valgte punkt/er kan fjernes. Det kan de hvis der er nogle der er valgt.
-        public bool CanRemoveClassBox(IList _classBoxs)
+        public bool CanRemoveClassBox()
         {
-            return _classBoxs.Count == 1;
+            return SelectedClassBox.Count == 1;
         }
 
         // Fjerner valgte punkter med kommando.
-        public void RemoveClassBox(IList _classBoxs)
+        public void RemoveClassBox()
         {
-            undoRedoController.AddAndExecute(new RemoveClassCommand(ClassBoxs, Edges, _classBoxs.Cast<ClassBox>().First()));
+            undoRedoController.AddAndExecute(new RemoveClassCommand(ClassBoxs, Edges, SelectedClassBox.ElementAt(0)));
         }
 
         // Starter proceduren der tilføjer en kant.
@@ -131,15 +140,15 @@ namespace _02350_Gruppe5.ViewModel
         }
 
         // Tjekker om valgte kant/er kan fjernes. Det kan de hvis der er nogle der er valgt.
-        public bool CanRemoveEdges(IList _edges)
+        public bool CanRemoveEdges()
         {
-            return _edges.Count > 0;
+            return true;
         }
 
         // Fjerner valgte kanter med kommando.
-        public void RemoveEdges(IList _edges)
+        public void RemoveEdges()
         {
-            undoRedoController.AddAndExecute(new RemoveEdgesCommand(Edges, _edges.Cast<Edge>().ToList()));
+            //undoRedoController.AddAndExecute(new RemoveEdgesCommand(Edges, _edges.Cast<Edge>().ToList()));
         }
 
         // Hvis der ikke er ved at blive tilføjet en kant så fanges musen når en musetast trykkes ned. Dette bruges til at flytte punkter.
@@ -179,10 +188,16 @@ namespace _02350_Gruppe5.ViewModel
                 Point mousePosition = Mouse.GetPosition(canvas);
 
                 if (moveClassBoxPoint == default(Point))
+                {
                     moveClassBoxPoint = mousePosition;
-
-                movingClassBox.X = (int)mousePosition.X;
-                movingClassBox.Y = (int)mousePosition.Y;
+                    moveClassBoxPoint.X = movingClassBox.X;
+                    moveClassBoxPoint.Y = movingClassBox.Y;
+                }
+                else
+                {
+                    movingClassBox.X = (int)mousePosition.X;
+                    movingClassBox.Y = (int)mousePosition.Y;
+                }
             }
         }
 

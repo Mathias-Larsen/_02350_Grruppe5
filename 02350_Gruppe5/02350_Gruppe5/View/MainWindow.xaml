@@ -10,8 +10,10 @@
         <!--Ovenover (DataContext="") bindes vinduet til MainViewModel ved hjælp af MVVM Light Toolkits ViewModelLocator.-->
         <!--Derudover defineres de namespaces der skal benyttes ligesom det gøres med Using statements i C# koden.-->
     <Window.Resources>
+
         <!-- Dette DataTemplate fortæller vinduet hvordan Node klassen skal vises grafisk. Denne grafiske beskrivelse er samlet i NodeUserControl. -->
         <DataTemplate DataType="{x:Type Model:ClassBox}">
+            
             <Canvas>
                 <View:ClassUserControl/>
             </Canvas>
@@ -26,8 +28,19 @@
     <Window.InputBindings>
         <KeyBinding Command="{Binding CopyClassCommand}" Gesture="CTRL+c"/>
         <KeyBinding Command="{Binding PasteClassCommand}" Gesture="CTRL+v"/>
+        <KeyBinding Command="{Binding RemoveClassCommand}" Gesture="Delete"/>
     </Window.InputBindings>
     <DockPanel>
+        <DockPanel.ContextMenu>
+            
+                <ContextMenu>
+                    <MenuItem Header="Copy" Command="{Binding CopyClassCommand}"  />
+                    <MenuItem Header="Paste"  Command="{Binding PasteClassCommand}"/>
+                    <Separator />
+                    <MenuItem Header="Delete"  Command="{Binding RemoveClassCommand}"/>
+                </ContextMenu>
+            
+        </DockPanel.ContextMenu>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="ApplicationCommands.Open"/>

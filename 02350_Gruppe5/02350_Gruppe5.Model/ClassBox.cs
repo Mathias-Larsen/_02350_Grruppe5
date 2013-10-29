@@ -53,7 +53,7 @@ namespace _02350_Gruppe5.Model
             }
  
         }
-        public Brush SelectedColor { get { return IsSelected ? Brushes.Aqua : Brushes.Black; } }
+        public Brush SelectedColor { get { return IsSelected ? Brushes.Blue : Brushes.Black; } }
 
 
     }

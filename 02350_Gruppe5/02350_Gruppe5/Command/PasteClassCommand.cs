@@ -28,6 +28,8 @@ namespace _02350_Gruppe5.Command
             newClassBox.AttNames = classBoxToAdd.AttNames;
             newClassBox.ClassName = classBoxToAdd.ClassName;
             newClassBox.MethodNames = classBoxToAdd.MethodNames;
+            newClassBox.Height = classBoxToAdd.Height;
+            newClassBox.Width = classBoxToAdd.Width;
             classBoxs.Add(newClassBox);
         }
 

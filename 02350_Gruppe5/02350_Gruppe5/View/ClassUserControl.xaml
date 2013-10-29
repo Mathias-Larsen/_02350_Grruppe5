@@ -23,7 +23,6 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <StackPanel>
-
             <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2"></TextBlock>
 
             <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNames}" IsEnabled="False">

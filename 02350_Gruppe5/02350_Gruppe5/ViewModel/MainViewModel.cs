@@ -99,7 +99,6 @@ namespace _02350_Gruppe5.ViewModel
         public void AddClassBox()
         {
             undoRedoController.AddAndExecute(new AddClassCommand(ClassBoxs));
-            //MessageBox.Show("hello");
         }
         public void PasteClass()
         {
@@ -108,6 +107,7 @@ namespace _02350_Gruppe5.ViewModel
         }
         public void CopyClass()
         {
+           
             toPaste = SelectedClassBox.ElementAt(0);
             //MessageBox.Show("hello");
         }
@@ -135,6 +135,8 @@ namespace _02350_Gruppe5.ViewModel
         // Starter proceduren der tilføjer en kant.
         public void AddEdge()
         {
+            SelectedClassBox.ElementAt(0).IsSelected = false;
+            SelectedClassBox.Clear();
             isAddingEdge = true;
             RaisePropertyChanged("ModeOpacity");
         }
@@ -160,6 +162,7 @@ namespace _02350_Gruppe5.ViewModel
                 FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
                 ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
                 movingClassBox.IsSelected = true;
+                
 
                 if (SelectedClassBox.Count == 0)
                 {
@@ -171,7 +174,6 @@ namespace _02350_Gruppe5.ViewModel
                     SelectedClassBox.Clear();
                     SelectedClassBox.Add(movingClassBox);
                 }           
-                
             }
         }
 
@@ -226,7 +228,7 @@ namespace _02350_Gruppe5.ViewModel
                     addingEdgeEndA = null;
                 }
             }
-            else
+            else if(moveClassBoxPoint != default(Point))
             {
                     Canvas canvas = FindParentOfType<Canvas>(movingClass);
                     Point mousePosition = Mouse.GetPosition(canvas);
@@ -235,7 +237,9 @@ namespace _02350_Gruppe5.ViewModel
                     moveClassBoxPoint = new Point();
                     // Musen frigøres.
                     e.MouseDevice.Target.ReleaseMouseCapture();
-                }
+            }
+            else                    
+                e.MouseDevice.Target.ReleaseMouseCapture();
             
         }
 

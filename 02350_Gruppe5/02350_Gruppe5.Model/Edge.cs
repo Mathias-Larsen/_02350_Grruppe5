@@ -4,29 +4,132 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+
 
 namespace _02350_Gruppe5.Model
 {
-    // Kant klassen har en reference til de to noder som den er imellem.
     public class Edge : NotifyBase
     {
+        public Edge(ClassBox a, ClassBox b)
+        {
+            endA = a;
+            endB = b;
+            points = Convert(endA, endB);
+        }
         // Properties.
         private ClassBox endA;
-        private ClassBox endB;
-        private int connection_xA, connection_yA, connection_xB, connection_yB;
-        public ClassBox EndA { 
-            get { return endA; } 
-            set { endA = value; NotifyPropertyChanged("EndA"); } }
-        public ClassBox EndB { 
-            get { return endB; } 
-            set { endB = value; NotifyPropertyChanged("EndB"); } }
-        public int Connection_xA
+        public ClassBox EndA
         {
-            get {
-                int centrum_xA, centrum_yA,centrum_xB, centrum_yB;
- 
-                return 0;
+            get { return endA; }
+            set { if (endA == value) return; endA = value; NotifyPropertyChanged("EndA"); }
+        }
+        private ClassBox endB;
+        public ClassBox EndB
+        {
+            get { return endB; }
+            set { if (endB == value) return; endB = value; NotifyPropertyChanged("EndB"); }
+        }
+
+        private PointCollection points = new PointCollection();
+        public PointCollection Points
+        {
+            get
+            {
+                return points;
             }
+            set
+            {
+                points = Convert(endA, endB);
+                NotifyPropertyChanged("Points");
+            }
+        }
+
+        private PointCollection Convert(ClassBox endA, ClassBox endB)
+        {
+            int x1 = endA.CenterX, y1 = endA.CenterY, width1 = endA.Width, height1 = endA.Height,
+                x2 = endB.CenterX, y2 = endB.CenterY, width2 = endB.Width, height2 = endB.Height;
+            int STEP = 25, stepX, stepY, xWidth = Math.Abs(x1 - x2), yWidth = Math.Abs(y1 - y2);
+
+            Point start, second, third, fourth, fifth, end;
+            PointCollection points = new PointCollection();
+
+            if (xWidth <= yWidth)
+            {
+                if (y1 <= y2)
+                {
+                    start = new Point(x1, y1 + height1 / 2);
+                    end = new Point(x2, y2 - height2 / 2);
+                    stepY = Math.Min(STEP, (yWidth - (height1 + height2) / 2) / 10);
+                    second = new Point(x1, y1 + height1 / 2 + stepY);
+                    fifth = new Point(x2, y2 - height2 / 2 - stepY);
+                    stepX = xWidth / 2;
+                    if (x1 < x2)
+                    {
+                        stepX = -1 * stepX;
+                    }
+                    third = new Point(x1 - stepX, y1 + height1 / 2 + stepY);
+                    fourth = new Point(x2 + stepX, y2 - height2 / 2 - stepY);
+                }
+                else
+                {
+                    start = new Point(x1, y1 - height1 / 2);
+                    end = new Point(x2, y2 + height2 / 2);
+                    stepY = Math.Min(STEP, (yWidth - (height1 + height2) / 2) / 10);
+                    second = new Point(x1, y1 - height1 / 2 - stepY);
+                    fifth = new Point(x2, y2 + height2 / 2 + stepY);
+                    stepX = xWidth / 2;
+                    if (x1 < x2)
+                    {
+                        stepX = -1 * stepX;
+                    }
+                    third = new Point(x1 - stepX, y1 - height1 / 2 - stepY);
+                    fourth = new Point(x2 + stepX, y2 + height2 / 2 + stepY);
+                }
+            }
+            else
+            {
+                if (x1 <= x2)
+                {
+                    start = new Point(x1 + width1 / 2, y1);
+                    end = new Point(x2 - width2 / 2, y2);
+                    stepX = Math.Min(STEP, (xWidth - (width1 + width2) / 2) / 10);
+                    second = new Point(x1 + width1 / 2 + stepX, y1);
+                    fifth = new Point(x2 - width2 / 2 - stepX, y2);
+                    stepY = yWidth / 2;
+                    if (y1 < y2)
+                    {
+                        stepY = -1 * stepY;
+                    }
+                    third = new Point(x1 + width1 / 2 + stepX, y1 - stepY);
+                    fourth = new Point(x2 - width2 / 2 - stepX, y2 + stepY);
+                }
+                else
+                {
+                    start = new Point(x1 - width1 / 2, y1);
+                    end = new Point(x2 + width2 / 2, y2);
+                    stepX = Math.Min(STEP, (xWidth - (width1 + width2) / 2) / 10);
+                    second = new Point(x1 - width1 / 2 - stepX, y1);
+                    fifth = new Point(x2 + width2 / 2 + stepX, y2);
+                    stepY = yWidth / 2;
+                    if (y1 < y2)
+                    {
+                        stepY = -1 * stepY;
+                    }
+                    third = new Point(x1 - width1 / 2 - stepX, y1 - stepY);
+                    fourth = new Point(x2 + width2 / 2 + stepX, y2 + stepY);
+                }
+            }
+
+            points.Add(start);
+            points.Add(second);
+            points.Add(third);
+            points.Add(fourth);
+            points.Add(fifth);
+            points.Add(end);
+
+            return points;
         }
     }
 }

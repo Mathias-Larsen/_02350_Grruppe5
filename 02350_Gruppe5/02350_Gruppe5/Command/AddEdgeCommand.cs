@@ -14,7 +14,7 @@ namespace _02350_Gruppe5.Command
         private ObservableCollection<Edge> edges;
         private Edge edge;
 
-        public AddEdgeCommand(ObservableCollection<Edge> _edges, ClassBox _endA, ClassBox _endB) { edges = _edges; edge = new Edge() { EndA = _endA, EndB = _endB }; }
+        public AddEdgeCommand(ObservableCollection<Edge> _edges, ClassBox _endA, ClassBox _endB) { edges = _edges; edge = new Edge(_endA, _endB); }
 
         public void Execute()
         {

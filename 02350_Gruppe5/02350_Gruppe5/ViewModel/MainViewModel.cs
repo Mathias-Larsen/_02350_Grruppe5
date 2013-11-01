@@ -70,7 +70,7 @@ namespace _02350_Gruppe5.ViewModel
             
             // ElementAt() er en LINQ udvidelses metode som ligesom mange andre kan benyttes på stort set alle slags kollektioner i .NET.
             Edges = new ObservableCollection<Edge>() { 
-                new Edge() { EndA = ClassBoxs.ElementAt(0), EndB = ClassBoxs.ElementAt(1) } };
+                new Edge(ClassBoxs.ElementAt(0), ClassBoxs.ElementAt(1)) };
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes. Her vidersendes metode kaldne til UndoRedoControlleren.
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
@@ -82,7 +82,7 @@ namespace _02350_Gruppe5.ViewModel
             AddClassCommand = new RelayCommand(AddClassBox);
             RemoveClassCommand = new RelayCommand(RemoveClassBox, CanRemoveClassBox);
             AddEdgeCommand = new RelayCommand(AddEdge);
-            RemoveEdgesCommand = new RelayCommand(RemoveEdges, CanRemoveEdges);
+            RemoveEdgesCommand = new RelayCommand<IList>(RemoveEdges, CanRemoveEdges);
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
@@ -142,15 +142,15 @@ namespace _02350_Gruppe5.ViewModel
         }
 
         // Tjekker om valgte kant/er kan fjernes. Det kan de hvis der er nogle der er valgt.
-        public bool CanRemoveEdges()
+        public bool CanRemoveEdges(IList _edges)
         {
-            return true;
+            return _edges.Count > 0;
         }
 
         // Fjerner valgte kanter med kommando.
-        public void RemoveEdges()
+        public void RemoveEdges(IList _edges)
         {
-            //undoRedoController.AddAndExecute(new RemoveEdgesCommand(Edges, _edges.Cast<Edge>().ToList()));
+            undoRedoController.AddAndExecute(new RemoveEdgesCommand(Edges, _edges.Cast<Edge>().ToList()));
         }
 
         // Hvis der ikke er ved at blive tilføjet en kant så fanges musen når en musetast trykkes ned. Dette bruges til at flytte punkter.
@@ -173,7 +173,7 @@ namespace _02350_Gruppe5.ViewModel
                     SelectedClassBox.ElementAt(0).IsSelected = false;
                     SelectedClassBox.Clear();
                     SelectedClassBox.Add(movingClassBox);
-                }           
+                }
             }
         }
 
@@ -199,6 +199,19 @@ namespace _02350_Gruppe5.ViewModel
                 {
                     movingClassBox.X = (int)mousePosition.X;
                     movingClassBox.Y = (int)mousePosition.Y;
+                }
+
+                List<Edge> _removeEdges = new List<Edge>();
+                List<ClassBox> _toAddEdges = new List<ClassBox>();
+                foreach (Edge edge in Edges)
+                {
+                    if (movingClassBox.Equals(edge.EndA)) { _removeEdges.Add(edge); _toAddEdges.Add(edge.EndB); }
+                    if (movingClassBox.Equals(edge.EndB)) { _removeEdges.Add(edge); _toAddEdges.Add(edge.EndA); }
+                }
+                RemoveEdges(_removeEdges);
+                foreach (ClassBox classbox in _toAddEdges)
+                {
+                    undoRedoController.AddAndExecute(new AddEdgeCommand(Edges, movingClassBox, classbox));
                 }
             }
         }

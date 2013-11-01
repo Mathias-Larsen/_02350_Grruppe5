@@ -25,5 +25,6 @@ namespace _02350_Gruppe5.Command
         {
             foreach (Edge e in removeEdges) edges.Add(e);
         }
+
     }
 }

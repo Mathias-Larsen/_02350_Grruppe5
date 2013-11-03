@@ -3,8 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="240">
+    
+    <UserControl.Resources>
+        <col:ArrayList x:Key="MyDataSource">
+            <sys:String>Bla</sys:String>
+            <sys:String>mere bla</sys:String>
+            <sys:String>bla bla</sys:String>
+        </col:ArrayList>
+    </UserControl.Resources>
     
     <StackPanel Width="240">
     
@@ -12,7 +22,18 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Klassenavn: "/>
             </DataGrid.Columns>
+
         </DataGrid>
+        <ListBox ItemsSource="{Binding SelectedClassBox}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding AttNames}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--<ListBox Name="listBox" ItemsSource="{Binding SelectedClassBox}" DataBindings="{Binding AttNames}">
+            
+        </ListBox>-->
 
 
     </StackPanel>

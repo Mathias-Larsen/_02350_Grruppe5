@@ -12,13 +12,19 @@ namespace _02350_Gruppe5.Model
 {
     public class Edge : NotifyBase
     {
+        // Constructor der bruges når en kant tilføjes, points sættes til den rigtige kant
         public Edge(ClassBox a, ClassBox b)
         {
             endA = a;
             endB = b;
-            points = Convert(endA, endB);
+            points = setPoints(endA, endB);
         }
-        // Properties.
+
+        // StrokeThickness der læses af EdgeUserControl
+        private int strokeThickness = 2;
+        public int StrokeThickness { get { return strokeThickness; } }
+
+        // Get og set for endepunkterne
         private ClassBox endA;
         public ClassBox EndA
         {
@@ -32,6 +38,7 @@ namespace _02350_Gruppe5.Model
             set { if (endB == value) return; endB = value; NotifyPropertyChanged("EndB"); }
         }
 
+        // Bruges af EdgeUserControl til at læse punkterne i kanten
         private PointCollection points = new PointCollection();
         public PointCollection Points
         {
@@ -41,12 +48,13 @@ namespace _02350_Gruppe5.Model
             }
             set
             {
-                points = Convert(endA, endB);
+                points = setPoints(endA, endB);
                 NotifyPropertyChanged("Points");
             }
         }
 
-        private PointCollection Convert(ClassBox endA, ClassBox endB)
+        // Metoden der udregner hvordan en kant skal se ud afh. af forholdet mellem de to endepunkter
+        private PointCollection setPoints(ClassBox endA, ClassBox endB)
         {
             int x1 = endA.CenterX, y1 = endA.CenterY, width1 = endA.Width, height1 = endA.Height,
                 x2 = endB.CenterX, y2 = endB.CenterY, width2 = endB.Width, height2 = endB.Height;

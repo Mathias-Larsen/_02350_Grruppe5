@@ -22,9 +22,9 @@ namespace _02350_Gruppe5.ViewModel
         // Holder styr på undo/redo.
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
 
-        // Bruges til at ændre tilstand når en kant er ved at blive tilføjet.
+        // Holder om en kant er ved at blive tilføjet
         private bool isAddingEdge;
-        // Bruges til at gemme det første punkt når en kant tilføjes. 
+        // Første endepunkt når en kant er ved at blive tilføjet
         private ClassBox addingEdgeEndA;
       
         // Gemmer det første punkt som punktet har under en flytning.

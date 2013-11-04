@@ -8,9 +8,8 @@
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}"
              d:DesignHeight="100" d:DesignWidth="100">
-
+    <!-- ClassBox layout -->
     <Border BorderThickness="2" BorderBrush="{Binding SelectedColor}" Background="White" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseDown">
                 <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
@@ -24,7 +23,6 @@
         </i:Interaction.Triggers>
         <StackPanel>
             <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2"></TextBlock>
-
             <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNames}" IsEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>

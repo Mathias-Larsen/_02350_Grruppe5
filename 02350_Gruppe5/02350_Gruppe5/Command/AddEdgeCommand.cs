@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Bruges til at tilføje en kant til kant samlingen.
+    // Metode til at tilføje en kant til canvaset
     public class AddEdgeCommand : IUndoRedoCommand
     {
         private ObservableCollection<Edge> edges;

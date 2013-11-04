@@ -3,11 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:_02350_Gruppe5.ViewModel"
              StartupUri="MainWindow.xaml">
-    <!--Her defineres ressourcer som alle vinduer benytter.-->
+    <!-- App wide Resources -->
     <Application.Resources>
-        <!--Denne ViewModelLocator bruges til at finde den tilhørende ViewModel for et vindue og er del af MVVM Light toolkit.-->
         <vm:ViewModelLocator xmlns:vm="clr-namespace:_02350_Gruppe5.ViewModel" x:Key="Locator" />
-        <!--Denne del definere hvordan en knap som standard skal se ud i dette program.-->
-        
     </Application.Resources>
 </Application>

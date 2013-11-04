@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Bruges til at fjerne punkt fra punkt samlingen, fjerne også tilhørende kanter.
+    // Metode til at fjerne en classBox fra canvaset, samt tilhørende kanter
     public class RemoveClassCommand : IUndoRedoCommand
     {
         private ObservableCollection<ClassBox> classBoxs;
@@ -34,6 +34,7 @@ namespace _02350_Gruppe5.Command
         public void UnExecute()
         {
             classBoxs.Add(removeClassBox);
+            // Fjerner kanter
             foreach (Edge e in removeEdges) {
                 if (e.EndA == null) e.EndA = removeClassBox;
                 if (e.EndB == null) e.EndB = removeClassBox;

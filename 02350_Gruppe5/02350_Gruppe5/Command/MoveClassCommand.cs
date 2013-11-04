@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Bruges til at flytte punkt.
+    // Metode til at flytte x,y coor til en classBox
     public class MoveClassBoxCommand : IUndoRedoCommand
     {
         private ClassBox classBox;

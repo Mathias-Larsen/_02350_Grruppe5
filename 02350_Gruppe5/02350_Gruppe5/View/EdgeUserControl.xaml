@@ -6,7 +6,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100" >
+    <!-- App wide Resources -->
     <Canvas>
-        <Polyline Points="{Binding Points}" Stroke="Red" StrokeThickness="2" />
+        <Polyline Points="{Binding Points}" Stroke="Red" StrokeThickness="{Binding strokethickness}" />
     </Canvas>
 </UserControl>

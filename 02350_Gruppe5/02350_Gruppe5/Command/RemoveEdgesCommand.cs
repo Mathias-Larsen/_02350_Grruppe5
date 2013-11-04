@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Bruges til at fjerne kant fra kant samlingen.
+    // Bruges til at fjerne en kant fra canvaset
     public class RemoveEdgesCommand : IUndoRedoCommand
     {
         private ObservableCollection<Edge> edges;

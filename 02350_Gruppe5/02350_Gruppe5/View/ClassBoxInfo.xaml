@@ -7,7 +7,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="240">
-    
+    <!-- Infopanel til classBox -->
     <UserControl.Resources>
         <col:ArrayList x:Key="MyDataSource">
             <sys:String>Bla</sys:String>

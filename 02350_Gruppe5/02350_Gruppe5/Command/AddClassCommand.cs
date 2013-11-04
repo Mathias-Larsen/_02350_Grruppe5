@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Bruges til at tilføje punkt til punkt samlingen.
+    // Metode til at tilføje en classBox til canvaset
     public class AddClassCommand : IUndoRedoCommand
     {
         private ObservableCollection<ClassBox> classBoxs;

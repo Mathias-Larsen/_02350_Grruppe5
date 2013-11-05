@@ -53,21 +53,24 @@ namespace _02350_Gruppe5.ViewModel
 
         public ICommand PasteClassCommand { get; private set; }
         public ICommand CopyClassCommand { get; private set; }
+        public ICommand SaveProgram { get; private set; }
+        public ICommand OpenProgram { get; private set; }
 
         public MainViewModel()
         {
             
             SelectedClassBox = new ObservableCollection<ClassBox>();
-            // Her fyldes listen af klasser med to klasser. Her benyttes et alternativ til konstruktorer med syntaksen 'new Type(){ Attribut = Værdi }'
-            // Det der sker er at der først laves et nyt object og så sættes objektets attributer til de givne værdier.
-            ClassBoxs = new ObservableCollection<ClassBox>() { 
-                new ClassBox() { X = 30, Y = 40, Width = 80, Height = 80 }, 
-                new ClassBox() { X = 140, Y = 230, Width = 100, Height = 100 } };
+            ClassBoxs = new ObservableCollection<ClassBox>();
+            Edges = new ObservableCollection<Edge>();
+
+            /* ClassBoxs = new ObservableCollection<ClassBox>() { 
+                new ClassBox(1) { X = 30, Y = 40, Width = 80, Height = 80 }, 
+                new ClassBox(2) { X = 140, Y = 230, Width = 100, Height = 100 } };
             
             // ElementAt() er en LINQ udvidelses metode som ligesom mange andre kan benyttes på stort set alle slags kollektioner i .NET.
             Edges = new ObservableCollection<Edge>() { 
                 new Edge(ClassBoxs.ElementAt(0), ClassBoxs.ElementAt(1)) };
-
+            */
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes. Her vidersendes metode kaldne til UndoRedoControlleren.
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
@@ -86,10 +89,18 @@ namespace _02350_Gruppe5.ViewModel
 
             CopyClassCommand = new RelayCommand(CopyClass, CanCopy);
             PasteClassCommand = new RelayCommand(PasteClass, CanPaste);
-
+            SaveProgram = new RelayCommand(saveProgram);
+            OpenProgram = new RelayCommand(openProgram);
            
         }
-
+        public void saveProgram()
+        {
+            new SaveCommand(ClassBoxs, Edges);
+        }
+        public void openProgram()
+        {
+            new OpenCommand(ClassBoxs, Edges);
+        }
         // Tilføjer punkt med kommando.
         public void AddClassBox()
         {
@@ -130,7 +141,10 @@ namespace _02350_Gruppe5.ViewModel
         // Starter proceduren der tilføjer en kant.
         public void AddEdge()
         {
-            SelectedClassBox.ElementAt(0).IsSelected = false;
+            if (SelectedClassBox.Count >= 1)
+            {
+                SelectedClassBox.ElementAt(0).IsSelected = false;
+            }
             SelectedClassBox.Clear();
             isAddingEdge = true;
             RaisePropertyChanged("ModeOpacity");

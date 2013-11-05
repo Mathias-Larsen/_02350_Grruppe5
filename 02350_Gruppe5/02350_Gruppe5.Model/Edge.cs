@@ -17,6 +17,7 @@ namespace _02350_Gruppe5.Model
         {
             endA = a;
             endB = b;
+           
             points = setPoints(endA, endB);
         }
 
@@ -34,6 +35,8 @@ namespace _02350_Gruppe5.Model
             set { if (endB == value) return; endB = value; NotifyPropertyChanged("EndB"); }
         }
 
+        
+        
         // Bruges af EdgeUserControl til at læse punkterne i kanten
         private PointCollection points = new PointCollection();
         public PointCollection Points

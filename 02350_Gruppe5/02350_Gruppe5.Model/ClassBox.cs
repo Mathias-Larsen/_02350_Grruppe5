@@ -9,9 +9,9 @@ namespace _02350_Gruppe5.Model
 {
     public class ClassBox : NotifyBase
     {
-        private static int counter = 0;
-        public int Number { get; private set; } // skal bruges til at finde nummeret på en enkelt klasse
-        private int x, y;
+        private int x, y, number;
+        public int Number { get { return number; } private set { number = value; } } // skal bruges til at finde nummeret på en enkelt klasse
+        
         public int X { get { return x; } set { x = value; NotifyPropertyChanged("X"); } } // der skal også være noget notify property changed
         public int Y { get { return y; } set { y = value; NotifyPropertyChanged("Y");} }
         private int width, height;
@@ -27,9 +27,9 @@ namespace _02350_Gruppe5.Model
         public List<string> AttNames { get { return attNames; } set { attNames = value; NotifyPropertyChanged("AttNames"); } }
         public List<string> MethodNames { get { return methodNames; } set { methodNames = value; NotifyPropertyChanged("MethodNames"); } }
 
-        public ClassBox()
+        public ClassBox(int num)
         {
-            Number = ++counter;
+            Number = num;
             X = Y = 100; //hvor skal de dukke op?
             Width = Height = 100; //og hvor store skal de være?
             className = "Class name";

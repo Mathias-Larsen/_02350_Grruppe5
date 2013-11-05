@@ -19,7 +19,7 @@ namespace _02350_Gruppe5.Command
 
         public void Execute()
         {
-            classBoxs.Add(classBox = new ClassBox());
+            classBoxs.Add(classBox = new ClassBox(classBoxs.Count+1));
         }
 
         public void UnExecute()

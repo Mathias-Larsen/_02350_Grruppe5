@@ -43,9 +43,9 @@
         </DockPanel.ContextMenu>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="ApplicationCommands.Open"/>
+                <MenuItem Header="_Open" Command="{Binding OpenProgram}"/>
                 <MenuItem Header="_Close"/>
-                <MenuItem Header="_Save"/>
+                <MenuItem Header="_Save" Command="{Binding SaveProgram}"/>
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Undo"/>

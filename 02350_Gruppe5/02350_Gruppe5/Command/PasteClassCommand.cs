@@ -24,7 +24,7 @@ namespace _02350_Gruppe5.Command
 
         public void Execute()
         {
-            newClassBox = new ClassBox();
+            newClassBox = new ClassBox(classBoxs.Count+1);
             newClassBox.AttNames = classBoxToAdd.AttNames;
             newClassBox.ClassName = classBoxToAdd.ClassName;
             newClassBox.MethodNames = classBoxToAdd.MethodNames;

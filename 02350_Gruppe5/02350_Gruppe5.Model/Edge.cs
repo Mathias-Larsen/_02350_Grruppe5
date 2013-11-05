@@ -20,10 +20,6 @@ namespace _02350_Gruppe5.Model
             points = setPoints(endA, endB);
         }
 
-        // StrokeThickness der læses af EdgeUserControl
-        private int strokeThickness = 2;
-        public int StrokeThickness { get { return strokeThickness; } }
-
         // Get og set for endepunkterne
         private ClassBox endA;
         public ClassBox EndA

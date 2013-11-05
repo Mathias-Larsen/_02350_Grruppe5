@@ -8,6 +8,6 @@
              d:DesignHeight="100" d:DesignWidth="100" >
     <!-- App wide Resources -->
     <Canvas>
-        <Polyline Points="{Binding Points}" Stroke="Red" StrokeThickness="{Binding strokethickness}" />
+        <Polyline Points="{Binding Points}" Stroke="Red" StrokeThickness="2" />
     </Canvas>
 </UserControl>

@@ -18,7 +18,7 @@
     
     <StackPanel Width="240">
     
-        <DataGrid x:Name="dgClass" Height="600" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+        <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Klassenavn: "/>
             </DataGrid.Columns>

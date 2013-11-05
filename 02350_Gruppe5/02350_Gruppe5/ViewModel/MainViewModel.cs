@@ -30,16 +30,11 @@ namespace _02350_Gruppe5.ViewModel
         // Gemmer det første punkt som punktet har under en flytning.
         private Point moveClassBoxPoint;
 
-        // Formålet med at benytte en ObservableCollection er at den implementere INotifyCollectionChanged, der er forskellige fra INotifyPropertyChanged.
-        // INotifyCollectionChanged smider en event når mængden af elementer i en kollektion ændres (altså når et element fjernes eller tilføjes).
-        // Denne event giver GUI'en besked om ændringen.
-        // Dette er en generisk kollektion. Det betyder at den kan defineres til at indeholde alle slags klasser, 
-        // men den holder kun klasser af en type når den benyttes.
         public ObservableCollection<ClassBox> ClassBoxs { get; set; }
         public ObservableCollection<Edge> Edges { get; set; }
         public ObservableCollection<ClassBox> SelectedClassBox { get; set; }
         public ClassBox toPaste;
-       
+               
 
         // Kommandoer som UI bindes til.
         public ICommand UndoCommand { get; private set; }
@@ -61,6 +56,7 @@ namespace _02350_Gruppe5.ViewModel
 
         public MainViewModel()
         {
+            
             SelectedClassBox = new ObservableCollection<ClassBox>();
             // Her fyldes listen af klasser med to klasser. Her benyttes et alternativ til konstruktorer med syntaksen 'new Type(){ Attribut = Værdi }'
             // Det der sker er at der først laves et nyt object og så sættes objektets attributer til de givne værdier.
@@ -77,7 +73,6 @@ namespace _02350_Gruppe5.ViewModel
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
 
             
-
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             AddClassCommand = new RelayCommand(AddClassBox);
             RemoveClassCommand = new RelayCommand(RemoveClassBox, CanRemoveClassBox);
@@ -162,7 +157,7 @@ namespace _02350_Gruppe5.ViewModel
                 FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
                 ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
                 movingClassBox.IsSelected = true;
-                
+               
 
                 if (SelectedClassBox.Count == 0)
                 {
@@ -174,6 +169,7 @@ namespace _02350_Gruppe5.ViewModel
                     SelectedClassBox.Clear();
                     SelectedClassBox.Add(movingClassBox);
                 }
+
             }
         }
 

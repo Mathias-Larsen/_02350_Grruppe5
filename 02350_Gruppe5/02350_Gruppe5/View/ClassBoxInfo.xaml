@@ -25,11 +25,12 @@
 
         </DataGrid>
         
-        <ListBox ItemsSource="{Binding AttNames}">
+        <ListBox ItemsSource="{Binding SelectedClassBox}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding}"/>
+                    <StackPanel Orientation="Vertical">
+                        <ListBox ItemsSource="{Binding AttNames}">
+                        </ListBox>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

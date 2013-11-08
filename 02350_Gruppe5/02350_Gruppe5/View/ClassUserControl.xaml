@@ -23,43 +23,21 @@
         </i:Interaction.Triggers>
         <StackPanel>
             <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2"></TextBlock>
-            <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNames}" IsEnabled="False">
+            <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNamesClass}" IsEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <!--Here you bind the array-->
-                        <ItemsControl ItemsSource="{Binding}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <!--Here you bind the value of each string-->
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView Name="MethodNames" VerticalAlignment="Top" ItemsSource="{Binding MethodNames}" IsEnabled="False">
+            <ListView Name="methodNames" VerticalAlignment="Top" ItemsSource="{Binding MethodNamesClass}" IsEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <!--Here you bind the array-->
-                        <ItemsControl ItemsSource="{Binding}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <!--Here you bind the value of each string-->
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media;
 
 namespace _02350_Gruppe5.Model
@@ -24,8 +25,12 @@ namespace _02350_Gruppe5.Model
         public string ClassName { get { return className; } set { className = value; NotifyPropertyChanged("ClassName"); } }
 
         private List<string> attNames, methodNames;
-        public List<string> AttNames { get { return attNames; } set { attNames = value; NotifyPropertyChanged("AttNames"); } }
-        public List<string> MethodNames { get { return methodNames; } set { methodNames = value; NotifyPropertyChanged("MethodNames"); } }
+        public List<string> AttNames { get { return namesAsString(attNamesClass); } set { attNames = value; NotifyPropertyChanged("AttNames"); NotifyPropertyChanged("AttNamesBoxes"); } }
+        public List<string> MethodNames { get { return namesAsString(methodNamesClass); } set { methodNames = value; NotifyPropertyChanged("MethodNames"); } }
+
+        private List<attOrMethodName> attNamesClass, methodNamesClass;
+        public List<attOrMethodName> AttNamesClass { get { return attNamesClass; } set { attNamesClass = value; } }
+        public List<attOrMethodName> MethodNamesClass { get { return methodNamesClass; } set { methodNamesClass = value; NotifyPropertyChanged("MethodNames"); } }
 
         public ClassBox(int num)
         {
@@ -33,10 +38,14 @@ namespace _02350_Gruppe5.Model
             X = Y = 100; //hvor skal de dukke op?
             Width = Height = 100; //og hvor store skal de være?
             className = "Class name";
+            attNamesClass = new List<attOrMethodName>();
+            methodNamesClass = new List<attOrMethodName>();
+            attNamesClass.Add(new attOrMethodName("att1"));
+            attNamesClass.Add(new attOrMethodName("att2"));
+            methodNamesClass.Add(new attOrMethodName("met1"));
+            methodNamesClass.Add(new attOrMethodName("met2"));
             attNames = new List<string>();
             methodNames = new List<string>();
-            attNames.Add("test");
-            attNames.Add("Test");
         }
         // ViewModel properties. Den burde være i sin egen ViewModel klasse som Node klasserne wrappes af, men i dette tilfælde er det her meget lettere.
         private bool isSelected;
@@ -55,6 +64,32 @@ namespace _02350_Gruppe5.Model
         }
         public Brush SelectedColor { get { return IsSelected ? Brushes.Blue : Brushes.Black; } }
 
+        private List<attOrMethodName> ListToTextBox(List<string> input){
+            List<attOrMethodName> output = new List<attOrMethodName>();
+            foreach (string att in input) {
+                output.Add(new attOrMethodName(att));
+            }
+            return output;
+        }
 
+        public class attOrMethodName
+        {
+            public attOrMethodName(string _name) 
+            { 
+                name = _name;
+            }
+            private string name;
+            public string Name { get { return name; } set { name = value; } }
+        }
+
+        private List<string> namesAsString(List<attOrMethodName> input)
+        {
+            List<string> output = new List<string>();
+            foreach (attOrMethodName item in input)
+            {
+                output.Add(item.Name);
+            }
+            return output;
+        }
     }
 }

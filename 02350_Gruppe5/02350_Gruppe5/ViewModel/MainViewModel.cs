@@ -46,6 +46,11 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand AddEdgeCommand { get; private set; }
         public ICommand RemoveEdgesCommand { get; private set; }
 
+        public ICommand AddAtt { get; private set; }
+        public ICommand RemoveAttCommand { get; private set; }
+        public ICommand AddMethodCommand { get; private set; }
+        public ICommand RemoveMethodCommand { get; private set; }
+
         // Kommandoer som UI bindes til.
         public ICommand MouseDownClassBoxCommand { get; private set; }
         public ICommand MouseMoveClassBoxCommand { get; private set; }
@@ -82,6 +87,11 @@ namespace _02350_Gruppe5.ViewModel
             AddEdgeCommand = new RelayCommand(AddEdge);
             RemoveEdgesCommand = new RelayCommand<IList>(RemoveEdges, CanRemoveEdges);
 
+            //AddAtt = new RelayCommand(addAtt);
+            //RemoveAtt = new RelayCommand(removeAtt);
+            //AddMethod = new RelayCommand(addMethod);
+            //RemoveMethod = new RelayCommand(removeMethod);
+
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
@@ -92,6 +102,11 @@ namespace _02350_Gruppe5.ViewModel
             SaveProgram = new RelayCommand(saveProgram);
             OpenProgram = new RelayCommand(openProgram);
            
+        }
+        public bool classBoxSelected()
+        {
+            MessageBox.Show("hej"); // den kommer ikke her ind, skal bruge til at tjekke om -+att og method knapper kan bruges
+            return SelectedClassBox.Count == 1;
         }
         public void saveProgram()
         {

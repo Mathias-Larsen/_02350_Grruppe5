@@ -29,6 +29,11 @@ namespace _02350_Gruppe5.ViewModel
       
         // Gemmer det første punkt som punktet har under en flytning.
         private Point moveClassBoxPoint;
+        private Point offsetPosition;
+        private double oldPosX;
+        private double oldPosY;
+
+
 
         public ObservableCollection<ClassBox> ClassBoxs { get; set; }
         public ObservableCollection<Edge> Edges { get; set; }
@@ -185,6 +190,10 @@ namespace _02350_Gruppe5.ViewModel
                 e.MouseDevice.Target.CaptureMouse();
                 FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
                 ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
+                Canvas canvas = FindParentOfType<Canvas>(movingClass);
+                offsetPosition = Mouse.GetPosition(canvas);
+                oldPosX = movingClassBox.X;
+                oldPosY = movingClassBox.Y;
                 movingClassBox.IsSelected = true;
                
 
@@ -210,21 +219,17 @@ namespace _02350_Gruppe5.ViewModel
             {
                 FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
                 ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
+
                 Canvas canvas = FindParentOfType<Canvas>(movingClass);
-                // Musens position i forhold til canvas skaffes her.
                 Point mousePosition = Mouse.GetPosition(canvas);
 
-                if (moveClassBoxPoint == default(Point))
-                {
-                    moveClassBoxPoint = mousePosition;
-                    moveClassBoxPoint.X = movingClassBox.X;
-                    moveClassBoxPoint.Y = movingClassBox.Y;
-                }
-                else
-                {
-                    movingClassBox.X = (int)mousePosition.X;
-                    movingClassBox.Y = (int)mousePosition.Y;
-                }
+                mousePosition.X -= offsetPosition.X;
+                mousePosition.Y -= offsetPosition.Y;
+
+                movingClassBox.X = (int)oldPosX + (int)mousePosition.X;
+                movingClassBox.Y = (int)oldPosY + (int)mousePosition.Y;
+
+
 
                 List<Edge> _removeEdges = new List<Edge>();
                 List<ClassBox> _toAddEdges = new List<ClassBox>();

@@ -17,7 +17,7 @@ namespace _02350_Gruppe5.Model
         public int Y { get { return y; } set { y = value; NotifyPropertyChanged("Y");} }
         private int width, height;
         public int Width { get { return width; } set { width = value; NotifyPropertyChanged("Width");} }
-        public int Height { get { return height; } set { height = value; NotifyPropertyChanged("Height"); } }
+        public int Height { get { return AttNames.Count+MethodNames.Count*55; } set { height = value; NotifyPropertyChanged("Height"); } }
         public int CenterX { get { return X + Width / 2; } set { X = value - Width / 2; NotifyPropertyChanged("X"); } }
         public int CenterY { get { return Y + Height / 2; } set { Y = value - Height / 2; NotifyPropertyChanged("Y"); } }
         

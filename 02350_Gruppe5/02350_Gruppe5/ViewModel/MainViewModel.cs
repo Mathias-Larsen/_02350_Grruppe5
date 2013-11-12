@@ -66,6 +66,10 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand SaveProgram { get; private set; }
         public ICommand OpenProgram { get; private set; }
 
+        public ICommand AddMethodComm { get; private set; }
+        public ICommand RemoveMethod { get; private set; }
+        public ICommand AddAttComm { get; private set; }
+
         public MainViewModel()
         {
             
@@ -88,7 +92,7 @@ namespace _02350_Gruppe5.ViewModel
             
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             AddClassCommand = new RelayCommand(AddClassBox);
-            RemoveClassCommand = new RelayCommand(RemoveClassBox, CanRemoveClassBox);
+            RemoveClassCommand = new RelayCommand(RemoveClassBox, SelectedClass);
             AddEdgeCommand = new RelayCommand(AddEdge);
             RemoveEdgesCommand = new RelayCommand<IList>(RemoveEdges, CanRemoveEdges);
 
@@ -97,11 +101,38 @@ namespace _02350_Gruppe5.ViewModel
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
             MouseUpClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpClassBox);
 
-            CopyClassCommand = new RelayCommand(CopyClass, CanCopy);
+            CopyClassCommand = new RelayCommand(CopyClass, SelectedClass);
             PasteClassCommand = new RelayCommand(PasteClass, CanPaste);
             SaveProgram = new RelayCommand(saveProgram);
             OpenProgram = new RelayCommand(openProgram);
+
+            AddMethodComm = new RelayCommand(addMethod, SelectedClass);
+            RemoveMethod = new RelayCommand<IList>(removeMethod);
+            AddAttComm = new RelayCommand(addAtt, SelectedClass);
            
+        }
+        //MessageBox.Show("hej");
+        public void addAtt()
+        {
+
+            undoRedoController.AddAndExecute(new AddAttCommand(ClassBoxs, SelectedClassBox));
+        }
+        public void addMethod()
+        {
+            undoRedoController.AddAndExecute(new AddMethodCommand(ClassBoxs, SelectedClassBox));
+        }
+        public void removeMethod(IList _met)
+        {
+            List<string> method = _met.Cast<string>().ToList();
+            ClassBox cb = SelectedClassBox.ElementAt(0);
+            MessageBox.Show(method.Count + "");
+            /*          foreach(ClassBox.attOrMethodName meString in cb.MethodNamesClass)
+                      {
+                          if(meString.Equals(method.ElementAt(0)))
+                          {
+                              MessageBox.Show(method.ElementAt(0));
+                          }
+                      }*/
         }
         public void saveProgram()
         {
@@ -127,19 +158,13 @@ namespace _02350_Gruppe5.ViewModel
             toPaste = SelectedClassBox.ElementAt(0);
             //MessageBox.Show("hello");
         }
-        public bool CanCopy()
+        public bool SelectedClass()
         {
             return SelectedClassBox.Count == 1;
         }
         public bool CanPaste()
         {
             return toPaste != null;
-        }
-
-        // Tjekker om valgte punkt/er kan fjernes. Det kan de hvis der er nogle der er valgt.
-        public bool CanRemoveClassBox()
-        {
-            return SelectedClassBox.Count == 1;
         }
 
         // Fjerner valgte punkter med kommando.

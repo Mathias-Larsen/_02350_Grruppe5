@@ -89,6 +89,7 @@
                     <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox" Height="30" Width="50" Margin="10,0,0,0">
                         <Image Source="pictures/delete.ico"></Image>
                     </Button>
+                    <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0">Edge</Button>
                 </StackPanel>
             </Border>
 

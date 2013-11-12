@@ -51,11 +51,6 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand AddEdgeCommand { get; private set; }
         public ICommand RemoveEdgesCommand { get; private set; }
 
-        public ICommand AddAtt { get; private set; }
-        public ICommand RemoveAttCommand { get; private set; }
-        public ICommand AddMethodCommand { get; private set; }
-        public ICommand RemoveMethodCommand { get; private set; }
-
         // Kommandoer som UI bindes til.
         public ICommand MouseDownClassBoxCommand { get; private set; }
         public ICommand MouseMoveClassBoxCommand { get; private set; }
@@ -69,6 +64,7 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand AddMethodComm { get; private set; }
         public ICommand RemoveMethod { get; private set; }
         public ICommand AddAttComm { get; private set; }
+        public ICommand RemoveAtt { get; private set; }
 
         public MainViewModel()
         {
@@ -109,6 +105,7 @@ namespace _02350_Gruppe5.ViewModel
             AddMethodComm = new RelayCommand(addMethod, SelectedClass);
             RemoveMethod = new RelayCommand<IList>(removeMethod);
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
+            RemoveAtt = new RelayCommand<IList>(removeAtt);
            
         }
         //MessageBox.Show("hej");
@@ -126,6 +123,22 @@ namespace _02350_Gruppe5.ViewModel
            // List<ClassBox.attOrMethodName> method = _met.Cast<ClassBox.attOrMethodName>().ToList();
            // ClassBox cb = SelectedClassBox.ElementAt(0);
             MessageBox.Show(_met.Count + "");
+            /*          foreach(ClassBox.attOrMethodName meString in cb.MethodNamesClass)
+                      {
+                          if(meString.Equals(method.ElementAt(0)))
+                          {
+                              MessageBox.Show(method.ElementAt(0));
+                          }
+                      }*/
+        }
+        public void removeAtt(IList _att)
+        {
+            //_att.Count
+            //List<ClassBox.attOrMethodName> att = _att.Cast<ClassBox.attOrMethodName>().ToList;
+            //MessageBox.Show(att.Count + "");
+            //List<string> method = _att.Cast<string>().ToList();
+            //ClassBox cb = SelectedClassBox.ElementAt(0);
+            //MessageBox.Show(method.Count + "");
             /*          foreach(ClassBox.attOrMethodName meString in cb.MethodNamesClass)
                       {
                           if(meString.Equals(method.ElementAt(0)))

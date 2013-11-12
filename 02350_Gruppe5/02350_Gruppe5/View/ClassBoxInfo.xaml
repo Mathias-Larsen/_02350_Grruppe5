@@ -26,12 +26,12 @@
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Classname: "/>
             </DataGrid.Columns>
         </DataGrid>
-        <ListBox ItemsSource="{Binding SelectedClassBox}" BorderThickness="0" HorizontalAlignment="Stretch">
+        <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DataGrid Name="AttList" ItemsSource="{Binding AttNamesClass}" Width="190" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid Name="AttList" ItemsSource="{Binding AttNamesClass}" Width="195" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}" Width="188" Header="Attributes: "/>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="193" Header="Attributes: "/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>
@@ -39,14 +39,14 @@
         </ListBox>
         <DockPanel>
             <Button Content="Add Attribute" Margin="5,3,0,3" Command="{Binding AddAttComm}" />
-            <Button Content="Remove Attribute" HorizontalAlignment="Right" Margin="0,3,5,3" />
+            <Button Content="Remove Attribute" HorizontalAlignment="Right" Margin="0,3,5,3" Command="{Binding RemoveAtt}" CommandParameter="{Binding ElementName=AttList, Path=SelectedItems}"/>
         </DockPanel>
-        <ListBox ItemsSource="{Binding SelectedClassBox}" BorderThickness="0" HorizontalAlignment="Stretch">
+        <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DataGrid Name="MethodList" ItemsSource="{Binding MethodNamesClass}" HorizontalAlignment="Stretch" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid Name="AttList" ItemsSource="{Binding MethodNamesClass}" Width="195" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}" Width="185" Header="Attributes: "/>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="193" Header="Methods: "/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>

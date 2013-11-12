@@ -26,27 +26,12 @@
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Classname: "/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Text="Attributes:"/>
-        <ListBox ItemsSource="{Binding SelectedClassBox}" BorderBrush="Black">
+        <ListBox ItemsSource="{Binding SelectedClassBox}" BorderThickness="0" HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ListBox ItemsSource="{Binding AttNamesClass}" BorderBrush="White" HorizontalAlignment="Stretch">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding Name}" BorderBrush="White" Width="170"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <ListBox ItemsSource="{Binding SelectedClassBox}" BorderThickness="0" Padding="0" BorderBrush="White" HorizontalAlignment="Stretch" Margin="0">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DataGrid Name="AttList" ItemsSource="{Binding AttNamesClass}" HorizontalAlignment="Stretch" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid Name="AttList" ItemsSource="{Binding AttNamesClass}" Width="190" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
-                            <!-- <TextBox Text="{Binding Name}" BorderBrush="White" Width="170"/> -->
-                            <DataGridTextColumn Binding="{Binding Name}" Width="192" Header="Attributes: "/>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="188" Header="Attributes: "/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>
@@ -56,17 +41,14 @@
             <Button Content="Add Attribute" Margin="5,3,0,3" Command="{Binding AddAttComm}" />
             <Button Content="Remove Attribute" HorizontalAlignment="Right" Margin="0,3,5,3" />
         </DockPanel>
-        <TextBlock Text="Methods:"/>
-        <ListBox ItemsSource="{Binding SelectedClassBox}" BorderBrush="Black">
+        <ListBox ItemsSource="{Binding SelectedClassBox}" BorderThickness="0" HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ListBox ItemsSource="{Binding MethodNamesClass}" BorderBrush="White" HorizontalAlignment="Stretch">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding Name}" Width="170" BorderBrush="White"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <DataGrid Name="MethodList" ItemsSource="{Binding MethodNamesClass}" HorizontalAlignment="Stretch" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="185" Header="Attributes: "/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

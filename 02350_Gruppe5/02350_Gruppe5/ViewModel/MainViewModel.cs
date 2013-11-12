@@ -226,10 +226,8 @@ namespace _02350_Gruppe5.ViewModel
                 mousePosition.X -= offsetPosition.X;
                 mousePosition.Y -= offsetPosition.Y;
 
-                movingClassBox.X = (int)oldPosX + (int)mousePosition.X;
-                movingClassBox.Y = (int)oldPosY + (int)mousePosition.Y;
-
-
+                moveClassBoxPoint.X = movingClassBox.X = (int)oldPosX + (int)mousePosition.X;
+                moveClassBoxPoint.Y =movingClassBox.Y= (int)oldPosY + (int)mousePosition.Y;
 
                 List<Edge> _removeEdges = new List<Edge>();
                 List<ClassBox> _toAddEdges = new List<ClassBox>();
@@ -275,7 +273,7 @@ namespace _02350_Gruppe5.ViewModel
             {
                     Canvas canvas = FindParentOfType<Canvas>(movingClass);
                     Point mousePosition = Mouse.GetPosition(canvas);
-                    undoRedoController.AddAndExecute(new MoveClassBoxCommand(movingClassBox, (int)mousePosition.X, (int)mousePosition.Y, (int)moveClassBoxPoint.X, (int)moveClassBoxPoint.Y));
+                    undoRedoController.AddAndExecute(new MoveClassBoxCommand(movingClassBox, movingClassBox.X, movingClassBox.Y, (int)oldPosX, (int)oldPosY));
                     // Nulstil værdier.
                     moveClassBoxPoint = new Point();
                     // Musen frigøres.

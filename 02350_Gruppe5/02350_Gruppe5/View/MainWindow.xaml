@@ -95,7 +95,7 @@
 
         <StackPanel Orientation="Horizontal">
         <!--Her smides side panellets UserControl ind.-->
-            <View:SidePanelUserControl/>
+           <!-- <View:SidePanelUserControl/> -->
             <View:ClassBoxInfo Width="240" x:Name="ClassBoxInfo"/>
             <View:ClassBoxSidepanelUserControl Width="0" x:Name="SideToolbar"/>
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->

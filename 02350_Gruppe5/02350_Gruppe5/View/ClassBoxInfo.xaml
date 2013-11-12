@@ -6,9 +6,21 @@
              xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="240">
+             d:DesignHeight="600" d:DesignWidth="200">
     <!-- Infopanel til classBox -->
-    <StackPanel Width="240" >
+    <StackPanel Width="200">
+        <StackPanel.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFAAAAAA" Offset="0"/>
+                <GradientStop Color="#FFC9C9C9" Offset="1"/>
+            </LinearGradientBrush>
+        </StackPanel.Background>
+        <Label HorizontalAlignment="Center" FontWeight="Bold">Change properties for class box</Label>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Padding="6,1" Margin="3" FontWeight="Bold">F</Button>
+            <Button Padding="8,1" Margin="3" FontStyle="Italic">I</Button>
+            <Button Padding="6,1" Margin="3">U</Button>
+        </StackPanel>
         <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Classname: "/>
@@ -21,7 +33,7 @@
                     <ListBox ItemsSource="{Binding AttNamesClass}" BorderBrush="White" HorizontalAlignment="Stretch">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Name}" BorderBrush="White" Width="210"/>
+                                <TextBox Text="{Binding Name}" BorderBrush="White" Width="170"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -39,7 +51,7 @@
                     <ListBox ItemsSource="{Binding MethodNamesClass}" BorderBrush="White" HorizontalAlignment="Stretch">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Name}" Width="210" BorderBrush="White"/>
+                                <TextBox Text="{Binding Name}" Width="170" BorderBrush="White"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

@@ -7,13 +7,13 @@
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         Title="02350_Gruppe5" Height="600" Width="800">
-        <!--Ovenover (DataContext="") bindes vinduet til MainViewModel ved hjælp af MVVM Light Toolkits ViewModelLocator.-->
-        <!--Derudover defineres de namespaces der skal benyttes ligesom det gøres med Using statements i C# koden.-->
+    <!--Ovenover (DataContext="") bindes vinduet til MainViewModel ved hjælp af MVVM Light Toolkits ViewModelLocator.-->
+    <!--Derudover defineres de namespaces der skal benyttes ligesom det gøres med Using statements i C# koden.-->
     <Window.Resources>
 
         <!-- Dette DataTemplate fortæller vinduet hvordan Node klassen skal vises grafisk. Denne grafiske beskrivelse er samlet i NodeUserControl. -->
         <DataTemplate DataType="{x:Type Model:ClassBox}">
-            
+
             <Canvas>
                 <View:ClassUserControl/>
             </Canvas>
@@ -32,14 +32,14 @@
     </Window.InputBindings>
     <DockPanel>
         <DockPanel.ContextMenu>
-            
-                <ContextMenu>
-                    <MenuItem Header="Copy" Command="{Binding CopyClassCommand}"  />
-                    <MenuItem Header="Paste"  Command="{Binding PasteClassCommand}"/>
-                    <Separator />
-                    <MenuItem Header="Delete"  Command="{Binding RemoveClassCommand}"/>
-                </ContextMenu>
-            
+
+            <ContextMenu>
+                <MenuItem Header="Copy" Command="{Binding CopyClassCommand}"  />
+                <MenuItem Header="Paste"  Command="{Binding PasteClassCommand}"/>
+                <Separator />
+                <MenuItem Header="Delete"  Command="{Binding RemoveClassCommand}"/>
+            </ContextMenu>
+
         </DockPanel.ContextMenu>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -59,53 +59,50 @@
                 <MenuItem Header="_Kant" Command="{Binding AddEdgeCommand}"/>
             </MenuItem>
         </Menu>
-        <Border BorderBrush="Black" BorderThickness="2,2,2,2" DockPanel.Dock="Top" Name="TopToolbar">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button Command="{Binding UndoCommand}" ToolTip="Undo">
-                    <Image Source="pictures/undo.png" Height="25" Width="50"></Image>
-                </Button>
-                <Button Command="{Binding RedoCommand}" ToolTip="Redo">
-                    <Image Source="pictures/redo.png" Height="25" Width="50"></Image>
-                </Button>
-                <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox">
-                    <Image Source="pictures/Plus_sign.png" Height="25" Width="50"></Image>
-                </Button>
-                <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox">
-                    <Image Source="pictures/Delete-icon.png" Height="25" Width="50"></Image>
-                </Button>
-                <Button Name="Animation">
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <EventTrigger.Actions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="SideToolbar"
-                                            Storyboard.TargetProperty="Width"
-                                            From="0" To="80" Duration="0:0:0.5"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger.Actions>
-                        </EventTrigger>      
-                    </Button.Triggers>
-                    <Button.Content>Animate in</Button.Content>
-                </Button>
-            </StackPanel>
-        </Border>
+        <View:ClassBoxInfo DockPanel.Dock="Left" x:Name="ClassBoxInfo"/>
+        
 
-        <StackPanel Orientation="Horizontal">
-        <!--Her smides side panellets UserControl ind.-->
-           <!-- <View:SidePanelUserControl/> -->
-            <View:ClassBoxInfo Width="240" x:Name="ClassBoxInfo"/>
-            <View:ClassBoxSidepanelUserControl Width="0" x:Name="SideToolbar"/>
+        <StackPanel Orientation="Vertical">
+            <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="30">
+                <Border.BorderBrush>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FF747474"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+                <StackPanel Orientation="Horizontal">
+                    <Button>
+                        <Image Source="pictures/save.ico" Height="25" Width="50"></Image>
+                    </Button>
+                    <Button>
+                        <Image Source="pictures/open.ico" Height="25" Width="50"></Image>
+                    </Button>
+                    <Button Command="{Binding UndoCommand}" ToolTip="Undo">
+                        <Image Source="pictures/undo.png" Height="25" Width="50"></Image>
+                    </Button>
+                    <Button Command="{Binding RedoCommand}" ToolTip="Redo">
+                        <Image Source="pictures/redo.png" Height="25" Width="50"></Image>
+                    </Button>
+                    <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox">
+                        <Image Source="pictures/Plus_sign.png" Height="25" Width="50"></Image>
+                    </Button>
+                    <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox">
+                        <Image Source="pictures/Delete-icon.png" Height="25" Width="50"></Image>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!--Her smides side panellets UserControl ind.-->
+            <!-- <View:SidePanelUserControl/> -->
+            
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
             <Grid>
                 <ItemsControl ItemsSource="{Binding Edges}" />
                 <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class">
                 </ItemsControl>
             </Grid>
-            
-            
+
+
         </StackPanel>
     </DockPanel>
 </Window>

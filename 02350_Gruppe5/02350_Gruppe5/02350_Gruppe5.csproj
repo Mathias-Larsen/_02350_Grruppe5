@@ -171,6 +171,10 @@
     <Resource Include="View\Pictures\redo.png" />
     <Resource Include="View\Pictures\undo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Pictures\Save.ico" />
+    <Resource Include="View\Pictures\Open.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

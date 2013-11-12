@@ -12,13 +12,15 @@ namespace _02350_Gruppe5.Command
     public class MoveClassBoxCommand : IUndoRedoCommand
     {
         private ClassBox classBox;
+        private ObservableCollection<Edge> edges;
         private int x;
         private int y;
         private int newX;
         private int newY;
 
-        public MoveClassBoxCommand(ClassBox _classBox, int _newX, int _newY, int _x, int _y) { 
-            classBox = _classBox; 
+        public MoveClassBoxCommand(ClassBox _classBox, ObservableCollection<Edge> _edges, int _newX, int _newY, int _x, int _y) { 
+            classBox = _classBox;
+            edges = _edges;
             newX = _newX; 
             newY = _newY; 
             x = _x; 
@@ -35,6 +37,18 @@ namespace _02350_Gruppe5.Command
         {
             classBox.X = x;
             classBox.Y = y;
+
+            foreach (Edge edge in edges)
+            {
+                if (classBox.Equals(edge.EndA))
+                {
+                    edge.Points = new Edge(classBox, edge.EndB).Points;
+                }
+                if (classBox.Equals(edge.EndB))
+                {
+                    edge.Points = new Edge(edge.EndA, classBox).Points;
+                }
+            }
         }
     }
 }

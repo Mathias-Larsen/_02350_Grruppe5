@@ -47,6 +47,7 @@ namespace _02350_Gruppe5.Model
             }
             set
             {
+                //System.Windows.Forms.MessageBox.Show("hej");
                 points = setPoints(endA, endB);
                 NotifyPropertyChanged("Points");
             }

@@ -229,17 +229,17 @@ namespace _02350_Gruppe5.ViewModel
                 moveClassBoxPoint.X = movingClassBox.X = (int)oldPosX + (int)mousePosition.X;
                 moveClassBoxPoint.Y =movingClassBox.Y= (int)oldPosY + (int)mousePosition.Y;
 
-                List<Edge> _removeEdges = new List<Edge>();
-                List<ClassBox> _toAddEdges = new List<ClassBox>();
+                // Updating the edges associated with the classbox being moved
                 foreach (Edge edge in Edges)
                 {
-                    if (movingClassBox.Equals(edge.EndA)) { _removeEdges.Add(edge); _toAddEdges.Add(edge.EndB); }
-                    if (movingClassBox.Equals(edge.EndB)) { _removeEdges.Add(edge); _toAddEdges.Add(edge.EndA); }
-                }
-                RemoveEdges(_removeEdges);
-                foreach (ClassBox classbox in _toAddEdges)
-                {
-                    undoRedoController.AddAndExecute(new AddEdgeCommand(Edges, movingClassBox, classbox));
+                    if (movingClassBox.Equals(edge.EndA))
+                    {
+                        edge.Points = new Edge(movingClassBox, edge.EndB).Points; 
+                    }
+                    if(movingClassBox.Equals(edge.EndB))
+                    {
+                        edge.Points = new Edge(edge.EndA, movingClassBox).Points; 
+                    }
                 }
             }
         }
@@ -273,7 +273,7 @@ namespace _02350_Gruppe5.ViewModel
             {
                     Canvas canvas = FindParentOfType<Canvas>(movingClass);
                     Point mousePosition = Mouse.GetPosition(canvas);
-                    undoRedoController.AddAndExecute(new MoveClassBoxCommand(movingClassBox, movingClassBox.X, movingClassBox.Y, (int)oldPosX, (int)oldPosY));
+                    undoRedoController.AddAndExecute(new MoveClassBoxCommand(movingClassBox, Edges, movingClassBox.X, movingClassBox.Y, (int)oldPosX, (int)oldPosY));
                     // Nulstil værdier.
                     moveClassBoxPoint = new Point();
                     // Musen frigøres.

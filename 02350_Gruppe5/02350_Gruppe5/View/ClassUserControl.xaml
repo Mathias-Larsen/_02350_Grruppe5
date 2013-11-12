@@ -9,7 +9,7 @@
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}"
              d:DesignHeight="100" d:DesignWidth="100">
     <!-- ClassBox layout -->
-    <Border BorderThickness="2" BorderBrush="{Binding SelectedColor}" Background="White" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+    <Border BorderThickness="2" Background="White" BorderBrush="Black" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseDown">
                 <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
@@ -21,6 +21,36 @@
                 <cmd:EventToCommand Command="{Binding DataContext.MouseUpClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
+        
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="Border.MouseEnter">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                        <SplineColorKeyFrame KeyTime="00:00:00.2000000" Value="Aqua"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                   
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Border.MouseLeave">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                        <SplineColorKeyFrame KeyTime="00:00:00.2000000" Value="Black"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <StackPanel>
             <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2"></TextBlock>
             <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNamesClass}" IsEnabled="False">

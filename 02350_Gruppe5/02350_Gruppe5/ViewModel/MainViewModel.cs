@@ -123,9 +123,9 @@ namespace _02350_Gruppe5.ViewModel
         }
         public void removeMethod(IList _met)
         {
-            List<string> method = _met.Cast<string>().ToList();
-            ClassBox cb = SelectedClassBox.ElementAt(0);
-            MessageBox.Show(method.Count + "");
+           // List<ClassBox.attOrMethodName> method = _met.Cast<ClassBox.attOrMethodName>().ToList();
+           // ClassBox cb = SelectedClassBox.ElementAt(0);
+            MessageBox.Show(_met.Count + "");
             /*          foreach(ClassBox.attOrMethodName meString in cb.MethodNamesClass)
                       {
                           if(meString.Equals(method.ElementAt(0)))

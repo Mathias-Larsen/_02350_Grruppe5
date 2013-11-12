@@ -31,6 +31,18 @@ namespace _02350_Gruppe5.Command
         {
             classBox.X = newX;
             classBox.Y = newY;
+
+            foreach (Edge edge in edges)
+            {
+                if (classBox.Equals(edge.EndA))
+                {
+                    edge.Points = new Edge(classBox, edge.EndB).Points;
+                }
+                if (classBox.Equals(edge.EndB))
+                {
+                    edge.Points = new Edge(edge.EndA, classBox).Points;
+                }
+            }
         }
 
         public void UnExecute()

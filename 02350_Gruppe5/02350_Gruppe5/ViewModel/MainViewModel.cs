@@ -131,21 +131,15 @@ namespace _02350_Gruppe5.ViewModel
                           }
                       }*/
         }
+        public bool canRemoveAtt(IList _att)
+        {
+            return _att.Count == 1;
+        }
         public void removeAtt(IList _att)
         {
-            //_att.Count
-            //List<ClassBox.attOrMethodName> att = _att.Cast<ClassBox.attOrMethodName>().ToList;
-            //MessageBox.Show(att.Count + "");
-            //List<string> method = _att.Cast<string>().ToList();
-            //ClassBox cb = SelectedClassBox.ElementAt(0);
-            //MessageBox.Show(method.Count + "");
-            /*          foreach(ClassBox.attOrMethodName meString in cb.MethodNamesClass)
-                      {
-                          if(meString.Equals(method.ElementAt(0)))
-                          {
-                              MessageBox.Show(method.ElementAt(0));
-                          }
-                      }*/
+            if (_att == null) { MessageBox.Show("null"); }
+            MessageBox.Show("her: " + _att.ToString());
+            undoRedoController.AddAndExecute(new RemoveAttCommand(SelectedClassBox.ElementAt(0), _att.Cast<ClassBox.attOrMethodName>().First()));
         }
         public void saveProgram()
         {

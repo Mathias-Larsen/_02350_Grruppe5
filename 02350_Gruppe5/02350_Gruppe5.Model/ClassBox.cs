@@ -84,5 +84,14 @@ namespace _02350_Gruppe5.Model
             public string Name { get { return name; } set { name = value; } }
         }
 
+        public void addAtt(attOrMethodName input)
+        {
+            attNamesClass.Add(input);
+        }
+
+        public void removeAtt(attOrMethodName input)
+        {
+            attNamesClass.Remove(input);
+        }
     }
 }

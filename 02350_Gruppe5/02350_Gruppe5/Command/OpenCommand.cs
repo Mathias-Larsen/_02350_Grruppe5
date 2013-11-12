@@ -20,7 +20,7 @@ namespace _02350_Gruppe5.Command
         {
             classBoxs = _classBoxs;
             edges = _edges;
-            
+
             // Configure open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document"; // Default file name
@@ -35,7 +35,7 @@ namespace _02350_Gruppe5.Command
             {
                 classBoxs.Clear();
                 edges.Clear();
-                
+
                 // Open document 
                 string filename = dlg.FileName;
 
@@ -51,7 +51,7 @@ namespace _02350_Gruppe5.Command
                 // A FileStream is needed to read the XML document.
                 FileStream fs = new FileStream(filename, FileMode.Open);
                 // Declare an object variable of the type to be deserialized.
-                
+
                 /* Use the Deserialize method to restore the object's state with data from the XML document. */
                 toSave = (ToSave)serializer.Deserialize(fs);
                 deserializeClassBox();
@@ -62,22 +62,30 @@ namespace _02350_Gruppe5.Command
         {
             foreach (ClassBoxSave cs in toSave.classes)
             {
-                ClassBox newCb = new ClassBox(cs.number) { X = cs.x, Y = cs.y, Width = cs.width, Height = cs.height, 
-                    ClassName  = cs.name};
-                List<string> attNames, methodNames;
-                attNames = new List<string>();
-                methodNames = new List<string>();
+                ClassBox newCb = new ClassBox(cs.number)
+                {
+                    X = cs.x,
+                    Y = cs.y,
+                    Width = cs.width,
+                    Height = cs.height,
+                    ClassName = cs.name
+                };
+                List<ClassBox.attOrMethodName> attNames, methodNames;
+                attNames = new List<ClassBox.attOrMethodName>();
+                methodNames = new List<ClassBox.attOrMethodName>();
 
                 foreach (String att in cs.att)
                 {
-                    attNames.Add(att);
+                    ClassBox.attOrMethodName toAdd = new ClassBox.attOrMethodName(att);
+                    attNames.Add(toAdd);
                 }
                 foreach (String met in cs.method)
                 {
-                    methodNames.Add(met);
+                    ClassBox.attOrMethodName toAdd = new ClassBox.attOrMethodName(met);
+                    methodNames.Add(toAdd);
                 }
-                newCb.AttNames = attNames;
-                newCb.MethodNames = methodNames;
+                newCb.AttNamesClass = attNames;
+                newCb.MethodNamesClass = methodNames;
 
                 classBoxs.Add(newCb);
             }
@@ -86,8 +94,8 @@ namespace _02350_Gruppe5.Command
         {
             foreach (EdgeSave ed in toSave.edges)
             {
-                ClassBox endA=null;
-                ClassBox endB=null;
+                ClassBox endA = null;
+                ClassBox endB = null;
                 foreach (ClassBox cl in classBoxs)
                 {
                     if (cl.Number == ed.a)
@@ -98,9 +106,9 @@ namespace _02350_Gruppe5.Command
                     {
                         endB = cl;
                     }
-                    
+
                 }
-                Edge edge = new Edge(endA,endB);
+                Edge edge = new Edge(endA, endB);
                 edges.Add(edge);
             }
         }
@@ -115,6 +123,6 @@ namespace _02350_Gruppe5.Command
             Console.WriteLine("Unknown attribute " +
             attr.Name + "='" + attr.Value + "'");
         }
-       
+
     }
 }

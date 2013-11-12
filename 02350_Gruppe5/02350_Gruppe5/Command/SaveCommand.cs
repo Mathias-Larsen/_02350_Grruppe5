@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace _02350_Gruppe5.Command
 {
-    class SaveCommand 
+    class SaveCommand
     {
 
         public SaveCommand(ObservableCollection<ClassBox> classBoxs, ObservableCollection<Edge> edges)
@@ -46,25 +46,20 @@ namespace _02350_Gruppe5.Command
                     cs.height = classIn.Height;
                     cs.name = classIn.ClassName;
                     cs.number = classIn.Number;
-                    String[] methods = new String[classIn.MethodNames.Count];
-                    String[] attributs = new String[classIn.AttNames.Count];
+                    String[] methods = new String[classIn.MethodNamesClass.Count];
+                    String[] attributs = new String[classIn.AttNamesClass.Count];
 
 
-                    int j = 0;
-                    foreach (String met in classIn.MethodNames)
+
+                    for (int j = 0; j < classIn.MethodNamesClass.Count; j++)
                     {
+                        String met = classIn.MethodNamesClass.ElementAt(j).Name;
                         methods[j] = met;
-                        j++;
                     }
-
-                    j = 0;
-                    if (classIn.AttNames != null)
+                    for (int j = 0; j < classIn.AttNamesClass.Count; j++)
                     {
-                        foreach (String att in classIn.AttNames)
-                        {
-                            attributs[j] = att;
-                            j++;
-                        }
+                        String att = classIn.AttNamesClass.ElementAt(j).Name;
+                        attributs[j] = att;
                     }
                     cs.att = attributs;
                     cs.method = methods;
@@ -92,7 +87,7 @@ namespace _02350_Gruppe5.Command
         }
 
     }
-    [XmlRootAttribute("ToSave", Namespace = "http://dtu.programming",IsNullable = false)]
+    [XmlRootAttribute("ToSave", Namespace = "http://dtu.programming", IsNullable = false)]
     public class ToSave
     {
         public ClassBoxSave[] classes;

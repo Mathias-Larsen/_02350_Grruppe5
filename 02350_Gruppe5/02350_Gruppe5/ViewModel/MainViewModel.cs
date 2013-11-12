@@ -92,11 +92,6 @@ namespace _02350_Gruppe5.ViewModel
             AddEdgeCommand = new RelayCommand(AddEdge);
             RemoveEdgesCommand = new RelayCommand<IList>(RemoveEdges, CanRemoveEdges);
 
-            //AddAtt = new RelayCommand(addAtt);
-            //RemoveAtt = new RelayCommand(removeAtt);
-            //AddMethod = new RelayCommand(addMethod);
-            //RemoveMethod = new RelayCommand(removeMethod);
-
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
@@ -107,11 +102,6 @@ namespace _02350_Gruppe5.ViewModel
             SaveProgram = new RelayCommand(saveProgram);
             OpenProgram = new RelayCommand(openProgram);
            
-        }
-        public bool classBoxSelected()
-        {
-            MessageBox.Show("hej"); // den kommer ikke her ind, skal bruge til at tjekke om -+att og method knapper kan bruges
-            return SelectedClassBox.Count == 1;
         }
         public void saveProgram()
         {
@@ -156,6 +146,7 @@ namespace _02350_Gruppe5.ViewModel
         public void RemoveClassBox()
         {
             undoRedoController.AddAndExecute(new RemoveClassCommand(ClassBoxs, Edges, SelectedClassBox.ElementAt(0)));
+            SelectedClassBox.Clear();
         }
 
         // Starter proceduren der tilføjer en kant.

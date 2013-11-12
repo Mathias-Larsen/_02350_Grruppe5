@@ -24,10 +24,10 @@ namespace _02350_Gruppe5.Command
 
         public void Execute()
         {
-            newClassBox = new ClassBox(classBoxs.Count+1);
-            newClassBox.AttNames = classBoxToAdd.AttNames;
+            newClassBox = new ClassBox(classBoxs.Count + 1);
+            newClassBox.AttNamesClass = classBoxToAdd.AttNamesClass;
             newClassBox.ClassName = classBoxToAdd.ClassName;
-            newClassBox.MethodNames = classBoxToAdd.MethodNames;
+            newClassBox.MethodNamesClass = classBoxToAdd.MethodNamesClass;
             newClassBox.Height = classBoxToAdd.Height;
             newClassBox.Width = classBoxToAdd.Width;
             classBoxs.Add(newClassBox);

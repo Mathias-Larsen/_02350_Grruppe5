@@ -63,7 +63,7 @@
         
 
         <StackPanel Orientation="Vertical">
-            <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="30">
+            <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35">
                 <Border.BorderBrush>
                     <RadialGradientBrush>
                         <GradientStop Color="Black" Offset="1"/>
@@ -71,23 +71,23 @@
                     </RadialGradientBrush>
                 </Border.BorderBrush>
                 <StackPanel Orientation="Horizontal">
-                    <Button>
-                        <Image Source="pictures/save.ico" Height="25" Width="50"></Image>
+                    <Button Height="30" Width="50" Margin="5,0,0,0">
+                        <Image Source="pictures/save.ico"></Image>
                     </Button>
-                    <Button>
-                        <Image Source="pictures/open.ico" Height="25" Width="50"></Image>
+                    <Button  Height="30" Width="50" Margin="10,0,0,0">
+                        <Image Source="pictures/open.ico" SnapsToDevicePixels="True"></Image>
                     </Button>
-                    <Button Command="{Binding UndoCommand}" ToolTip="Undo">
-                        <Image Source="pictures/undo.png" Height="25" Width="50"></Image>
+                    <Button Command="{Binding UndoCommand}" ToolTip="Undo" Height="30" Width="50" Margin="10,0,0,0">
+                        <Image Source="pictures/blueUndo.ico" SnapsToDevicePixels="True"></Image>
                     </Button>
-                    <Button Command="{Binding RedoCommand}" ToolTip="Redo">
-                        <Image Source="pictures/redo.png" Height="25" Width="50"></Image>
+                    <Button Command="{Binding RedoCommand}" ToolTip="Redo" Height="30" Width="50" Margin="10,0,0,0">
+                        <Image Source="pictures/redo.png"></Image>
                     </Button>
-                    <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox">
-                        <Image Source="pictures/Plus_sign.png" Height="25" Width="50"></Image>
+                    <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox" Height="30" Width="50" Margin="10,0,0,0">
+                        <Image Source="pictures/add.ico"></Image>
                     </Button>
-                    <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox">
-                        <Image Source="pictures/Delete-icon.png" Height="25" Width="50"></Image>
+                    <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox" Height="30" Width="50" Margin="10,0,0,0">
+                        <Image Source="pictures/delete.ico"></Image>
                     </Button>
                 </StackPanel>
             </Border>

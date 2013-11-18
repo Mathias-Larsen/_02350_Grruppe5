@@ -78,10 +78,10 @@
                         <Image Source="pictures/open.ico" SnapsToDevicePixels="True"></Image>
                     </Button>
                     <Button Command="{Binding UndoCommand}" ToolTip="Undo" Height="30" Width="50" Margin="10,0,0,0">
-                        <Image Source="pictures/blueUndo.ico" SnapsToDevicePixels="True"></Image>
+                        <Image Source="pictures/Undo_Arrow.ico" SnapsToDevicePixels="True"></Image>
                     </Button>
                     <Button Command="{Binding RedoCommand}" ToolTip="Redo" Height="30" Width="50" Margin="10,0,0,0">
-                        <Image Source="pictures/redo.png"></Image>
+                        <Image Source="pictures/Redo_Arrow.ico"></Image>
                     </Button>
                     <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox" Height="30" Width="50" Margin="10,0,0,0">
                         <Image Source="pictures/add.ico"></Image>
@@ -89,7 +89,9 @@
                     <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox" Height="30" Width="50" Margin="10,0,0,0">
                         <Image Source="pictures/delete.ico"></Image>
                     </Button>
-                    <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0">Edge</Button>
+                    <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0">
+                        <Image Source="pictures/Edge_Symbol.ico"></Image>
+                    </Button>
                 </StackPanel>
             </Border>
 

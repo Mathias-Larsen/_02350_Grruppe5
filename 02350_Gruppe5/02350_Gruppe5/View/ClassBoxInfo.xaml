@@ -39,7 +39,7 @@
         </ListBox>
         <DockPanel>
             <Button Content="Add Attribute" Margin="5,3,0,3" Command="{Binding AddAttComm}" />
-            <Button Content="Remove Attribute" HorizontalAlignment="Right" Margin="0,3,5,3" Command="{Binding RemoveAtt}" CommandParameter="{Binding ElementName=attList, Path=SelectedItems}"/>
+            <Button Content="Remove Attribute" HorizontalAlignment="Right" Margin="0,3,5,3" Command="{Binding RemoveAtt}" CommandParameter="{Binding SelectedItem, ElementName=attList}"/>
         </DockPanel>
         <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>
@@ -54,7 +54,7 @@
         </ListBox>
         <DockPanel>
             <Button Content="Add Method"  Margin="5,3,0,3" Command="{Binding AddMethodComm}"/>
-            <Button Content="Remove Method" HorizontalAlignment="Right" Margin="0,3,5,3" />
+            <Button Content="Remove Method" HorizontalAlignment="Right" Margin="0,3,5,3" Command="{Binding RemoveMethod}" CommandParameter="{Binding ElementName=methodList, Path=SelectedItem}"/>
         </DockPanel>
     </StackPanel>
 </UserControl>

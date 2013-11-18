@@ -138,8 +138,8 @@ namespace _02350_Gruppe5.ViewModel
         public void removeAtt(IList _att)
         {
             if (_att == null) { MessageBox.Show("null"); }
-            MessageBox.Show("her: " + _att.ToString());
-            undoRedoController.AddAndExecute(new RemoveAttCommand(SelectedClassBox.ElementAt(0), _att.Cast<ClassBox.attOrMethodName>().First()));
+           // MessageBox.Show("her: " + _att.ToString());
+            //undoRedoController.AddAndExecute(new RemoveAtt(SelectedClassBox.ElementAt(0), _att.Cast<ClassBox.attOrMethodName>().First()));
         }
         public void saveProgram()
         {

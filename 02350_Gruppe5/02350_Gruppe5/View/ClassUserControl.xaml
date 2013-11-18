@@ -9,7 +9,7 @@
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}"
              d:DesignHeight="100" d:DesignWidth="100">
     <!-- ClassBox layout -->
-    <Border BorderThickness="2" Background="White" BorderBrush="Black" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+    <Border BorderThickness="2" Background="White" BorderBrush="Black" CornerRadius="8,8,8,8" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseDown">
                 <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
@@ -52,7 +52,7 @@
             </Style>
         </Border.Style>
         <StackPanel>
-            <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2"></TextBlock>
+            <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2" Background="Blue"></TextBlock>
             <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNamesClass}" IsEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>

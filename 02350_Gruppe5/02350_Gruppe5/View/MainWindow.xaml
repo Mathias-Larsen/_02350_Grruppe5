@@ -10,7 +10,6 @@
     <!--Ovenover (DataContext="") bindes vinduet til MainViewModel ved hjælp af MVVM Light Toolkits ViewModelLocator.-->
     <!--Derudover defineres de namespaces der skal benyttes ligesom det gøres med Using statements i C# koden.-->
     <Window.Resources>
-
         <!-- Dette DataTemplate fortæller vinduet hvordan Node klassen skal vises grafisk. Denne grafiske beskrivelse er samlet i NodeUserControl. -->
         <DataTemplate DataType="{x:Type Model:ClassBox}">
 
@@ -24,6 +23,60 @@
                 <View:EdgeUserControl/>
             </Canvas>
         </DataTemplate>
+        <Style x:Key="TopButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border TextBlock.Foreground="Black" x:Name="Border">
+                            <Border.Background>
+                                <SolidColorBrush Color="GhostWhite"/>
+                            </Border.Background>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.5"/>
+                                        <VisualTransition GeneratedDuration="0" To="Pressed"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseHover">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                                <EasingColorKeyFrame KeyTime="0" Value="Blue" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                                <EasingColorKeyFrame KeyTime="0" Value="Black" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                                <EasingColorKeyFrame KeyTime="0" Value="Red" />
+                                            </ColorAnimationUsingKeyFrames>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                                <EasingColorKeyFrame KeyTime="0" Value="Pink" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter Margin="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            RecognizesAccessKey="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Command="{Binding CopyClassCommand}" Gesture="CTRL+c"/>
@@ -74,25 +127,25 @@
                     </RadialGradientBrush>
                 </Border.BorderBrush>
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding SaveCommand}"  Height="30" Width="50" Margin="5,0,0,0">
+                    <Button Command="{Binding SaveCommand}"  Height="30" Width="50" Margin="5,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/save.ico"></Image>
                     </Button>
-                    <Button  Command="{Binding OpenCommand}"  Height="30" Width="50" Margin="10,0,0,0">
-                        <Image Source="pictures/open.ico" SnapsToDevicePixels="True"></Image>
+                    <Button  Command="{Binding OpenCommand}"  Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
+                        <Image Source="pictures/open.ico"></Image>
                     </Button>
-                    <Button Command="{Binding UndoCommand}" ToolTip="Undo" Height="30" Width="50" Margin="10,0,0,0">
+                    <Button Command="{Binding UndoCommand}" ToolTip="Undo" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/Undo_Arrow.ico" SnapsToDevicePixels="True"></Image>
                     </Button>
-                    <Button Command="{Binding RedoCommand}" ToolTip="Redo" Height="30" Width="50" Margin="10,0,0,0">
+                    <Button Command="{Binding RedoCommand}" ToolTip="Redo" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/Redo_Arrow.ico"></Image>
                     </Button>
-                    <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox" Height="30" Width="50" Margin="10,0,0,0">
+                    <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/add.ico"></Image>
                     </Button>
-                    <Button Command="{Binding DeleteCommand}" ToolTip="Remove selected ClassBox" Height="30" Width="50" Margin="10,0,0,0">
+                    <Button Command="{Binding DeleteCommand}" ToolTip="Remove selected ClassBox" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/delete.ico"></Image>
                     </Button>
-                    <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0">
+                    <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/Edge_Symbol.ico"></Image>
                     </Button>
                 </StackPanel>

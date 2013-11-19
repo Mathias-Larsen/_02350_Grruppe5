@@ -4,10 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100" >
     <!-- App wide Resources -->
     <Canvas>
-        <Polyline Points="{Binding Points}" Stroke="Red" StrokeThickness="2" />
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseDown">
+                <cmd:EventToCommand Command="{Binding DataContext.MouseDownEdgeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="MouseUp">
+                <cmd:EventToCommand Command="{Binding DataContext.MouseUpEdgeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Polyline Points="{Binding Points}" StrokeThickness="4">
+            <Polyline.Style>
+                <Style TargetType="{x:Type Polyline}">
+                    <Setter Property="Stroke" Value="{Binding SelectedColor}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Stroke" Value="Blue">
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Polyline.Style>
+        </Polyline>
+
     </Canvas>
 </UserControl>

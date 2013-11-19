@@ -17,7 +17,7 @@ namespace _02350_Gruppe5.Model
         {
             endA = a;
             endB = b;
-           
+
             points = setPoints(endA, endB);
         }
 
@@ -35,8 +35,8 @@ namespace _02350_Gruppe5.Model
             set { if (endB == value) return; endB = value; NotifyPropertyChanged("EndB"); }
         }
 
-        
-        
+
+
         // Bruges af EdgeUserControl til at læse punkterne i kanten
         private PointCollection points = new PointCollection();
         public PointCollection Points
@@ -52,7 +52,22 @@ namespace _02350_Gruppe5.Model
                 NotifyPropertyChanged("Points");
             }
         }
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                isSelected = value;
+                NotifyPropertyChanged("IsSelected");
+                NotifyPropertyChanged("SelectedColor");
+            }
 
+        }
+        public Brush SelectedColor { get { return IsSelected ? Brushes.Blue : Brushes.Black; } }
         // Metoden der udregner hvordan en kant skal se ud afh. af forholdet mellem de to endepunkter
         private PointCollection setPoints(ClassBox endA, ClassBox endB)
         {

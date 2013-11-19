@@ -9,7 +9,8 @@
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"
              d:DesignHeight="100" d:DesignWidth="100">
     <!-- ClassBox layout -->
-    <Border Name="borderBox" BorderThickness="2" Background="White" BorderBrush="Black"  Width="{Binding Width}" Height="{Binding Height}" CornerRadius="8,8,8,8" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+
+    <Border Name="borderBox" BorderThickness="2" Background="White" BorderBrush="{Binding SelectedColor}"  Width="{Binding Width}" Height="{Binding Height}" CornerRadius="8,8,8,8" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseDown">
                 <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
@@ -21,7 +22,7 @@
                 <cmd:EventToCommand Command="{Binding DataContext.MouseUpClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        
+
         <Border.Style>
             <Style TargetType="{x:Type Border}">
                 <Style.Triggers>

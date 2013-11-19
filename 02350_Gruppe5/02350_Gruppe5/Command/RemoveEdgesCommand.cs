@@ -12,18 +12,22 @@ namespace _02350_Gruppe5.Command
     public class RemoveEdgesCommand : IUndoRedoCommand
     {
         private ObservableCollection<Edge> edges;
-        private List<Edge> removeEdges;
+        private Edge removeEdge;
 
-        public RemoveEdgesCommand(ObservableCollection<Edge> _edges, List<Edge> _removeEdges) { edges = _edges; removeEdges = _removeEdges; }
+        public RemoveEdgesCommand(ObservableCollection<Edge> _edges, Edge _removeEdge)
+        {
+            edges = _edges;
+            removeEdge = _removeEdge;
+        }
 
         public void Execute()
         {
-            foreach (Edge e in removeEdges) edges.Remove(e);
+            edges.Remove(removeEdge);
         }
 
         public void UnExecute()
         {
-            foreach (Edge e in removeEdges) edges.Add(e);
+            edges.Add(removeEdge);
         }
 
     }

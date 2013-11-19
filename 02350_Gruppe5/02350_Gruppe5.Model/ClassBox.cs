@@ -24,10 +24,6 @@ namespace _02350_Gruppe5.Model
         private string className;
         public string ClassName { get { return className; } set { className = value; NotifyPropertyChanged("ClassName"); } }
 
-        //private List<string> attNames, methodNames;
-        //public List<string> AttNames { get { return namesAsString(attNamesClass); } set { attNames = value; NotifyPropertyChanged("AttNames"); NotifyPropertyChanged("AttNamesBoxes"); } }
-        //public List<string> MethodNames { get { return namesAsString(methodNamesClass); } set { methodNames = value; NotifyPropertyChanged("MethodNames"); } }
-
         private List<attOrMethodName> attNamesClass, methodNamesClass;
         public List<attOrMethodName> AttNamesClass { get { return attNamesClass; } set { attNamesClass = value; NotifyPropertyChanged("Attribut names"); } }
         public List<attOrMethodName> MethodNamesClass { get { return methodNamesClass; } set { methodNamesClass = value; NotifyPropertyChanged("MethodNames"); } }

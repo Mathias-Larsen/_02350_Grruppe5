@@ -28,7 +28,7 @@
     <Window.InputBindings>
         <KeyBinding Command="{Binding CopyClassCommand}" Gesture="CTRL+c"/>
         <KeyBinding Command="{Binding PasteClassCommand}" Gesture="CTRL+v"/>
-        <KeyBinding Command="{Binding RemoveClassCommand}" Gesture="Delete"/>
+        <KeyBinding Command="{Binding DeleteCommand}" Gesture="Delete"/>
         <KeyBinding Command="{Binding UndoCommand}" Gesture="CTRL+z"/>
         <KeyBinding Command="{Binding RedoCommand}" Gesture="CTRL+y"/>
         <KeyBinding Command="{Binding OpenProgram}" Gesture="CTRL+o"/>
@@ -41,7 +41,7 @@
                 <MenuItem Header="Copy" Command="{Binding CopyClassCommand}"  />
                 <MenuItem Header="Paste"  Command="{Binding PasteClassCommand}"/>
                 <Separator />
-                <MenuItem Header="Delete"  Command="{Binding RemoveClassCommand}"/>
+                <MenuItem Header="Delete"  Command="{Binding DeleteCommand}"/>
             </ContextMenu>
 
         </DockPanel.ContextMenu>
@@ -54,7 +54,6 @@
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Undo" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
                 <MenuItem Header="_Redo" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
-                <MenuItem Header="_Cut" Command="ApplicationCommands.Cut"/>
                 <MenuItem Header="_Copy" Command="{Binding CopyClassCommand}" InputGestureText="Ctrl+C"/>
                 <MenuItem Header="_Paste" Command="{Binding PasteClassCommand}" InputGestureText="Ctrl+V"/>
             </MenuItem>
@@ -75,10 +74,10 @@
                     </RadialGradientBrush>
                 </Border.BorderBrush>
                 <StackPanel Orientation="Horizontal">
-                    <Button Height="30" Width="50" Margin="5,0,0,0">
+                    <Button Command="{Binding SaveCommand}"  Height="30" Width="50" Margin="5,0,0,0">
                         <Image Source="pictures/save.ico"></Image>
                     </Button>
-                    <Button  Height="30" Width="50" Margin="10,0,0,0">
+                    <Button  Command="{Binding OpenCommand}"  Height="30" Width="50" Margin="10,0,0,0">
                         <Image Source="pictures/open.ico" SnapsToDevicePixels="True"></Image>
                     </Button>
                     <Button Command="{Binding UndoCommand}" ToolTip="Undo" Height="30" Width="50" Margin="10,0,0,0">
@@ -90,7 +89,7 @@
                     <Button Command="{Binding AddClassCommand}" ToolTip="Add ClassBox" Height="30" Width="50" Margin="10,0,0,0">
                         <Image Source="pictures/add.ico"></Image>
                     </Button>
-                    <Button Command="{Binding RemoveClassCommand}" ToolTip="Remove selected ClassBox" Height="30" Width="50" Margin="10,0,0,0">
+                    <Button Command="{Binding DeleteCommand}" ToolTip="Remove selected ClassBox" Height="30" Width="50" Margin="10,0,0,0">
                         <Image Source="pictures/delete.ico"></Image>
                     </Button>
                     <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0">

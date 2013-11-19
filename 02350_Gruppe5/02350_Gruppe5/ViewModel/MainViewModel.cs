@@ -33,8 +33,8 @@ namespace _02350_Gruppe5.ViewModel
         // Gemmer det første punkt som punktet har under en flytning.
         private Point moveClassBoxPoint;
         private Point offsetPosition; //Bruges så klassen bliver flyttet flot rundt
-        private double oldPosX;
-        private double oldPosY;
+        private int oldPosX;
+        private int oldPosY;
 
         public ObservableCollection<ClassBox> ClassBoxs { get; set; }
         public ObservableCollection<Edge> Edges { get; set; }
@@ -137,16 +137,9 @@ namespace _02350_Gruppe5.ViewModel
         }
         public bool SelectedClassOrEdge()
         {
-            if (SelectedClassBox.Count == 1)
-            {
-                return true;
-            }
-            else if (selectedEdge != null)
-            {
-                return true;
-            }
-            else
-                return false;
+            if (SelectedClassBox.Count == 1){return true;}
+            else if (selectedEdge != null) { return true; }
+            else{return false;}
         }
         public bool CanPaste()
         {
@@ -264,23 +257,12 @@ namespace _02350_Gruppe5.ViewModel
                 mousePosition.X -= offsetPosition.X;
                 mousePosition.Y -= offsetPosition.Y;
 
-                if ((int)oldPosX + (int)mousePosition.X >= 0)
-                {
-                    moveClassBoxPoint.X = movingClassBox.X = (int)oldPosX + (int)mousePosition.X;
-                }
-                else
-                {
-                    moveClassBoxPoint.X = movingClassBox.X = 0;
-                }
+                if (oldPosX + mousePosition.X >= 0){moveClassBoxPoint.X = movingClassBox.X = oldPosX + (int)mousePosition.X;}
+                else{ moveClassBoxPoint.X = movingClassBox.X = 0;}
 
-                if ((int)oldPosY + (int)mousePosition.Y >= 0)
-                {
-                    moveClassBoxPoint.Y = movingClassBox.Y = (int)oldPosY + (int)mousePosition.Y;
-                }
-                else
-                {
-                    moveClassBoxPoint.Y = movingClassBox.Y = 0;
-                }
+                if (oldPosY + mousePosition.Y >= 0){moveClassBoxPoint.Y = movingClassBox.Y = oldPosY + (int)mousePosition.Y;}
+                else{moveClassBoxPoint.Y = movingClassBox.Y = 0;}
+
                 // Updating the edges associated with the classbox being moved
                 foreach (Edge edge in Edges)
                 {
@@ -344,13 +326,7 @@ namespace _02350_Gruppe5.ViewModel
             return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
         }
         // Bruges til at gøre punkterne gennemsigtige når en ny kant tilføjes.
-        public double ModeOpacity
-        {
-            get
-            {
-                return isAddingEdge ? 0.4 : 1.0;
-            }
-        }
+        public double ModeOpacity{get{return isAddingEdge ? 0.4 : 1.0;}}
 
         /////////////////////////////////////////////Save/////////////////////////////////////////////
 

@@ -6,10 +6,10 @@
              mc:Ignorable="d" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
-             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Width}" Height="{Binding Height}"
+             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"
              d:DesignHeight="100" d:DesignWidth="100">
     <!-- ClassBox layout -->
-    <Border BorderThickness="2" Background="White" BorderBrush="Black" CornerRadius="8,8,8,8" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+    <Border Name="borderBox" BorderThickness="2" Background="White" BorderBrush="Black"  Width="{Binding Width}" Height="{Binding Height}" CornerRadius="8,8,8,8" Opacity="{Binding DataContext.ModeOpacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseDown">
                 <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
@@ -29,10 +29,10 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
-                                        <SplineColorKeyFrame KeyTime="00:00:00.2000000" Value="Aqua"/>
-                                    </ColorAnimationUsingKeyFrames>
-                                   
+                                    <Storyboard Timeline.DesiredFrameRate="30">
+                                        <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="210" Duration="0:0:0:1" ></DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="210" Duration="0:0:0:1"></DoubleAnimation>
+                                    </Storyboard>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
@@ -40,10 +40,9 @@
                     <EventTrigger RoutedEvent="Border.MouseLeave">
                         <EventTrigger.Actions>
                             <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
-                                        <SplineColorKeyFrame KeyTime="00:00:00.2000000" Value="Black"/>
-                                    </ColorAnimationUsingKeyFrames>
+                                <Storyboard Timeline.DesiredFrameRate="30">
+                                    <DoubleAnimation Storyboard.TargetProperty="Width" From="210" To="200" Duration="0:0:0:1" ></DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="210" To="200" Duration="0:0:0:1"></DoubleAnimation>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
@@ -51,27 +50,57 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>
-        <StackPanel>
-            <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2" Background="Blue"></TextBlock>
-            <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNamesClass}" IsEnabled="False">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Name}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView Name="methodNames" VerticalAlignment="Top" ItemsSource="{Binding MethodNamesClass}" IsEnabled="False">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Name}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+        <Grid>
+            <!-- Rounded mask (stretches to fill Grid) -->
+            <Border Name="mask" Background="White" CornerRadius="7,7,7,7"/>
+            <!-- Main content container -->
+            <StackPanel>
+                <!-- Use a VisualBrush of 'mask' as the opacity mask -->
+                <StackPanel.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=mask}"/>
+                </StackPanel.OpacityMask>
+                <Button Height="20" Width="20">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="Button.MouseDown">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <Storyboard Timeline.DesiredFrameRate="30">
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="210" Duration="0:0:0:1" ></DoubleAnimation>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="210" Duration="0:0:0:1"></DoubleAnimation>
+                                                </Storyboard>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    Button 1
+                </Button>
+                <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2" Background="AliceBlue"></TextBlock>
+                <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNamesClass}" IsEnabled="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ListView Name="methodNames" VerticalAlignment="Top" ItemsSource="{Binding MethodNamesClass}" IsEnabled="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
     </Border>
 
 

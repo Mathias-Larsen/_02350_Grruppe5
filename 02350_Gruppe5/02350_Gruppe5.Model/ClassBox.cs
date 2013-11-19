@@ -36,7 +36,7 @@ namespace _02350_Gruppe5.Model
         {
             Number = num;
             X = Y = 100; //hvor skal de dukke op?
-            Width = Height = 300; //og hvor store skal de være?
+            Width = Height = 200; //og hvor store skal de være?
             className = "Class name";
             attNamesClass = new List<attOrMethodName>();
             methodNamesClass = new List<attOrMethodName>();

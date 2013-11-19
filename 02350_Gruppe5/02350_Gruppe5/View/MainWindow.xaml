@@ -29,6 +29,10 @@
         <KeyBinding Command="{Binding CopyClassCommand}" Gesture="CTRL+c"/>
         <KeyBinding Command="{Binding PasteClassCommand}" Gesture="CTRL+v"/>
         <KeyBinding Command="{Binding RemoveClassCommand}" Gesture="Delete"/>
+        <KeyBinding Command="{Binding UndoCommand}" Gesture="CTRL+z"/>
+        <KeyBinding Command="{Binding RedoCommand}" Gesture="CTRL+y"/>
+        <KeyBinding Command="{Binding OpenProgram}" Gesture="CTRL+o"/>
+        <KeyBinding Command="{Binding SaveProgram}" Gesture="CTRL+s"/>
     </Window.InputBindings>
     <DockPanel>
         <DockPanel.ContextMenu>
@@ -43,16 +47,16 @@
         </DockPanel.ContextMenu>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="{Binding OpenProgram}"/>
-                <MenuItem Header="_Close"/>
-                <MenuItem Header="_Save" Command="{Binding SaveProgram}"/>
+                <MenuItem Header="_Open" Command="{Binding OpenProgram}" InputGestureText="Ctrl+O"/>
+                <MenuItem Header="_Close"/> <!--Could maybe done with Ctrl+W -->
+                <MenuItem Header="_Save" Command="{Binding SaveProgram}" InputGestureText="Ctrl+S"/>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_Undo"/>
-                <MenuItem Header="_Redo"/>
+                <MenuItem Header="_Undo" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
+                <MenuItem Header="_Redo" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
                 <MenuItem Header="_Cut" Command="ApplicationCommands.Cut"/>
-                <MenuItem Header="_Copy" Command="{Binding CopyClassCommand}"/>
-                <MenuItem Header="_Paste" Command="{Binding PasteClassCommand}"/>
+                <MenuItem Header="_Copy" Command="{Binding CopyClassCommand}" InputGestureText="Ctrl+C"/>
+                <MenuItem Header="_Paste" Command="{Binding PasteClassCommand}" InputGestureText="Ctrl+V"/>
             </MenuItem>
             <MenuItem Header="_Insert">
                 <MenuItem Header="_Klasse" Command="{Binding AddClassCommand}"/>

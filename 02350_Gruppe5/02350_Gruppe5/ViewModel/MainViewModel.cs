@@ -62,9 +62,7 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand OpenProgram { get; private set; }
 
         public ICommand AddMethodComm { get; private set; }
-        public ICommand RemoveMethod { get; private set; }
         public ICommand AddAttComm { get; private set; }
-        public ICommand RemoveAtt { get; private set; }
 
         public MainViewModel()
         {
@@ -103,9 +101,7 @@ namespace _02350_Gruppe5.ViewModel
             OpenProgram = new RelayCommand(openProgram);
 
             AddMethodComm = new RelayCommand(addMethod, SelectedClass);
-            RemoveMethod = new RelayCommand<IList>(removeMethod);
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
-            RemoveAtt = new RelayCommand<IList>(removeAtt);
            
         }
         //MessageBox.Show("hej");
@@ -117,29 +113,6 @@ namespace _02350_Gruppe5.ViewModel
         public void addMethod()
         {
             undoRedoController.AddAndExecute(new AddMethodCommand(ClassBoxs, SelectedClassBox));
-        }
-        public void removeMethod(IList _met)
-        {
-           // List<ClassBox.attOrMethodName> method = _met.Cast<ClassBox.attOrMethodName>().ToList();
-           // ClassBox cb = SelectedClassBox.ElementAt(0);
-            MessageBox.Show(_met.Count + "");
-            /*          foreach(ClassBox.attOrMethodName meString in cb.MethodNamesClass)
-                      {
-                          if(meString.Equals(method.ElementAt(0)))
-                          {
-                              MessageBox.Show(method.ElementAt(0));
-                          }
-                      }*/
-        }
-        public bool canRemoveAtt(IList _att)
-        {
-            return _att.Count == 1;
-        }
-        public void removeAtt(IList _att)
-        {
-            if (_att == null) { MessageBox.Show("null"); }
-           // MessageBox.Show("her: " + _att.ToString());
-            //undoRedoController.AddAndExecute(new RemoveAtt(SelectedClassBox.ElementAt(0), _att.Cast<ClassBox.attOrMethodName>().First()));
         }
         public void saveProgram()
         {

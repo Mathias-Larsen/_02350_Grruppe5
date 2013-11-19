@@ -107,7 +107,7 @@
                 <ItemsControl ItemsSource="{Binding Edges}" />
                 <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class">
                 </ItemsControl>
-            </Grid>
+            </Grid>   
 
 
         </StackPanel>

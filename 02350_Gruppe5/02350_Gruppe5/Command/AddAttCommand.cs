@@ -13,29 +13,33 @@ namespace _02350_Gruppe5.Command
 
         private ObservableCollection<ClassBox> classBoxs;
         private ObservableCollection<ClassBox> selectedclassBox;
+        private ClassBox oldClass;
+        private ClassBox newClass;
+        List<ClassBox.attOrMethodName> oldList;
 
 
         public AddAttCommand(ObservableCollection<ClassBox> _classBoxs,
             ObservableCollection<ClassBox> _selectedClassBox)
         {
             classBoxs = _classBoxs;
-
             selectedclassBox = _selectedClassBox;
+            oldClass = selectedclassBox.ElementAt(0);
         }
 
         public void Execute()
         {
-            ClassBox classBox = selectedclassBox.ElementAt(0);
+            newClass = selectedclassBox.ElementAt(0);
 
             selectedclassBox.Clear();
-            classBoxs.Remove(classBox);
+            classBoxs.Remove(oldClass);
 
-            List<ClassBox.attOrMethodName> list = classBox.AttNamesClass;
+            List<ClassBox.attOrMethodName> list = newClass.AttNamesClass;
+            oldList = list;
             list.Add(new ClassBox.attOrMethodName("New attribute"));
-            classBox.AttNamesClass = list;
+            newClass.AttNamesClass = list;
 
-            classBoxs.Add(classBox);
-            selectedclassBox.Add(classBox);
+            classBoxs.Add(newClass);
+            selectedclassBox.Add(newClass);
         }
 
         public void UnExecute()

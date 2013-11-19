@@ -116,9 +116,9 @@
             </MenuItem>
         </Menu>
         <View:ClassBoxInfo DockPanel.Dock="Left" x:Name="ClassBoxInfo"/>
-        
 
-        <StackPanel Orientation="Vertical">
+
+        <StackPanel Orientation="Vertical" x:Name ="stack">
             <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35">
                 <Border.BorderBrush>
                     <RadialGradientBrush>
@@ -146,6 +146,9 @@
                         <Image Source="pictures/delete.ico"></Image>
                     </Button>
                     <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
+                        <Image Source="pictures/Edge_Symbol.ico"></Image>
+                    </Button>
+                    <Button Command="{Binding SaveToPictureCommand}" ToolTip="Print" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}">
                         <Image Source="pictures/Edge_Symbol.ico"></Image>
                     </Button>
                 </StackPanel>

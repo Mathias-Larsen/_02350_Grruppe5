@@ -61,6 +61,7 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand CopyClassCommand { get; private set; }
         public ICommand SaveProgram { get; private set; }
         public ICommand OpenProgram { get; private set; }
+        public ICommand SaveToPictureCommand { get; private set; }
 
         public ICommand AddMethodComm { get; private set; }
         public ICommand AddAttComm { get; private set; }
@@ -98,6 +99,7 @@ namespace _02350_Gruppe5.ViewModel
             PasteClassCommand = new RelayCommand(PasteClass, CanPaste);
             SaveProgram = new RelayCommand(saveProgram);
             OpenProgram = new RelayCommand(openProgram);
+            SaveToPictureCommand = new RelayCommand<StackPanel>(saveScreen);
 
             AddMethodComm = new RelayCommand(addMethod, SelectedClass);
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
@@ -149,7 +151,10 @@ namespace _02350_Gruppe5.ViewModel
         {
             return ClassBoxs.Count >= 2;
         }
-
+        public void saveScreen(StackPanel input)
+        {
+            new SavePictureCommand(input);
+        }
         // Fjerner valgte punkter med kommando.
         public void RemoveClassBox()
         {

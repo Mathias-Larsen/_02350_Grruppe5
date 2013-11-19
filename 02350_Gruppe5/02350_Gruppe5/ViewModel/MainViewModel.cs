@@ -264,9 +264,23 @@ namespace _02350_Gruppe5.ViewModel
                 mousePosition.X -= offsetPosition.X;
                 mousePosition.Y -= offsetPosition.Y;
 
-                moveClassBoxPoint.X = movingClassBox.X = (int)oldPosX + (int)mousePosition.X;
-                moveClassBoxPoint.Y = movingClassBox.Y = (int)oldPosY + (int)mousePosition.Y;
+                if ((int)oldPosX + (int)mousePosition.X >= 0)
+                {
+                    moveClassBoxPoint.X = movingClassBox.X = (int)oldPosX + (int)mousePosition.X;
+                }
+                else
+                {
+                    moveClassBoxPoint.X = movingClassBox.X = 0;
+                }
 
+                if ((int)oldPosY + (int)mousePosition.Y >= 0)
+                {
+                    moveClassBoxPoint.Y = movingClassBox.Y = (int)oldPosY + (int)mousePosition.Y;
+                }
+                else
+                {
+                    moveClassBoxPoint.Y = movingClassBox.Y = 0;
+                }
                 // Updating the edges associated with the classbox being moved
                 foreach (Edge edge in Edges)
                 {

@@ -89,9 +89,6 @@
     <Compile Include="View\ClassBoxInfo.xaml.cs">
       <DependentUpon>ClassBoxInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ClassBoxSidepanelUserControl.xaml.cs">
-      <DependentUpon>ClassBoxSidepanelUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\EdgeUserControl.xaml.cs">
       <DependentUpon>EdgeUserControl.xaml</DependentUpon>
     </Compile>
@@ -102,10 +99,6 @@
       <DependentUpon>SidePanelUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="View\ClassBoxInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ClassBoxSidepanelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Pictures\PrintIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Pictures\Background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

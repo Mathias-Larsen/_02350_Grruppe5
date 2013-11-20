@@ -10,53 +10,51 @@
     <!-- Infopanel til classBox -->
     <StackPanel Width="200">
         <StackPanel.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFAAAAAA" Offset="0"/>
-                <GradientStop Color="#FFC9C9C9" Offset="1"/>
-            </LinearGradientBrush>
+            <ImageBrush ImageSource="Pictures/Background.jpg"/>
         </StackPanel.Background>
-        <Label HorizontalAlignment="Center" FontWeight="Bold">Change properties for class box</Label>
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Padding="6,1" Margin="3" FontWeight="Bold">F</Button>
-            <Button Padding="8,1" Margin="3" FontStyle="Italic">I
-                <Button.CommandBindings>
-                    <CommandBinding/>
-                </Button.CommandBindings>
+        <Label HorizontalAlignment="Center" FontWeight="Bold" Foreground="White">Change properties for class box</Label>       
+        <ToolBar Width="120" HorizontalAlignment="Left" Margin="0,0,0,20">
+            <Button Command="EditingCommands.ToggleItalic">
+                <Italic>Italic</Italic>
             </Button>
-            <Button Padding="6,1" Margin="3">U</Button>
-        </StackPanel>
+            <Separator/>
+            <Button Command="EditingCommands.ToggleUnderline">
+                <Underline>Underline</Underline>
+            </Button>
+        </ToolBar>
         <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Classname: "/>
             </DataGrid.Columns>
         </DataGrid>
-        <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch">
+        <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DataGrid Name="attList"  ItemsSource="{Binding AttNamesClass}" Width="195" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True">
+                    <DataGrid Name="attList"  ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}" Width="193" Header="Attributes: "/>
+                            <DataGridTextColumn  Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            
+
         </ListBox>
-            <Button Content="Add Attribute" Margin="5,3,0,3" Command="{Binding AddAttComm}" />
-        
-        <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch">
+        <Button Content="Add Attribute" Margin="20,3" Command="{Binding AddAttComm}" />
+
+        <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DataGrid Name="methodList" ItemsSource="{Binding MethodNamesClass}" Width="195" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True">
+                    <DataGrid Name="methodList" ItemsSource="{Binding MethodNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}" Width="193" Header="Methods: "/>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="175" Header="Methods: " CanUserResize="False"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <DockPanel>
-            <Button Content="Add Method"  Margin="5,3,0,3" Command="{Binding AddMethodComm}"/>
+            <Button Content="Add Method"  Margin="20,3" Command="{Binding AddMethodComm}"/>
         </DockPanel>
+        
     </StackPanel>
 </UserControl>

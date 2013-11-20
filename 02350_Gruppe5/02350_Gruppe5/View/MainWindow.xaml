@@ -12,7 +12,6 @@
     <Window.Resources>
         <!-- Dette DataTemplate fortæller vinduet hvordan Node klassen skal vises grafisk. Denne grafiske beskrivelse er samlet i NodeUserControl. -->
         <DataTemplate DataType="{x:Type Model:ClassBox}">
-
             <Canvas>
                 <View:ClassUserControl/>
             </Canvas>
@@ -29,7 +28,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border TextBlock.Foreground="Black" x:Name="Border">
                             <Border.Background>
-                                <SolidColorBrush Color="GhostWhite"/>
+                                <SolidColorBrush Color="Ivory"/>
                             </Border.Background>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
@@ -91,7 +90,13 @@
         <KeyBinding Command="{Binding OpenProgram}" Gesture="CTRL+o"/>
         <KeyBinding Command="{Binding SaveProgram}" Gesture="CTRL+s"/>
     </Window.InputBindings>
-    <DockPanel Background="Ivory">
+    <DockPanel>
+        <DockPanel.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0.091"/>
+                <GradientStop Color="White" Offset="0.099"/>
+            </LinearGradientBrush>
+        </DockPanel.Background>
         <DockPanel.ContextMenu>
 
             <ContextMenu>
@@ -105,7 +110,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="{Binding OpenProgram}" InputGestureText="Ctrl+O"/>
-                <MenuItem Header="_Close"/> <!--Could maybe done with Ctrl+W -->
+                <MenuItem Header="_Close"/>
+                <!--Could maybe done with Ctrl+W -->
                 <MenuItem Header="_Save" Command="{Binding SaveProgram}" InputGestureText="Ctrl+S"/>
             </MenuItem>
             <MenuItem Header="_Edit">
@@ -123,7 +129,7 @@
 
 
         <StackPanel Orientation="Vertical" x:Name ="stack">
-            <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35" Background="Gainsboro">
+            <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35" Background="#FFE0E0E0">
                 <Border.BorderBrush>
                     <RadialGradientBrush>
                         <GradientStop Color="Black" Offset="1"/>
@@ -131,10 +137,11 @@
                     </RadialGradientBrush>
                 </Border.BorderBrush>
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding SaveCommand}"  Height="30" Width="50" Margin="5,0,0,0" Style="{StaticResource TopButtonStyle}">
+                    <Button Command="{Binding SaveProgram}"  Height="30" Width="50" Margin="5,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/save.ico"></Image>
                     </Button>
-                    <Button  Command="{Binding OpenCommand}"  Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
+                    <Separator Foreground="Black" BorderBrush="Black"></Separator>
+                    <Button  Command="{Binding OpenProgram}"  Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/open.ico"></Image>
                     </Button>
                     <Button Command="{Binding UndoCommand}" ToolTip="Undo" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
@@ -160,13 +167,13 @@
 
             <!--Her smides side panellets UserControl ind.-->
             <!-- <View:SidePanelUserControl/> -->
-            
+
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
             <Grid>
                 <ItemsControl ItemsSource="{Binding Edges}" />
                 <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class">
                 </ItemsControl>
-            </Grid>   
+            </Grid>
 
 
         </StackPanel>

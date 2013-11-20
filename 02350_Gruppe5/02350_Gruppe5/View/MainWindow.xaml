@@ -34,15 +34,15 @@
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualStateGroup.Transitions>
-                                        <VisualTransition GeneratedDuration="0:0:0.5"/>
+                                        <VisualTransition GeneratedDuration="0:0:0.25"/>
                                         <VisualTransition GeneratedDuration="0" To="Pressed"/>
                                     </VisualStateGroup.Transitions>
                                     <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="MouseHover">
+                                    <VisualState x:Name="MouseOver">
                                         <Storyboard>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
                                                 Storyboard.TargetName="Border">
-                                                <EasingColorKeyFrame KeyTime="0" Value="Blue" />
+                                                <EasingColorKeyFrame KeyTime="0" Value="LightCyan" />
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
@@ -58,13 +58,17 @@
                                         <Storyboard>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
                                                 Storyboard.TargetName="Border">
-                                                <EasingColorKeyFrame KeyTime="0" Value="Red" />
+                                                <EasingColorKeyFrame KeyTime="0" Value="DarkGray"/>
                                             </ColorAnimationUsingKeyFrames>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
                                                 Storyboard.TargetName="Border">
-                                                <EasingColorKeyFrame KeyTime="0" Value="Pink" />
+                                                <EasingColorKeyFrame KeyTime="0" Value="White" />
                                             </ColorAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Border">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.6"/>
+                                            </DoubleAnimationUsingKeyFrames>
                                         </Storyboard>
+
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
@@ -87,7 +91,7 @@
         <KeyBinding Command="{Binding OpenProgram}" Gesture="CTRL+o"/>
         <KeyBinding Command="{Binding SaveProgram}" Gesture="CTRL+s"/>
     </Window.InputBindings>
-    <DockPanel>
+    <DockPanel Background="Ivory">
         <DockPanel.ContextMenu>
 
             <ContextMenu>
@@ -119,7 +123,7 @@
 
 
         <StackPanel Orientation="Vertical" x:Name ="stack">
-            <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35">
+            <Border BorderThickness="2,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35" Background="Gainsboro">
                 <Border.BorderBrush>
                     <RadialGradientBrush>
                         <GradientStop Color="Black" Offset="1"/>
@@ -148,8 +152,8 @@
                     <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/Edge_Symbol.ico"></Image>
                     </Button>
-                    <Button Command="{Binding SaveToPictureCommand}" ToolTip="Print" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}">
-                        <Image Source="pictures/Edge_Symbol.ico"></Image>
+                    <Button Command="{Binding SaveToPictureCommand}" ToolTip="Print" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}" Style="{StaticResource TopButtonStyle}">
+                        <Image Source="pictures/PrintIcon.ico"></Image>
                     </Button>
                 </StackPanel>
             </Border>

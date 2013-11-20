@@ -30,9 +30,9 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <Storyboard Timeline.DesiredFrameRate="30">
-                                        <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="210" Duration="0:0:0:1" ></DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="210" Duration="0:0:0:1"></DoubleAnimation>
+                                    <Storyboard Timeline.DesiredFrameRate="60">
+                                        <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="210" Duration="0:0:0:0.05" ></DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="210" Duration="0:0:0:0.05"></DoubleAnimation>
                                     </Storyboard>
                                 </Storyboard>
                             </BeginStoryboard>
@@ -41,9 +41,9 @@
                     <EventTrigger RoutedEvent="Border.MouseLeave">
                         <EventTrigger.Actions>
                             <BeginStoryboard>
-                                <Storyboard Timeline.DesiredFrameRate="30">
-                                    <DoubleAnimation Storyboard.TargetProperty="Width" From="210" To="200" Duration="0:0:0:1" ></DoubleAnimation>
-                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="210" To="200" Duration="0:0:0:1"></DoubleAnimation>
+                                <Storyboard Timeline.DesiredFrameRate="60">
+                                    <DoubleAnimation Storyboard.TargetProperty="Width" From="210" To="200" Duration="0:0:0:0.05" ></DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="210" To="200" Duration="0:0:0:0.05"></DoubleAnimation>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
@@ -68,9 +68,9 @@
                                     <EventTrigger.Actions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <Storyboard Timeline.DesiredFrameRate="30">
-                                                    <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="210" Duration="0:0:0:1" ></DoubleAnimation>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="210" Duration="0:0:0:1"></DoubleAnimation>
+                                                <Storyboard Timeline.DesiredFrameRate="60">
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="210" Duration="0:0:0:0.05" ></DoubleAnimation>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="210" Duration="0:0:0:0.05"></DoubleAnimation>
                                                 </Storyboard>
                                             </Storyboard>
                                         </BeginStoryboard>

@@ -81,7 +81,7 @@
                     </Button.Style>
                     Button 1
                 </Button>
-                <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2" Background="AliceBlue"></TextBlock>
+                <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2" Background="AliceBlue"/>
                 <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNamesClass}" IsEnabled="False">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -103,7 +103,4 @@
             </StackPanel>
         </Grid>
     </Border>
-
-
-
 </UserControl>

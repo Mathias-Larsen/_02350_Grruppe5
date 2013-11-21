@@ -22,7 +22,6 @@ namespace _02350_Gruppe5.Command
         {
             screen = (Grid)input.Children[1];
 
-
             // Create a render bitmap and push the surface to it
             RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)input.ActualWidth, (int)input.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
             renderBitmap.Render(screen);
@@ -31,7 +30,8 @@ namespace _02350_Gruppe5.Command
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "SceenPrint"; // Default file name
             dlg.DefaultExt = ".png"; // Default file extension
-            dlg.Filter = "XML documents (.png)|*.png"; // Filter files by extension 
+            dlg.Filter = "PNG (.png)|*.png|GIF (.gif)|*.gif|TIFF (.tiff)|*.tiff|All Graphics Types|*.png;*.gif;*.tiff"; // Filter files by extension
+            dlg.FilterIndex = 1; // Index of starting extension
 
             // Show save file dialog box
             Nullable<bool> result = dlg.ShowDialog();
@@ -42,18 +42,40 @@ namespace _02350_Gruppe5.Command
             {
                 // Save document 
                 filename = dlg.FileName;
+                string ext = Path.GetExtension(dlg.FileName);
 
                 using (FileStream outStream = new FileStream(filename, FileMode.Create))
                 {
-                    // Use png encoder for our data
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    // push the rendered bitmap to it
-                    encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
-                    // save the data to the stream
-                    encoder.Save(outStream);
+                    if (ext.Equals(".png"))
+                    {
+                            // Use png encoder for our data
+                            PngBitmapEncoder encoder = new PngBitmapEncoder();
+                            // push the rendered bitmap to it
+                            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                            // save the data to the stream
+                            encoder.Save(outStream);
+                    } else if (ext.Equals(".gif"))
+                    {
+                            // Use gif encoder for our data
+                            GifBitmapEncoder encoder = new GifBitmapEncoder();
+                            // push the rendered bitmap to it
+                            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                            // save the data to the stream
+                            encoder.Save(outStream);
+                    } else if (ext.Equals(".tiff"))
+                    {
+                            // Use tiff encoder for our data
+                            TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+                            // push the rendered bitmap to it
+                            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                            // save the data to the stream
+                            encoder.Save(outStream);
+                    } else 
+                    {
+                        MessageBox.Show("Not a supported file extension.");
+                    }
                 }
             }
         }
-
     }
 }

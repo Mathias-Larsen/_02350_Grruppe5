@@ -159,7 +159,10 @@
                     <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/Edge_Symbol.ico"></Image>
                     </Button>
-                    <Button Command="{Binding SaveToPictureCommand}" ToolTip="Print" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}" Style="{StaticResource TopButtonStyle}">
+                    <Button Command="{Binding SaveToPictureCommand}" ToolTip="Save to picture" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}" Style="{StaticResource TopButtonStyle}">
+                        <Image Source="pictures/PrintIcon.ico"></Image>
+                    </Button>
+                    <Button Command="{Binding PrintCommand}" ToolTip="Print" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/PrintIcon.ico"></Image>
                     </Button>
                 </StackPanel>

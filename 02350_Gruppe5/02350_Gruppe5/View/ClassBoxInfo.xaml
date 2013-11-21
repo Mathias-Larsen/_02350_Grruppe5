@@ -22,17 +22,24 @@
                 <Underline>Underline</Underline>
             </Button>
         </ToolBar>
-        <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+        <!--
+        <ListBox ItemsSource="{Binding SelectedClassBox}">
+            <ListBox.ItemTemplate>
+                <R
+            </ListBox.ItemTemplate>
+        </ListBox>
+        -->
+        <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Classname: "/>
+                <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Class Name: "/>
             </DataGrid.Columns>
         </DataGrid>
         <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DataGrid Name="attList"  ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True">
+                    <DataGrid Name="attList"  ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn  Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False"/>
+                            <DataGridTextColumn  Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False" FontStyle="Italic"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>
@@ -44,7 +51,7 @@
         <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <DataGrid Name="methodList" ItemsSource="{Binding MethodNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True">
+                    <DataGrid Name="methodList" ItemsSource="{Binding MethodNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Name}" Width="175" Header="Methods: " CanUserResize="False"/>
                         </DataGrid.Columns>
@@ -55,6 +62,5 @@
         <DockPanel>
             <Button Content="Add Method"  Margin="20,3" Command="{Binding AddMethodComm}"/>
         </DockPanel>
-        
     </StackPanel>
 </UserControl>

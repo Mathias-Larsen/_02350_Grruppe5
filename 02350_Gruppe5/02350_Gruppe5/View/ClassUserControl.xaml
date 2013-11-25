@@ -60,27 +60,6 @@
                 <StackPanel.OpacityMask>
                     <VisualBrush Visual="{Binding ElementName=mask}"/>
                 </StackPanel.OpacityMask>
-                <Button Height="20" Width="20">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Style.Triggers>
-                                <EventTrigger RoutedEvent="Button.MouseDown">
-                                    <EventTrigger.Actions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <Storyboard Timeline.DesiredFrameRate="60">
-                                                    <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="210" Duration="0:0:0:0.05" ></DoubleAnimation>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="210" Duration="0:0:0:0.05"></DoubleAnimation>
-                                                </Storyboard>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger.Actions>
-                                </EventTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    Button 1
-                </Button>
                 <TextBlock TextAlignment="Center" FontWeight="Bold" Text="{Binding ClassName}" Padding="2" Background="AliceBlue"/>
                 <ListView Name="attNames" VerticalAlignment="Top" ItemsSource="{Binding AttNamesClass}" IsEnabled="False">
                     <ListView.ItemTemplate>

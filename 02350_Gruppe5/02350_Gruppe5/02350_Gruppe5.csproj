@@ -96,9 +96,6 @@
     <Compile Include="View\ClassUserControl.xaml.cs">
       <DependentUpon>ClassUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SidePanelUserControl.xaml.cs">
-      <DependentUpon>SidePanelUserControl.xaml</DependentUpon>
-    </Compile>
     <Page Include="View\ClassBoxInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -122,10 +119,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\ClassUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SidePanelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

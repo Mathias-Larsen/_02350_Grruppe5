@@ -25,9 +25,22 @@ namespace _02350_Gruppe5.Command
         public void Execute()
         {
             newClassBox = new ClassBox(classBoxs.Count + 1);
-            newClassBox.AttNamesClass = classBoxToAdd.AttNamesClass;
+            List<ClassBox.attOrMethodName> att = new List<ClassBox.attOrMethodName>();
+            List<ClassBox.attOrMethodName> met = new List<ClassBox.attOrMethodName>();
+            foreach (ClassBox.attOrMethodName attribut in  classBoxToAdd.AttNamesClass)
+            {
+                ClassBox.attOrMethodName newAtt = new ClassBox.attOrMethodName(attribut.Name);
+                att.Add(newAtt);
+            }
+            foreach (ClassBox.attOrMethodName method in classBoxToAdd.MethodNamesClass)
+            {
+                ClassBox.attOrMethodName newMethod = new ClassBox.attOrMethodName(method.Name);
+                met.Add(newMethod);
+            }
+
+            newClassBox.AttNamesClass = att;
+            newClassBox.MethodNamesClass = met;
             newClassBox.ClassName = classBoxToAdd.ClassName;
-            newClassBox.MethodNamesClass = classBoxToAdd.MethodNamesClass;
             newClassBox.Height = classBoxToAdd.Height;
             newClassBox.Width = classBoxToAdd.Width;
             classBoxs.Add(newClassBox);

@@ -236,19 +236,20 @@ namespace _02350_Gruppe5.ViewModel
                 offsetPosition = Mouse.GetPosition(canvas);
                 oldPosX = movingClassBox.X;
                 oldPosY = movingClassBox.Y;
-                movingClassBox.IsSelected = true;
+                
 
 
                 if (SelectedClassBox.Count == 0)
                 {
                     SelectedClassBox.Add(movingClassBox);
                 }
-                else if (movingClassBox != SelectedClassBox.ElementAt(0))
+                else
                 {
                     SelectedClassBox.ElementAt(0).IsSelected = false;
                     SelectedClassBox.Clear();
                     SelectedClassBox.Add(movingClassBox);
                 }
+                movingClassBox.IsSelected = true;
 
             }
         }

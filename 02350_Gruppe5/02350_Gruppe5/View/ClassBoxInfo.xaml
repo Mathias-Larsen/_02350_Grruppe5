@@ -29,23 +29,23 @@
             </ListBox.ItemTemplate>
         </ListBox>
         -->
+        
         <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Class Name: "/>
             </DataGrid.Columns>
         </DataGrid>
-        <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DataGrid Name="attList"  ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn  Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False" FontStyle="Italic"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
-        </ListBox>
+            <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DataGrid Name="attList"  ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn  Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         <Button Content="Add Attribute" Margin="20,3" Command="{Binding AddAttComm}" />
 
         <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">

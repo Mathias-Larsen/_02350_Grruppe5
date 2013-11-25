@@ -36,10 +36,10 @@ namespace _02350_Gruppe5.Model
             className = "Class name";
             attNamesClass = new List<attOrMethodName>();
             methodNamesClass = new List<attOrMethodName>();
-            attNamesClass.Add(new attOrMethodName("att1"));
-            attNamesClass.Add(new attOrMethodName("att2"));
-            methodNamesClass.Add(new attOrMethodName("met1"));
-            methodNamesClass.Add(new attOrMethodName("met2"));
+            attNamesClass.Add(new attOrMethodName("+ Attribute : Type"));
+            attNamesClass.Add(new attOrMethodName("- Attribute : Type"));
+            methodNamesClass.Add(new attOrMethodName("+ Method( ) : ReturnType"));
+            methodNamesClass.Add(new attOrMethodName("- Method( ) : ReturnType"));
 
             //attNames = new List<string>();
             //methodNames = new List<string>();

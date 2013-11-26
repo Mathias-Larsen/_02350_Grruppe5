@@ -22,6 +22,13 @@
                 <Underline>Underline</Underline>
             </Button>
         </ToolBar>
+        <!--
+        <ListBox ItemsSource="{Binding SelectedClassBox}">
+            <ListBox.ItemTemplate>
+                <R
+            </ListBox.ItemTemplate>
+        </ListBox>
+        -->
         
         <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
             <DataGrid.Columns>

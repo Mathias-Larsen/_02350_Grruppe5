@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,36 @@ namespace _02350_Gruppe5.Command
 {
     class SaveCommand
     {
-
-        public SaveCommand(ObservableCollection<ClassBox> classBoxs, ObservableCollection<Edge> edges)
+        BackgroundWorker bw = new BackgroundWorker();
+        ObservableCollection<ClassBox> classBoxs;
+        ObservableCollection<Edge> edges;
+        public SaveCommand(ObservableCollection<ClassBox> _classBoxs, ObservableCollection<Edge> _edges)
         {
+            classBoxs = _classBoxs;
+            edges = _edges;
+            
+            bw.WorkerSupportsCancellation = true;
+            bw.WorkerReportsProgress = true;
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+
+            if (bw.IsBusy != true)
+            {
+                bw.RunWorkerAsync();
+            }
+            Console.Read();
+            /*
+            if (bw.WorkerSupportsCancellation == true)
+            {
+                bw.CancelAsync();
+            }
+             */
+        }
+        public void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "Document"; // Default file name
@@ -36,6 +64,10 @@ namespace _02350_Gruppe5.Command
                 ToSave toSave = new ToSave();
                 int i = 0;
                 ClassBoxSave[] classes = new ClassBoxSave[classBoxs.Count];
+
+                int num = 100/(classBoxs.Count + edges.Count);
+                int total = 0;
+
                 foreach (ClassBox classIn in classBoxs)
                 {
                     ClassBoxSave cs = new ClassBoxSave();
@@ -48,8 +80,6 @@ namespace _02350_Gruppe5.Command
                     cs.number = classIn.Number;
                     String[] methods = new String[classIn.MethodNamesClass.Count];
                     String[] attributs = new String[classIn.AttNamesClass.Count];
-
-
 
                     for (int j = 0; j < classIn.MethodNamesClass.Count; j++)
                     {
@@ -64,7 +94,11 @@ namespace _02350_Gruppe5.Command
                     cs.att = attributs;
                     cs.method = methods;
                     classes[i] = cs;
+                    
                     i++;
+                    total++;
+                    worker.ReportProgress((total * num));
+
                 }
                 toSave.classes = classes;
 
@@ -78,6 +112,8 @@ namespace _02350_Gruppe5.Command
                     edgeToAdd.b = edgeIn.EndB.Number;
                     edge[i] = edgeToAdd;
                     i++;
+                    total++;
+                    worker.ReportProgress((total * num));
                 }
                 toSave.edges = edge;
 
@@ -85,9 +121,31 @@ namespace _02350_Gruppe5.Command
                 writer.Close();
             }
         }
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //this.tbProgress.Text = (e.ProgressPercentage.ToString() + "%");
+            Console.Out.WriteLine(e.ProgressPercentage.ToString() + "%");
+        }
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Cancelled == true))
+            {
+                //this.tbProgress.Text = "Canceled!";
+
+            }
+            else if (!(e.Error == null))
+            {
+                //this.tbProgress.Text = ("Error: " + e.Error.Message);
+            }
+            else
+            {
+                //this.tbProgress.Text = "Done!";
+                Console.Out.WriteLine("Done");
+            }
+        }
 
     }
-    [XmlRootAttribute("ToSave", Namespace = "http://dtu.programming", IsNullable = false)]
+    [XmlRootAttribute("Diagram", Namespace = "http://dtu.programming", IsNullable = false)]
     public class ToSave
     {
         public ClassBoxSave[] classes;

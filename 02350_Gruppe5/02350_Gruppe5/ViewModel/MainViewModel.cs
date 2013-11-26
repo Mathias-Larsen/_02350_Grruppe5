@@ -53,7 +53,7 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand AddEdgeCommand { get; private set; }
 
         // Kommandoer som UI bindes til.
-        public ICommand MouseDownAllCommand { get; private set; }
+        public ICommand MouseDownClassBoxCommand { get; private set; }
         public ICommand MouseMoveClassBoxCommand { get; private set; }
         public ICommand MouseUpClassBoxCommand { get; private set; }
 
@@ -67,9 +67,11 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand AddMethodComm { get; private set; }
         public ICommand AddAttComm { get; private set; }
 
+        public ICommand MouseDownEdgeCommand { get; private set; }
         public ICommand MouseUpEdgeCommand { get; private set; }
 
         public ICommand DeleteCommand { get; private set; }
+        public ICommand Deselect { get; private set; }
 
         public MainViewModel()
         {
@@ -87,10 +89,11 @@ namespace _02350_Gruppe5.ViewModel
             RemoveClassCommand = new RelayCommand(RemoveClassBox, SelectedClass);
             AddEdgeCommand = new RelayCommand(AddEdge, canAddEdge);
 
+            MouseDownEdgeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownEdge);
             MouseUpEdgeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpEdge);
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
-            MouseDownAllCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownAll);
+            MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
             MouseUpClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpClassBox);
 
@@ -106,6 +109,10 @@ namespace _02350_Gruppe5.ViewModel
 
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
             //Deselect = new RelayCommand(deselectGrid);
+        }
+        public void deselectGrid(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("hej");
         }
         //MessageBox.Show("hej");
         public void addAtt()
@@ -191,67 +198,64 @@ namespace _02350_Gruppe5.ViewModel
             }
         }
 
+        public void MouseDownEdge(MouseButtonEventArgs e)
+        {
+            if (!isAddingEdge)
+            {
+                if (SelectedClassBox.Count == 1)
+                {
+                    SelectedClassBox.ElementAt(0).IsSelected = false;
+                    SelectedClassBox.Clear();
+                }
+                e.MouseDevice.Target.CaptureMouse();
+                FrameworkElement edgeElement = (FrameworkElement)e.MouseDevice.Target;
+                Edge edge = (Edge)edgeElement.DataContext;
+                edge.IsSelected = true;
+                if (selectedEdge != null)
+                {
+                    selectedEdge.IsSelected = false;
+                }
+                selectedEdge = edge;
+            }
+        }
         public void MouseUpEdge(MouseButtonEventArgs e)
         {
             e.MouseDevice.Target.ReleaseMouseCapture();
         }
 
         // Hvis der ikke er ved at blive tilføjet en kant så fanges musen når en musetast trykkes ned. Dette bruges til at flytte punkter.
-        public void MouseDownAll(MouseButtonEventArgs e)
+        public void MouseDownClassBox(MouseButtonEventArgs e)
         {
             if (!isAddingEdge)
             {
-                MessageBox.Show("In MouseDown");
                 if (selectedEdge != null)
                 {
                     selectedEdge.IsSelected = false;
                     selectedEdge = null;
                 }
-                if (SelectedClassBox.Count == 1)
-                {
-                    SelectedClassBox.ElementAt(0).IsSelected = false;
-                    SelectedClassBox.Clear();
-                }
 
                 e.MouseDevice.Target.CaptureMouse();
-                FrameworkElement element = (FrameworkElement)e.MouseDevice.Target;
-
-                if (element.DataContext is Edge)
-                {
-                    Edge edge = (Edge)element.DataContext;
-                    edge.IsSelected = true;
-                    if (selectedEdge != null)
-                    {
-                        selectedEdge.IsSelected = false;
-                    }
-                    selectedEdge = edge;
-
-                    MessageBox.Show("Edge pressed");
-                }
-
-                if (element.DataContext is ClassBox)
-                {
-                    ClassBox movingClassBox = (ClassBox)element.DataContext;
-                    Canvas canvas = FindParentOfType<Canvas>(element);
-                    offsetPosition = Mouse.GetPosition(canvas);
-                    oldPosX = movingClassBox.X;
-                    oldPosY = movingClassBox.Y;
+                FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
+                ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
+                Canvas canvas = FindParentOfType<Canvas>(movingClass);
+                offsetPosition = Mouse.GetPosition(canvas);
+                oldPosX = movingClassBox.X;
+                oldPosY = movingClassBox.Y;
                 
 
 
-                    if (SelectedClassBox.Count == 0)
-                    {
-                        SelectedClassBox.Add(movingClassBox);
-                    }
-                    else
-                    {
-                        SelectedClassBox.ElementAt(0).IsSelected = false;
-                        SelectedClassBox.Clear();
-                        SelectedClassBox.Add(movingClassBox);
-                    }
-                    movingClassBox.IsSelected = true;
-                    MessageBox.Show("ClassBox pressed");
+                if (SelectedClassBox.Count == 0)
+                {
+                    SelectedClassBox.Add(movingClassBox);
                 }
+                else
+                {
+                    SelectedClassBox.ElementAt(0).IsSelected = false;
+                    SelectedClassBox.Clear();
+                    SelectedClassBox.Add(movingClassBox);
+                }
+                movingClassBox.IsSelected = true;
+
             }
         }
 

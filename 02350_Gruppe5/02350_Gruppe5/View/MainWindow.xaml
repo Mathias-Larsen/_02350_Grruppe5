@@ -92,7 +92,7 @@
     </Window.InputBindings>
     <DockPanel>
         <DockPanel.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush EndPoint="396,569" StartPoint="396,0" MappingMode="Absolute">
                 <GradientStop Color="Black" Offset="0.091"/>
                 <GradientStop Color="White" Offset="0.099"/>
             </LinearGradientBrush>

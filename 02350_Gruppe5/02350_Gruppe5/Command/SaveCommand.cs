@@ -14,36 +14,11 @@ namespace _02350_Gruppe5.Command
 {
     class SaveCommand
     {
-        BackgroundWorker bw = new BackgroundWorker();
-        ObservableCollection<ClassBox> classBoxs;
-        ObservableCollection<Edge> edges;
-        public SaveCommand(ObservableCollection<ClassBox> _classBoxs, ObservableCollection<Edge> _edges)
-        {
-            classBoxs = _classBoxs;
-            edges = _edges;
-            
-            bw.WorkerSupportsCancellation = true;
-            bw.WorkerReportsProgress = true;
-            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
-            if (bw.IsBusy != true)
-            {
-                bw.RunWorkerAsync();
-            }
-            Console.Read();
-            /*
-            if (bw.WorkerSupportsCancellation == true)
-            {
-                bw.CancelAsync();
-            }
-             */
-        }
-        public void bw_DoWork(object sender, DoWorkEventArgs e)
+        public SaveCommand(ObservableCollection<ClassBox> classBoxs, ObservableCollection<Edge> edges, object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            
+
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "Document"; // Default file name
@@ -65,7 +40,7 @@ namespace _02350_Gruppe5.Command
                 int i = 0;
                 ClassBoxSave[] classes = new ClassBoxSave[classBoxs.Count];
 
-                int num = 100/(classBoxs.Count + edges.Count);
+                int num = 100 / (classBoxs.Count + edges.Count);
                 int total = 0;
 
                 foreach (ClassBox classIn in classBoxs)
@@ -94,7 +69,7 @@ namespace _02350_Gruppe5.Command
                     cs.att = attributs;
                     cs.method = methods;
                     classes[i] = cs;
-                    
+
                     i++;
                     total++;
                     worker.ReportProgress((total * num));
@@ -121,29 +96,6 @@ namespace _02350_Gruppe5.Command
                 writer.Close();
             }
         }
-        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //this.tbProgress.Text = (e.ProgressPercentage.ToString() + "%");
-            Console.Out.WriteLine(e.ProgressPercentage.ToString() + "%");
-        }
-        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if ((e.Cancelled == true))
-            {
-                //this.tbProgress.Text = "Canceled!";
-
-            }
-            else if (!(e.Error == null))
-            {
-                //this.tbProgress.Text = ("Error: " + e.Error.Message);
-            }
-            else
-            {
-                //this.tbProgress.Text = "Done!";
-                Console.Out.WriteLine("Done");
-            }
-        }
-
     }
     [XmlRootAttribute("Diagram", Namespace = "http://dtu.programming", IsNullable = false)]
     public class ToSave

@@ -42,7 +42,6 @@ namespace _02350_Gruppe5.ViewModel
         public Edge selectedEdge;
         public ClassBox toPaste;
 
-
         // Kommandoer som UI bindes til.
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }
@@ -347,62 +346,41 @@ namespace _02350_Gruppe5.ViewModel
 
         /////////////////////////////////////////////Save/////////////////////////////////////////////
 
-        private bool _saveIsRunning = false;
-        public event AsyncCompletedEventHandler SaveCompleted;
-        private readonly object _sync = new object();
+        BackgroundWorker bw = new BackgroundWorker();
+        private String status = "";
+        private int progress = 0;
+        public String Status { get { return status; } }
+        public int Progress { get { return progress; } }
 
-        public bool IsBusy
-        {
-            get { return _saveIsRunning; }
-        }
-        private delegate void saveProgramDelegate();
         private void saveProgram()
         {
-            new SaveCommand(ClassBoxs, Edges);
-        }
-        public void MyTaskAsync()
-        {
-            saveProgramDelegate worker = new saveProgramDelegate(saveProgram);
-            AsyncCallback completedCallback = new AsyncCallback(SaveCompletedCallback);
+            bw.WorkerSupportsCancellation = true;
+            bw.WorkerReportsProgress = true;
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
-            lock (_sync)
+            if (bw.IsBusy != true)
             {
-                if (_saveIsRunning)
-                    throw new InvalidOperationException("The control is currently busy.");
-
-                AsyncOperation async = AsyncOperationManager.CreateOperation(null);
-                worker.BeginInvoke(completedCallback, async);
-                _saveIsRunning = true;
+                bw.RunWorkerAsync();
             }
+            Console.Read();
+
         }
-        private void SaveCompletedCallback(IAsyncResult ar)
+        public void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            // get the original worker delegate and the AsyncOperation instance
-            saveProgramDelegate worker = (saveProgramDelegate)((AsyncResult)ar).AsyncDelegate;
-            AsyncOperation async = (AsyncOperation)ar.AsyncState;
-
-            // finish the asynchronous operation
-            worker.EndInvoke(ar);
-
-            // clear the running task flag
-            lock (_sync)
-            {
-                _saveIsRunning = false;
-            }
-
-            // raise the completed event
-            AsyncCompletedEventArgs completedArgs = new AsyncCompletedEventArgs(null, false, null);
-            async.PostOperationCompleted(
-              delegate(object e) { OnSaveCompleted((AsyncCompletedEventArgs)e); },
-              completedArgs);
+            new SaveCommand(ClassBoxs, Edges,sender,e);
         }
-        protected virtual void OnSaveCompleted(AsyncCompletedEventArgs e)
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (SaveCompleted != null)
-                SaveCompleted(this, e);
+            progress = e.ProgressPercentage;
         }
-
-
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Cancelled == true)){status = "Canceled!";}
+            else if (!(e.Error == null)){status = ("Error: " + e.Error.Message);}
+            else{status = "Done!";}
+        }
 
     }
 }

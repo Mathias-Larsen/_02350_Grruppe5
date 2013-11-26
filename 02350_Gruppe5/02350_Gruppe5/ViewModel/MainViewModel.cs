@@ -20,7 +20,7 @@ namespace _02350_Gruppe5.ViewModel
     /// <summary>
     /// Denne ViewModel er bundet til MainWindow.
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, INotifyPropertyChanged  
     {
         // Holder styr på undo/redo.
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
@@ -72,12 +72,14 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand DeleteCommand { get; private set; }
         public ICommand Deselect { get; private set; }
 
+        
+        
         public MainViewModel()
         {
 
             SelectedClassBox = new ObservableCollection<ClassBox>();
             ClassBoxs = new ObservableCollection<ClassBox>();
-            Edges = new ObservableCollection<Edge>();
+            Edges = new ObservableCollection<Edge>();           
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes. Her vidersendes metode kaldne til UndoRedoControlleren.
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
@@ -107,11 +109,6 @@ namespace _02350_Gruppe5.ViewModel
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
 
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
-            //Deselect = new RelayCommand(deselectGrid);
-        }
-        public void deselectGrid(object sender, MouseEventArgs e)
-        {
-            MessageBox.Show("hej");
         }
         //MessageBox.Show("hej");
         public void addAtt()
@@ -168,6 +165,7 @@ namespace _02350_Gruppe5.ViewModel
         // Fjerner valgte punkter med kommando.
         public void RemoveClassBox()
         {
+            SelectedClassBox.ElementAt(0).IsSelected = false;
             undoRedoController.AddAndExecute(new RemoveClassCommand(ClassBoxs, Edges, SelectedClassBox.ElementAt(0)));
             SelectedClassBox.Clear();
         }
@@ -187,11 +185,13 @@ namespace _02350_Gruppe5.ViewModel
         {
             if (selectedEdge != null)
             {
+                selectedEdge.IsSelected = false;
                 undoRedoController.AddAndExecute(new RemoveEdgesCommand(Edges, selectedEdge));
                 selectedEdge = null;
             }
             else if (SelectedClassBox.Count == 1)
             {
+                SelectedClassBox.ElementAt(0).IsSelected = false;
                 undoRedoController.AddAndExecute(new RemoveClassCommand(ClassBoxs, Edges, SelectedClassBox.ElementAt(0)));
                 SelectedClassBox.Clear();
             }
@@ -232,7 +232,7 @@ namespace _02350_Gruppe5.ViewModel
                     selectedEdge.IsSelected = false;
                     selectedEdge = null;
                 }
-
+                
                 e.MouseDevice.Target.CaptureMouse();
                 FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
                 ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
@@ -241,8 +241,6 @@ namespace _02350_Gruppe5.ViewModel
                 oldPosX = movingClassBox.X;
                 oldPosY = movingClassBox.Y;
                 
-
-
                 if (SelectedClassBox.Count == 0)
                 {
                     SelectedClassBox.Add(movingClassBox);
@@ -344,18 +342,19 @@ namespace _02350_Gruppe5.ViewModel
         // Bruges til at gøre punkterne gennemsigtige når en ny kant tilføjes.
         public double ModeOpacity{get{return isAddingEdge ? 0.4 : 1.0;}}
 
-        /////////////////////////////////////////////Save/////////////////////////////////////////////
-
+        /////////////////////////////////Save /////////////////////////////////////////
         BackgroundWorker bw = new BackgroundWorker();
-        private String status = "";
-        private int progress = 0;
-        public String Status { get { return status; } }
-        public int Progress { get { return progress; } }
 
-        private void saveProgram()
+        private int progress = 0;
+        private String status = "Test";
+        public String Status { get { return status; } set { status = value; OnPropertyChanged("Status"); } }
+        public int Progress { get { return progress; } set { progress = value; OnPropertyChanged("Progress"); } }
+
+        public void saveProgram()
         {
             bw.WorkerSupportsCancellation = true;
             bw.WorkerReportsProgress = true;
+
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
             bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
@@ -364,23 +363,30 @@ namespace _02350_Gruppe5.ViewModel
             {
                 bw.RunWorkerAsync();
             }
-            Console.Read();
-
         }
         public void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            new SaveCommand(ClassBoxs, Edges,sender,e);
+            new SaveCommand(ClassBoxs, Edges, sender, e);
         }
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progress = e.ProgressPercentage;
+            Progress = e.ProgressPercentage;
         }
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if ((e.Cancelled == true)){status = "Canceled!";}
-            else if (!(e.Error == null)){status = ("Error: " + e.Error.Message);}
-            else{status = "Done!";}
+            if ((e.Cancelled == true)) { Status = "Canceled!"; }
+            else if (!(e.Error == null)) { Status = ("Error: " + e.Error.Message); }
+            else { Status = "Done!"; Progress = 100; }
         }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(String property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
+        }
+
 
     }
 }

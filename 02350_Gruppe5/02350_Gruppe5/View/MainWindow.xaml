@@ -118,23 +118,15 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="4*"/>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem>
-                <TextBlock>Ready</TextBlock>
+                <TextBlock Text="{Binding Status}"></TextBlock>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1">
-                <ProgressBar IsIndeterminate="False" Maximum="100" Value="30" Height="18" Width="200"/>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="2">
-                <TextBlock>Set</TextBlock>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="3">
-                <TextBlock>Go!!</TextBlock>
+                <ProgressBar IsIndeterminate="False" Maximum="100" Value="{Binding Progress}" Height="18" Width="200"/>
             </StatusBarItem>
         </StatusBar>
         <Menu DockPanel.Dock="Top">

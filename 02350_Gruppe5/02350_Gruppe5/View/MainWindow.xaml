@@ -107,6 +107,36 @@
             </ContextMenu>
 
         </DockPanel.ContextMenu>
+        <!-- Status bar for progress bar and other cool stuff -->
+        <StatusBar DockPanel.Dock="Bottom" BorderBrush="DarkGray" BorderThickness="0,2,0,0">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock>Ready</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <ProgressBar IsIndeterminate="False" Maximum="100" Value="30" Height="18" Width="200"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <TextBlock>Set</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <TextBlock>Go!!</TextBlock>
+            </StatusBarItem>
+        </StatusBar>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="{Binding OpenProgram}" InputGestureText="Ctrl+O"/>

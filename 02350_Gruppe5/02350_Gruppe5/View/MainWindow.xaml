@@ -67,7 +67,6 @@
                                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.6"/>
                                             </DoubleAnimationUsingKeyFrames>
                                         </Storyboard>
-
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
@@ -174,11 +173,8 @@
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
             <Grid>
                 <ItemsControl ItemsSource="{Binding Edges}" />
-                <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class">
-                </ItemsControl>
+                <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class" />
             </Grid>
-
-
         </StackPanel>
     </DockPanel>
 </Window>

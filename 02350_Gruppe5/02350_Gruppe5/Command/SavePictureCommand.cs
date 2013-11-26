@@ -30,7 +30,7 @@ namespace _02350_Gruppe5.Command
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "SceenPrint"; // Default file name
             dlg.DefaultExt = ".png"; // Default file extension
-            dlg.Filter = "PNG (.png)|*.png|GIF (.gif)|*.gif|TIFF (.tiff)|*.tiff|All Graphics Types|*.png;*.gif;*.tiff"; // Filter files by extension
+            dlg.Filter = "PNG (.png)|*.png|GIF (.gif)|*.gif|TIFF (.tiff)|*.tiff|All Graphics Types|*.png;*.gif;*.tiff|All Files (*.*)|(.*)"; // Filter files by extension
             dlg.FilterIndex = 1; // Index of starting extension
 
             // Show save file dialog box

@@ -173,12 +173,6 @@
 
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
             <Grid>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-
                 <ItemsControl ItemsSource="{Binding Edges}" />
                 <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class">
                 </ItemsControl>

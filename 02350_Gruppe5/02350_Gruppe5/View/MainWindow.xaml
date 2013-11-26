@@ -175,7 +175,7 @@
             <Grid>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
-                        <cmd:EventToCommand Command="{Binding DataContext.MouseDownClassBoxCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+                        <cmd:EventToCommand Command="{Binding DataContext.MouseDownAllCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 

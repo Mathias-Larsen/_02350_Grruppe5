@@ -10,9 +10,6 @@
     <!-- App wide Resources -->
     <Canvas>
         <i:Interaction.Triggers>
-            <i:EventTrigger EventName="MouseDown">
-                <cmd:EventToCommand Command="{Binding DataContext.MouseDownEdgeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
-            </i:EventTrigger>
             <i:EventTrigger EventName="MouseUp">
                 <cmd:EventToCommand Command="{Binding DataContext.MouseUpEdgeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
             </i:EventTrigger>

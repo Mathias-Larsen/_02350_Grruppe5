@@ -67,6 +67,7 @@
                                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.6"/>
                                             </DoubleAnimationUsingKeyFrames>
                                         </Storyboard>
+
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
@@ -128,7 +129,7 @@
 
 
         <StackPanel Orientation="Vertical" x:Name ="stack">
-            <Border BorderThickness="0,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35" Background="#FFE0E0E0" UseLayoutRounding="True">
+            <Border BorderThickness="0,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35" Background="#FFE0E0E0" UseLayoutRounding="False">
                 <Border.BorderBrush>
                     <RadialGradientBrush>
                         <GradientStop Color="Black" Offset="1"/>
@@ -173,8 +174,11 @@
             <!--Med dette grid smides indholdet af de 2 ItemsControls i hovedet på hinanden med kanterne forneden og punkterne foroven.-->
             <Grid>
                 <ItemsControl ItemsSource="{Binding Edges}" />
-                <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class" />
+                <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class">
+                </ItemsControl>
             </Grid>
+
+
         </StackPanel>
     </DockPanel>
 </Window>

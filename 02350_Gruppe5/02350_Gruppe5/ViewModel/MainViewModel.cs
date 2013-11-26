@@ -71,6 +71,7 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand MouseUpEdgeCommand { get; private set; }
 
         public ICommand DeleteCommand { get; private set; }
+        public ICommand Deselect { get; private set; }
 
         public MainViewModel()
         {
@@ -107,7 +108,11 @@ namespace _02350_Gruppe5.ViewModel
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
 
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
-
+            Deselect = new RelayCommand(deselectGrid);
+        }
+        public void deselectGrid()
+        {
+            MessageBox.Show("hej");
         }
         //MessageBox.Show("hej");
         public void addAtt()

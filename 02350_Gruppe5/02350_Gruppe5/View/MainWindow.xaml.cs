@@ -28,10 +28,5 @@ namespace _02350_Gruppe5.View
         {
             InitializeComponent();
         }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
     }
 }

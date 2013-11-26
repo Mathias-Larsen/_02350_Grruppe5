@@ -25,13 +25,5 @@ namespace _02350_Gruppe5.View
         {
             InitializeComponent();
         }
-
-        void onSelectClassBox()
-        {
-            //TODO: implement logic for databinding the list
-            
-        }
-
-
     }
 }

@@ -108,9 +108,9 @@ namespace _02350_Gruppe5.ViewModel
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
 
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
-            Deselect = new RelayCommand(deselectGrid);
+            //Deselect = new RelayCommand(deselectGrid);
         }
-        public void deselectGrid()
+        public void deselectGrid(object sender, MouseEventArgs e)
         {
             MessageBox.Show("hej");
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -75,9 +76,15 @@ namespace _02350_Gruppe5.Model
             public attOrMethodName(string _name)
             {
                 name = _name;
+                FontStyle fStyle = FontStyles.Normal;
+                FontWeight fWeight = FontWeights.Normal;
             }
             private string name;
             public string Name { get { return name; } set { name = value; } }
+            private FontStyle fStyle;
+            private FontWeight fWeight;
+            public FontStyle FStyle { get { return fStyle; } set { fStyle = value; } }
+            public FontWeight FWeight { get { return fWeight; } set { fWeight = value; } }
         }
 
         public void addAtt(attOrMethodName input)

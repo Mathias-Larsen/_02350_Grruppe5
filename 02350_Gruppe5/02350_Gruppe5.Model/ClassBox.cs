@@ -63,28 +63,20 @@ namespace _02350_Gruppe5.Model
         }
         public Brush SelectedColor { get { return IsSelected ? Brushes.Blue : Brushes.Black; } }
 
-        /*       private List<attOrMethodName> ListToTextBox(List<string> input){
-                   List<attOrMethodName> output = new List<attOrMethodName>();
-                   foreach (string att in input) {
-                       output.Add(new attOrMethodName(att));
-                   }
-                   return output;
-               }
-               */
         public class attOrMethodName
         {
             public attOrMethodName(string _name)
             {
                 name = _name;
-                FontStyle fStyle = FontStyles.Normal;
-                FontWeight fWeight = FontWeights.Normal;
+                //FontStyle fStyle = FontStyles.Normal;
+                //FontWeight fWeight = FontWeights.Normal;
             }
             private string name;
             public string Name { get { return name; } set { name = value; } }
-            private FontStyle fStyle;
-            private FontWeight fWeight;
-            public FontStyle FStyle { get { return fStyle; } set { fStyle = value; } }
-            public FontWeight FWeight { get { return fWeight; } set { fWeight = value; } }
+            //private FontStyle fStyle;
+            //private FontWeight fWeight;
+            //public FontStyle FStyle { get { return fStyle; } set { fStyle = value; } }
+            //public FontWeight FWeight { get { return fWeight; } set { fWeight = value; } }
         }
 
         public void addAtt(attOrMethodName input)

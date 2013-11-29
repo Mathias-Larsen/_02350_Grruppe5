@@ -62,6 +62,7 @@ namespace _02350_Gruppe5.ViewModel
         public ICommand OpenProgram { get; private set; }
         public ICommand SaveToPictureCommand { get; private set; }
         public ICommand PrintCommand { get; private set; }
+        public ICommand ShutdownProgram { get; private set; }
 
         public ICommand AddMethodComm { get; private set; }
         public ICommand AddAttComm { get; private set; }
@@ -71,8 +72,6 @@ namespace _02350_Gruppe5.ViewModel
 
         public ICommand DeleteCommand { get; private set; }
         public ICommand Deselect { get; private set; }
-
-        
         
         public MainViewModel()
         {
@@ -104,13 +103,13 @@ namespace _02350_Gruppe5.ViewModel
             OpenProgram = new RelayCommand(openProgram);
             SaveToPictureCommand = new RelayCommand<StackPanel>(saveScreen);
             PrintCommand = new RelayCommand<StackPanel>(printScreen);
+            ShutdownProgram = new RelayCommand(CloseProgram);
 
             AddMethodComm = new RelayCommand(addMethod, SelectedClass);
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
 
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
         }
-        //MessageBox.Show("hej");
         public void addAtt()
         {
             undoRedoController.AddAndExecute(new AddAttCommand(ClassBoxs, SelectedClassBox));
@@ -196,7 +195,10 @@ namespace _02350_Gruppe5.ViewModel
                 SelectedClassBox.Clear();
             }
         }
-
+        public void CloseProgram()
+        {
+            Application.Current.Shutdown();
+        }
         public void MouseDownEdge(MouseButtonEventArgs e)
         {
             if (!isAddingEdge)

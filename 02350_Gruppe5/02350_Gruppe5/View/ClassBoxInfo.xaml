@@ -12,35 +12,31 @@
         <StackPanel.Background>
             <ImageBrush ImageSource="Pictures/Background.jpg"/>
         </StackPanel.Background>
-        <Label HorizontalAlignment="Center" FontWeight="Bold" Foreground="White">Change properties for class box</Label>       
-        <ToolBar Width="120" HorizontalAlignment="Left" Margin="0,0,0,20">
-            <Button Command="EditingCommands.ToggleItalic">
-                <Italic>Italic</Italic>
+        <Label Content="Change properties for class box" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White" />
+        <StackPanel Orientation="Horizontal">
+            <Button Command="EditingCommands.ToggleItalic" VerticalAlignment="Bottom" Content="Italic" FontStyle="Italic" Width="60" Margin="5,0,0,0"/>
+            <Button Command="EditingCommands.ToggleUnderline" Width="60" Margin="5,0,0,0">
+                <TextBlock TextDecorations="Underline">Underline</TextBlock>
             </Button>
-            <Separator/>
-            <Button Command="EditingCommands.ToggleUnderline">
-                <Underline>Underline</Underline>
-            </Button>
-        </ToolBar>
-        
+            <Button Command="EditingCommands.ToggleUnderline" Content="Bold"  Width="60" Margin="5,0,0,0" FontWeight="Bold"/>
+        </StackPanel>
         <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Class Name: "/>
             </DataGrid.Columns>
         </DataGrid>
-            <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DataGrid Name="attList"  ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn  Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False" FontStyle="{Binding fStyle}" FontWeight="{Binding fWeight}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        <Button Content="Add Attribute" Margin="20,3" Command="{Binding AddAttComm}" />
-
+        <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DataGrid Name="attList" ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False" FontStyle="{Binding fStyle}" FontWeight="{Binding fWeight}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Content="Add Attribute" Margin="20,3" Command="{Binding AddAttComm}" ToolTip="Add one more attribute to selected ClassBox"/>
         <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -52,8 +48,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <DockPanel>
-            <Button Content="Add Method"  Margin="20,3" Command="{Binding AddMethodComm}"/>
-        </DockPanel>
+        <Button Content="Add Method"  Margin="20,3" Command="{Binding AddMethodComm}" ToolTip="Add one more attribute to selected ClassBox"/>
     </StackPanel>
 </UserControl>

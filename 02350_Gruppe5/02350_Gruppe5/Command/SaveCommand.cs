@@ -18,7 +18,10 @@ namespace _02350_Gruppe5.Command
         public SaveCommand(ObservableCollection<ClassBox> classBoxs, ObservableCollection<Edge> edges, object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
+            
+            int num = 100 / (classBoxs.Count + edges.Count);
+            int total = 0;
+            
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "Document"; // Default file name
@@ -37,11 +40,9 @@ namespace _02350_Gruppe5.Command
                 XmlSerializer serializer = new XmlSerializer(typeof(ToSave));
                 TextWriter writer = new StreamWriter(filename);
                 ToSave toSave = new ToSave();
+                
                 int i = 0;
                 ClassBoxSave[] classes = new ClassBoxSave[classBoxs.Count];
-
-                int num = 100 / (classBoxs.Count + edges.Count);
-                int total = 0;
 
                 foreach (ClassBox classIn in classBoxs)
                 {

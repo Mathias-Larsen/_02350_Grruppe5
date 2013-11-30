@@ -111,7 +111,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
@@ -119,9 +119,10 @@
             <StatusBarItem>
                 <TextBlock Text="{Binding Status}"></TextBlock>
             </StatusBarItem>
-            <StatusBarItem Grid.Column="1">
-                <ProgressBar IsIndeterminate="False" Maximum="100" Value="{Binding Progress}" Height="18" Width="200"/>
+            <StatusBarItem Grid.Column="2">
+               <ProgressBar IsIndeterminate="False" Maximum="100" Value="{Binding Progress}" Height="18" Width="200"/>
             </StatusBarItem>
+
         </StatusBar>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">

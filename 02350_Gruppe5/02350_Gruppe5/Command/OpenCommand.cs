@@ -42,9 +42,13 @@ namespace _02350_Gruppe5.Command
 
                 // Create an instance of the XmlSerializer class;
                 // specify the type of object to be deserialized.
+
                 XmlSerializer serializer = new XmlSerializer(typeof(ToSave));
+
+
                 /* If the XML document has been altered with unknown nodes or attributes,
                    handle them with the UnknownNode and UnknownAttribute events.*/
+
                 serializer.UnknownNode += new XmlNodeEventHandler(serializer_UnknownNode);
                 serializer.UnknownAttribute += new XmlAttributeEventHandler(serializer_UnknownAttribute);
 

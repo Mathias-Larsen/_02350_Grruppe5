@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
+    //
+    // Class used to add a copy of a ClassBox, assuming that one has been copied
+    //
+
     class PasteClassCommand : IUndoRedoCommand
     {
 

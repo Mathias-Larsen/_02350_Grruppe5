@@ -15,11 +15,16 @@ using System.Windows.Media.Imaging;
 
 namespace _02350_Gruppe5.Command
 {
+    //
+    // Class used to save an image of the Grid
+    //
+
     class SavePictureCommand
     {
         private Grid screen;
         public SavePictureCommand(StackPanel input)
         {
+            // get Grid
             screen = (Grid)input.Children[1];
 
             // Create a render bitmap and push the surface to it
@@ -27,52 +32,55 @@ namespace _02350_Gruppe5.Command
             renderBitmap.Render(screen);
 
             // Configure save file dialog box
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // initialize dialoge
             dlg.FileName = "SceenPrint"; // Default file name
             dlg.DefaultExt = ".png"; // Default file extension
             dlg.Filter = "PNG (.png)|*.png|GIF (.gif)|*.gif|TIFF (.tiff)|*.tiff|All Graphics Types|*.png;*.gif;*.tiff|All Files (*.*)|(.*)"; // Filter files by extension
-            dlg.FilterIndex = 1; // Index of starting extension
+            dlg.FilterIndex = 1; // Index of starting extension (.png)
 
             // Show save file dialog box
             Nullable<bool> result = dlg.ShowDialog();
             string filename = null;
-            // Process save file dialog box results 
 
+            // Process save file dialog box results 
             if (result == true)
             {
-                // Save document 
+                // get path and filename
                 filename = dlg.FileName;
                 string ext = Path.GetExtension(dlg.FileName);
 
+                // saving the image
                 using (FileStream outStream = new FileStream(filename, FileMode.Create))
                 {
-                    if (ext.Equals(".png"))
+                    switch (ext.ToLower())
                     {
+                        case ".png":
                             // Use png encoder for our data
-                            PngBitmapEncoder encoder = new PngBitmapEncoder();
+                            PngBitmapEncoder encoderPng = new PngBitmapEncoder();
                             // push the rendered bitmap to it
-                            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                            encoderPng.Frames.Add(BitmapFrame.Create(renderBitmap));
                             // save the data to the stream
-                            encoder.Save(outStream);
-                    } else if (ext.Equals(".gif"))
-                    {
+                            encoderPng.Save(outStream);
+                            break;
+                        case ".gif":
                             // Use gif encoder for our data
-                            GifBitmapEncoder encoder = new GifBitmapEncoder();
+                            GifBitmapEncoder encoderGif = new GifBitmapEncoder();
                             // push the rendered bitmap to it
-                            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                            encoderGif.Frames.Add(BitmapFrame.Create(renderBitmap));
                             // save the data to the stream
-                            encoder.Save(outStream);
-                    } else if (ext.Equals(".tiff"))
-                    {
+                            encoderGif.Save(outStream);
+                            break;
+                        case ".tiff":
                             // Use tiff encoder for our data
-                            TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+                            TiffBitmapEncoder encoderTiff = new TiffBitmapEncoder();
                             // push the rendered bitmap to it
-                            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                            encoderTiff.Frames.Add(BitmapFrame.Create(renderBitmap));
                             // save the data to the stream
-                            encoder.Save(outStream);
-                    } else 
-                    {
-                        MessageBox.Show("Not a supported file extension.");
+                            encoderTiff.Save(outStream);
+                            break;
+                        default:
+                            MessageBox.Show("Not a supported file extension.");
+                            break;
                     }
                 }
             }

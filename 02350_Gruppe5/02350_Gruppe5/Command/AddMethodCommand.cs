@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
+    //
+    // Class used to add methods to a ClassBox
+    //
+
     class AddMethodCommand : IUndoRedoCommand
     {
 
@@ -38,6 +42,7 @@ namespace _02350_Gruppe5.Command
             selectedclassBox.Add(classBox);
         }
 
+        // Unused as it is run through the DataGrid containing the list of attributes
         public void UnExecute()
         {
 

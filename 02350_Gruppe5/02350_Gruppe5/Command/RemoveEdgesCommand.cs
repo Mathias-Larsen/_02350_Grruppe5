@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Bruges til at fjerne en kant fra canvaset
+    //
+    // Class used to remove an Edge
+    //
+
     public class RemoveEdgesCommand : IUndoRedoCommand
     {
         private ObservableCollection<Edge> edges;

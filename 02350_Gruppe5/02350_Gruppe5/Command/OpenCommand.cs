@@ -10,6 +10,10 @@ using System.Xml.Serialization;
 
 namespace _02350_Gruppe5.Command
 {
+    //
+    // Class used load a saved project
+    //
+
     class OpenCommand
     {
         private ObservableCollection<ClassBox> classBoxs;

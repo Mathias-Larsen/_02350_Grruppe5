@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Metode til at flytte x,y coor til en classBox
+    //
+    // Class used to move the x- and y-coordinates of a ClassBox
+    //
+
     public class MoveClassBoxCommand : IUndoRedoCommand
     {
         private ClassBox classBox;

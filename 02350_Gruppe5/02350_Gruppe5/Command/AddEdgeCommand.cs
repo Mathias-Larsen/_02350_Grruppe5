@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Metode til at tilføje en kant til canvaset
+    //
+    // Class used to add an Edge between two ClassBox's
+    //
+
     public class AddEdgeCommand : IUndoRedoCommand
     {
         private ObservableCollection<Edge> edges;

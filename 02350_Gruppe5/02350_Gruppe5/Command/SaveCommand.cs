@@ -12,6 +12,10 @@ using System.Xml.Serialization;
 
 namespace _02350_Gruppe5.Command
 {
+    //
+    // Class used to save the project that is currently being worked on
+    //
+
     class SaveCommand
     {
 

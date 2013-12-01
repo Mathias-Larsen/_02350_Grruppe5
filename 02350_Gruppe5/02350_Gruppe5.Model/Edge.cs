@@ -10,6 +10,10 @@ using System.Windows.Media;
 
 namespace _02350_Gruppe5.Model
 {
+    //
+    // Class defining an Edge and its methods
+    //
+
     public class Edge : NotifyBase
     {
         // Constructor der bruges når en kant tilføjes, points sættes til den rigtige kant

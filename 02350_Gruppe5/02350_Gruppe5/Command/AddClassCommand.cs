@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Metode til at tilføje en classBox til canvaset
+    //
+    // Class used to add ClassBox's to the Grid
+    //
+
     public class AddClassCommand : IUndoRedoCommand
     {
         private ObservableCollection<ClassBox> classBoxs;

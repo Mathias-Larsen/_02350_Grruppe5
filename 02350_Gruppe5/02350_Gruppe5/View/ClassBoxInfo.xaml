@@ -7,11 +7,12 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="200">
-    <!-- Infopanel til classBox -->
+    <!-- Infopanel to ClassBox -->
     <StackPanel Width="200">
         <StackPanel.Background>
             <ImageBrush ImageSource="Pictures/Background.jpg"/>
         </StackPanel.Background>
+        <!-- Unused textformatting for the attribute and method elements -->
         <Label Content="Change properties for class box" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White" />
         <StackPanel Orientation="Horizontal">
             <Button Command="EditingCommands.ToggleItalic" VerticalAlignment="Bottom" Content="Italic" FontStyle="Italic" Width="60" Margin="5,0,0,0"/>
@@ -20,11 +21,13 @@
             </Button>
             <Button Command="EditingCommands.ToggleUnderline" Content="Bold"  Width="60" Margin="5,0,0,0" FontWeight="Bold"/>
         </StackPanel>
+        <!-- Classname -->
         <DataGrid x:Name="dgClass" ItemsSource="{Binding SelectedClassBox}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Width="*" Header="Class Name: "/>
             </DataGrid.Columns>
         </DataGrid>
+        <!-- Attribute list -->
         <ListBox  Name="testL" ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -37,6 +40,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Content="Add Attribute" Margin="20,3" Command="{Binding AddAttComm}" ToolTip="Add one more attribute to selected ClassBox"/>
+        <!-- Method list -->
         <ListBox ItemsSource="{Binding SelectedClassBox}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Margin="5,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>

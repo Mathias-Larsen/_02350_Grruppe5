@@ -9,9 +9,13 @@ using System.Windows.Media;
 
 namespace _02350_Gruppe5.Model
 {
+    //
+    // Class defining a ClassBox and its methods
+    //
+
     public class ClassBox : NotifyBase
     {
-        private int x, y, number;
+        private int x, y, number; // position and id
         public int Number { get { return number; } private set { number = value; } } // skal bruges til at finde nummeret på en enkelt klasse
 
         public int X { get { return x; } set { x = value; NotifyPropertyChanged("X"); } } // der skal også være noget notify property changed
@@ -29,6 +33,7 @@ namespace _02350_Gruppe5.Model
         public List<attOrMethodName> AttNamesClass { get { return attNamesClass; } set { attNamesClass = value; NotifyPropertyChanged("Attribut names"); } }
         public List<attOrMethodName> MethodNamesClass { get { return methodNamesClass; } set { methodNamesClass = value; NotifyPropertyChanged("MethodNames"); } }
 
+        // Constructor, setting new ClassBoxes to default values
         public ClassBox(int num)
         {
             Number = num;

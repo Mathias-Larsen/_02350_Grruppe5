@@ -39,19 +39,17 @@ namespace _02350_Gruppe5.ViewModel
         public ObservableCollection<ClassBox> ClassBoxs { get; set; }
         public ObservableCollection<Edge> Edges { get; set; }
         public ObservableCollection<ClassBox> SelectedClassBox { get; set; }
-        public Edge selectedEdge;
-        public ClassBox toPaste;
+        public Edge selectedEdge; // Holds an Edge if one is selected
+        public ClassBox toPaste; // Holds a ClassBox if one is copied
 
         // Kommandoer som UI bindes til.
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }
 
-        // Kommandoer som UI bindes til.
         public ICommand AddClassCommand { get; private set; }
         public ICommand RemoveClassCommand { get; private set; }
         public ICommand AddEdgeCommand { get; private set; }
 
-        // Kommandoer som UI bindes til.
         public ICommand MouseDownClassBoxCommand { get; private set; }
         public ICommand MouseMoveClassBoxCommand { get; private set; }
         public ICommand MouseUpClassBoxCommand { get; private set; }
@@ -75,10 +73,9 @@ namespace _02350_Gruppe5.ViewModel
         
         public MainViewModel()
         {
-
             SelectedClassBox = new ObservableCollection<ClassBox>();
-            ClassBoxs = new ObservableCollection<ClassBox>();
-            Edges = new ObservableCollection<Edge>();           
+            ClassBoxs = new ObservableCollection<ClassBox>(); // List of shown ClassBoxes
+            Edges = new ObservableCollection<Edge>(); // List of shown Edges
 
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes. Her vidersendes metode kaldne til UndoRedoControlleren.
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
@@ -92,7 +89,6 @@ namespace _02350_Gruppe5.ViewModel
             MouseDownEdgeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownEdge);
             MouseUpEdgeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpEdge);
 
-            // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             MouseDownClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownClassBox);
             MouseMoveClassBoxCommand = new RelayCommand<MouseEventArgs>(MouseMoveClassBox);
             MouseUpClassBoxCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpClassBox);
@@ -110,66 +106,77 @@ namespace _02350_Gruppe5.ViewModel
 
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
         }
+        // Add attribute
         public void addAtt()
         {
             undoRedoController.AddAndExecute(new AddAttCommand(ClassBoxs, SelectedClassBox));
         }
+        // Add method
         public void addMethod()
         {
             undoRedoController.AddAndExecute(new AddMethodCommand(ClassBoxs, SelectedClassBox));
         }
+        // Load saved program
         public void openProgram()
         {
             new OpenCommand(ClassBoxs, Edges);
         }
+        // Add ClassBox to Grid
         public void AddClassBox()
         {
             undoRedoController.AddAndExecute(new AddClassCommand(ClassBoxs));
         }
+        // Paste copied class
         public void PasteClass()
         {
             undoRedoController.AddAndExecute(new PasteClassCommand(ClassBoxs, toPaste));
             toPaste = null;
         }
+        // Hold copy of selected ClassBox
         public void CopyClass()
         {
             toPaste = SelectedClassBox.ElementAt(0);
         }
+        // is a ClassBox selected?
         public bool SelectedClass()
         {
             return SelectedClassBox.Count == 1;
         }
+        // is anything selected?
         public bool SelectedClassOrEdge()
         {
             if (SelectedClassBox.Count == 1){return true;}
             else if (selectedEdge != null) { return true; }
             else{return false;}
         }
+        // Holding something to paste?
         public bool CanPaste()
         {
             return toPaste != null;
         }
+        // Can add Edge?
         public bool canAddEdge()
         {
             return ClassBoxs.Count >= 2;
         }
+        // Save image of Grid
         public void saveScreen(StackPanel input)
         {
             new SavePictureCommand(input);
         }
+        // Print Grid
         public void printScreen(StackPanel input)
         {
             new PrinterCommand(input);
         }
-        // Fjerner valgte punkter med kommando.
+        // Remove ClassBox
         public void RemoveClassBox()
         {
             SelectedClassBox.ElementAt(0).IsSelected = false;
             undoRedoController.AddAndExecute(new RemoveClassCommand(ClassBoxs, Edges, SelectedClassBox.ElementAt(0)));
             SelectedClassBox.Clear();
         }
-
-        // Starter proceduren der tilføjer en kant.
+        // Add Edge
         public void AddEdge()
         {
             if (SelectedClassBox.Count >= 1)
@@ -180,6 +187,7 @@ namespace _02350_Gruppe5.ViewModel
             isAddingEdge = true;
             RaisePropertyChanged("ModeOpacity");
         }
+        // Remove ClassBox and connected Edges
         public void DeleteEdgeAndClass()
         {
             if (selectedEdge != null)
@@ -195,10 +203,12 @@ namespace _02350_Gruppe5.ViewModel
                 SelectedClassBox.Clear();
             }
         }
+        // Close program
         public void CloseProgram()
         {
             Application.Current.Shutdown();
         }
+        // Action for Mouse down trigger on Edge
         public void MouseDownEdge(MouseButtonEventArgs e)
         {
             if (!isAddingEdge)
@@ -219,11 +229,12 @@ namespace _02350_Gruppe5.ViewModel
                 selectedEdge = edge;
             }
         }
+        // Action for Mouse up trigger on Edge
         public void MouseUpEdge(MouseButtonEventArgs e)
         {
             e.MouseDevice.Target.ReleaseMouseCapture();
         }
-
+        // Action for Mouse down trigger on ClassBox
         // Hvis der ikke er ved at blive tilføjet en kant så fanges musen når en musetast trykkes ned. Dette bruges til at flytte punkter.
         public void MouseDownClassBox(MouseButtonEventArgs e)
         {
@@ -234,7 +245,6 @@ namespace _02350_Gruppe5.ViewModel
                     selectedEdge.IsSelected = false;
                     selectedEdge = null;
                 }
-                
                 e.MouseDevice.Target.CaptureMouse();
                 FrameworkElement movingClass = (FrameworkElement)e.MouseDevice.Target;
                 ClassBox movingClassBox = (ClassBox)movingClass.DataContext;
@@ -254,11 +264,9 @@ namespace _02350_Gruppe5.ViewModel
                     SelectedClassBox.Add(movingClassBox);
                 }
                 movingClassBox.IsSelected = true;
-
             }
         }
-
-        // Bruges til at flytter punkter.
+        // Action for Mouse move trigger
         public void MouseMoveClassBox(MouseEventArgs e)
         {
             // Tjek at musen er fanget og at der ikke er ved at blive tilføjet en kant.
@@ -293,7 +301,7 @@ namespace _02350_Gruppe5.ViewModel
                 }
             }
         }
-
+        // Action for Mouse up trigger on ClassBox
         // Benyttes til at flytte punkter og tilføje kanter.
         public void MouseUpClassBox(MouseButtonEventArgs e)
         {
@@ -331,7 +339,6 @@ namespace _02350_Gruppe5.ViewModel
             }
             else
                 e.MouseDevice.Target.ReleaseMouseCapture();
-
         }
 
         // Rekursiv metode der benyttes til at finde et af et grafisk elements forfædre ved hjælp af typen, der ledes højere og højere op indtil en af typen findes.
@@ -388,7 +395,5 @@ namespace _02350_Gruppe5.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
-
-
     }
 }

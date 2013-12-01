@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace _02350_Gruppe5.Command
 {
-    // Metode til at fjerne en classBox fra canvaset, samt tilhørende kanter
+    //
+    // Class used to remove a ClassBox and connected Edges
+    //
+
     public class RemoveClassCommand : IUndoRedoCommand
     {
         private ObservableCollection<ClassBox> classBoxs;

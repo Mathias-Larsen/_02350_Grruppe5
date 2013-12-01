@@ -22,6 +22,7 @@
                 <View:EdgeUserControl/>
             </Canvas>
         </DataTemplate>
+        <!-- Button style -->
         <Style x:Key="TopButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -73,6 +74,7 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <!-- Key gestures -->
     <Window.InputBindings>
         <KeyBinding Command="{Binding CopyClassCommand}" Gesture="CTRL+c"/>
         <KeyBinding Command="{Binding PasteClassCommand}" Gesture="CTRL+v"/>
@@ -93,6 +95,7 @@
                 <GradientStop Color="White" Offset="0.099"/>
             </LinearGradientBrush>
         </DockPanel.Background>
+        <!-- Right click menu -->
         <DockPanel.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Copy" Command="{Binding CopyClassCommand}" />
@@ -122,8 +125,8 @@
             <StatusBarItem Grid.Column="2">
                <ProgressBar IsIndeterminate="False" Maximum="100" Value="{Binding Progress}" Height="18" Width="200"/>
             </StatusBarItem>
-
         </StatusBar>
+        <!-- Menu bar -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="{Binding OpenProgram}" InputGestureText="Ctrl+O"/>
@@ -148,8 +151,9 @@
                 <MenuItem Header="_Edge" Command="{Binding AddEdgeCommand}" InputGestureText="Ctrl+E"/>
             </MenuItem>
         </Menu>
+        <!-- Infopanel to ClassBox -->
         <View:ClassBoxInfo DockPanel.Dock="Left" x:Name="ClassBoxInfo" BorderBrush="Black" BorderThickness="0,0,2,0"/>
-
+        <!-- The stackpanel that is send to the pring and saveToImage functionalities -->
         <StackPanel Orientation="Vertical" x:Name ="stack">
             <Border BorderThickness="0,0,0,2" DockPanel.Dock="Top" Name="TopToolbar" Height="35" Background="#FFE0E0E0" UseLayoutRounding="False">
                 <Border.BorderBrush>
@@ -158,6 +162,7 @@
                         <GradientStop Color="#FF747474"/>
                     </RadialGradientBrush>
                 </Border.BorderBrush>
+                <!-- Button definitions -->
                 <StackPanel Orientation="Horizontal">
                     <Button Command="{Binding SaveProgram}" ToolTip="Save Program (CTRL+S)" Height="30" Width="50" Margin="5,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/save.ico"/>
@@ -189,6 +194,7 @@
                     </Button>
                 </StackPanel>
             </Border>
+            <!-- Grid containing all the ClassBox's and Edges -->
             <Grid>
                 <ItemsControl ItemsSource="{Binding Edges}" />
                 <ItemsControl ItemsSource="{Binding ClassBoxs}" Name="class" />

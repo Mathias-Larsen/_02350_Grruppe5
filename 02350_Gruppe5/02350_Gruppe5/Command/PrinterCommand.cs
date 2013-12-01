@@ -7,6 +7,10 @@ using System.Windows.Controls;
 
 namespace _02350_Gruppe5.Command
 {
+    //
+    // Class used to send the Grid to a local printer
+    //
+
     class PrinterCommand
     {
         private Grid screen;

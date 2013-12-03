@@ -23,8 +23,16 @@ namespace _02350_Gruppe5.Command
         public RemoveClassCommand(ObservableCollection<ClassBox> _classBoxs, ObservableCollection<Edge> _edges, ClassBox _removeClassBox) 
         { 
             classBoxs = _classBoxs; 
-            edges = _edges; 
-            removeClassBox = _removeClassBox;
+            edges = _edges;
+            foreach (ClassBox c in classBoxs)
+            {
+                if (c.Number == _removeClassBox.Number)
+                {
+                    removeClassBox = c;
+                }
+   
+            }
+           
             removeEdges = new List<Edge>();
             foreach(Edge e in edges)
             {

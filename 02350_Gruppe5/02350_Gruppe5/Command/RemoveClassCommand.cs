@@ -50,7 +50,7 @@ namespace _02350_Gruppe5.Command
             // Fjerner kanter
             foreach (Edge e in removeEdges) {
                 if (e.EndA.Equals(removeClassBox)) e.EndA = removeClassBox;
-                if (e.EndB.Equals(removeClassBox) e.EndB = removeClassBox;
+                if (e.EndB.Equals(removeClassBox)) e.EndB = removeClassBox;
                 edges.Add(e);
             }
         }

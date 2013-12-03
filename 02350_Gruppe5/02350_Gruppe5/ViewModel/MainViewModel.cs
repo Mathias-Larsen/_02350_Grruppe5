@@ -58,6 +58,7 @@ namespace _02350_Gruppe5.ViewModel
 
         public ICommand AddClassCommand { get; private set; }
         public ICommand AddEdgeCommand { get; private set; }
+        public ICommand ReverseEdgeCommand { get; private set; }
         
         public ICommand RemoveClassCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
@@ -97,6 +98,8 @@ namespace _02350_Gruppe5.ViewModel
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             AddClassCommand = new RelayCommand(AddClassBox);
             AddEdgeCommand = new RelayCommand(AddEdge, canAddEdge);
+            ReverseEdgeCommand = new RelayCommand(ChangeArrow);
+
             RemoveClassCommand = new RelayCommand(RemoveClassBox, SelectedClass);
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
 
@@ -137,8 +140,6 @@ namespace _02350_Gruppe5.ViewModel
             {
                 clearDiagram();
             }
-            
-       
         }
         // Add attribute
         public void addAtt()
@@ -154,6 +155,14 @@ namespace _02350_Gruppe5.ViewModel
         public void AddClassBox()
         {
             undoRedoController.AddAndExecute(new AddClassCommand(ClassBoxs));
+        }
+        // Change arrow direction on Edge
+        public void ChangeArrow()
+        {
+            if (selectedEdge != null)
+            {
+                undoRedoController.AddAndExecute(new ChangeArrowCommand(Edges, selectedEdge));
+            }
         }
         // Paste copied class
         public void PasteClass()

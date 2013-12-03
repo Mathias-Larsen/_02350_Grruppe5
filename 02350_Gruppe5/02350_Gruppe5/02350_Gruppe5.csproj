@@ -162,12 +162,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\Pictures\Delete-icon.png" />
-    <Resource Include="View\Pictures\Plus_sign.png" />
-    <Resource Include="View\Pictures\redo.png" />
-    <Resource Include="View\Pictures\undo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="View\Pictures\Save.ico" />
     <Resource Include="View\Pictures\Open.ico" />
   </ItemGroup>
@@ -195,9 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Pictures\Background.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="View\Pictures\Png-icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Pictures\SaveToImageIcon.ico" />

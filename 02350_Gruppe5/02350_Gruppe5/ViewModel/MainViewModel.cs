@@ -98,9 +98,9 @@ namespace _02350_Gruppe5.ViewModel
             // Kommandoerne som UI kan kaldes bindes til de metoder der skal kaldes.
             AddClassCommand = new RelayCommand(AddClassBox);
             AddEdgeCommand = new RelayCommand(AddEdge, canAddEdge);
-            ReverseEdgeCommand = new RelayCommand(ChangeArrow);
+            ReverseEdgeCommand = new RelayCommand(ChangeArrow,EdgeSelected);
 
-            RemoveClassCommand = new RelayCommand(RemoveClassBox, SelectedClass);
+            RemoveClassCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClass);
             DeleteCommand = new RelayCommand(DeleteEdgeAndClass, SelectedClassOrEdge);
 
             MouseDownEdgeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownEdge);
@@ -124,38 +124,7 @@ namespace _02350_Gruppe5.ViewModel
             AddMethodComm = new RelayCommand(addMethod, SelectedClass);
             AddAttComm = new RelayCommand(addAtt, SelectedClass);
         }
-        private void newDiagram()
-        {
-            string message = "Vil du gemme ændringer?";
-            MessageBoxButton b = MessageBoxButton.YesNoCancel;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result = MessageBox.Show(message, "Vil du gemme", b, icon);
 
-            if (result == MessageBoxResult.Yes)
-            {
-                saveBeforeNew = true;
-                saveProgram();
-            }
-            else if (result == MessageBoxResult.No)
-            {
-                clearDiagram();
-            }
-        }
-        // Add attribute
-        public void addAtt()
-        {
-            undoRedoController.AddAndExecute(new AddAttCommand(ClassBoxs, SelectedClassBox));
-        }
-        // Add method
-        public void addMethod()
-        {
-            undoRedoController.AddAndExecute(new AddMethodCommand(ClassBoxs, SelectedClassBox));
-        }
-        // Add ClassBox to Grid
-        public void AddClassBox()
-        {
-            undoRedoController.AddAndExecute(new AddClassCommand(ClassBoxs));
-        }
         // Change arrow direction on Edge
         public void ChangeArrow()
         {
@@ -165,67 +134,7 @@ namespace _02350_Gruppe5.ViewModel
             }
             selectedEdge = null;
         }
-        // Paste copied class
-        public void PasteClass()
-        {
-            undoRedoController.AddAndExecute(new PasteClassCommand(ClassBoxs, toPaste));
-            toPaste = null;
-        }
-        // Hold copy of selected ClassBox
-        public void CopyClass()
-        {
-            toPaste = SelectedClassBox.ElementAt(0);
-        }
-        // is a ClassBox selected?
-        public bool SelectedClass()
-        {
-            return SelectedClassBox.Count == 1;
-        }
-        // is anything selected?
-        public bool SelectedClassOrEdge()
-        {
-            if (SelectedClassBox.Count == 1){return true;}
-            else if (selectedEdge != null) { return true; }
-            else{return false;}
-        }
-        // Holding something to paste?
-        public bool CanPaste()
-        {
-            return toPaste != null;
-        }
-        // Can add Edge?
-        public bool canAddEdge()
-        {
-            return ClassBoxs.Count >= 2;
-        }
-        // Save image of Grid
-        public void saveScreen(StackPanel input)
-        {
-            new SavePictureCommand(input);
-        }
-        // Print Grid
-        public void printScreen(StackPanel input)
-        {
-            new PrinterCommand(input);
-        }
-        // Remove ClassBox
-        public void RemoveClassBox()
-        {
-            SelectedClassBox.ElementAt(0).IsSelected = false;
-            undoRedoController.AddAndExecute(new RemoveClassCommand(ClassBoxs, Edges, SelectedClassBox.ElementAt(0)));
-            SelectedClassBox.Clear();
-        }
-        // Add Edge
-        public void AddEdge()
-        {
-            if (SelectedClassBox.Count >= 1)
-            {
-                SelectedClassBox.ElementAt(0).IsSelected = false;
-            }
-            SelectedClassBox.Clear();
-            isAddingEdge = true;
-            RaisePropertyChanged("ModeOpacity");
-        }
+        
         // Remove ClassBox and connected Edges
         public void DeleteEdgeAndClass()
         {
@@ -242,11 +151,65 @@ namespace _02350_Gruppe5.ViewModel
                 SelectedClassBox.Clear();
             }
         }
-        // Close program
-        public void CloseProgram()
+
+        //////////////////////////////////////Is selected/////////////////////////////////////
+        // is a edge selected?
+        private Boolean EdgeSelected()
         {
-            Application.Current.Shutdown();
+            return selectedEdge != null;
         }
+        // is a ClassBox selected?
+        public bool SelectedClass()
+        {
+            return SelectedClassBox.Count == 1;
+        }
+        // is anything selected?
+        public bool SelectedClassOrEdge()
+        {
+            if (SelectedClassBox.Count == 1){return true;}
+            else if (selectedEdge != null) { return true; }
+            else{return false;}
+        }
+
+
+        /////////////////////////Add class methods///////////////////////////////
+        // Add attribute
+        public void addAtt()
+        {
+            undoRedoController.AddAndExecute(new AddAttCommand(ClassBoxs, SelectedClassBox));
+        }
+        // Add method
+        public void addMethod()
+        {
+            undoRedoController.AddAndExecute(new AddMethodCommand(ClassBoxs, SelectedClassBox));
+        }
+        // Add ClassBox to Grid
+        public void AddClassBox()
+        {
+            undoRedoController.AddAndExecute(new AddClassCommand(ClassBoxs));
+        }
+
+        //////////////////////Add edge/////////////////////////////////
+        // Can add Edge?
+        public bool canAddEdge()
+        {
+            return ClassBoxs.Count >= 2;
+        }
+        // Add Edge
+        public void AddEdge()
+        {
+            if (SelectedClassBox.Count >= 1)
+            {
+                SelectedClassBox.ElementAt(0).IsSelected = false;
+            }
+            SelectedClassBox.Clear();
+            isAddingEdge = true;
+            RaisePropertyChanged("ModeOpacity");
+        }
+
+
+        //////////////////Mouse actions//////////////////////////////////
+
         // Action for Mouse down trigger on Edge
         public void MouseDownEdge(MouseButtonEventArgs e)
         {
@@ -380,31 +343,39 @@ namespace _02350_Gruppe5.ViewModel
                 e.MouseDevice.Target.ReleaseMouseCapture();
         }
 
-        // Rekursiv metode der benyttes til at finde et af et grafisk elements forfædre ved hjælp af typen, der ledes højere og højere op indtil en af typen findes.
-        // Syntaksen "() ? () : ()" betyder hvis den første del bliver sand så skal værdien være den anden del, ellers skal den være den tredje del.
-        private static T FindParentOfType<T>(DependencyObject o)
+        ////////////////////////////// Copy/paste //////////////////////////////////
+        // Hold copy of selected ClassBox
+        public void CopyClass()
         {
-            dynamic parent = VisualTreeHelper.GetParent(o);
-            return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
+            toPaste = SelectedClassBox.ElementAt(0);
         }
-        // Bruges til at gøre punkterne gennemsigtige når en ny kant tilføjes.
-        public double ModeOpacity{get{return isAddingEdge ? 0.4 : 1.0;}}
-
-        //Clear diagram
-        private void clearDiagram()
+        // Holding something to paste?
+        public bool CanPaste()
         {
-            SelectedClassBox.Clear();
-            ClassBoxs.Clear();
-            Edges.Clear();
-            selectedEdge = null;
-            Status = "Ready";
-            Progress = 0;
-            saveBeforeNew = false;
+            return toPaste != null;
+        }
+        // Paste copied class
+        public void PasteClass()
+        {
+            undoRedoController.AddAndExecute(new PasteClassCommand(ClassBoxs, toPaste));
             toPaste = null;
-            filename = null;
         }
 
-        /////////////////////////////////Save and load /////////////////////////////////////////
+        //////////////////////////////////////////////Print picture and to print///////////////////////////////////
+        // Save image of Grid
+        public void saveScreen(StackPanel input)
+        {
+            new SavePictureCommand(input);
+        }
+        // Print Grid
+        public void printScreen(StackPanel input)
+        {
+            new PrinterCommand(input);
+        }
+
+
+
+        /////////////////////////////////Save, load, close and new /////////////////////////////////////////
         BackgroundWorker bw = new BackgroundWorker();
 
         private int progress = 0;
@@ -491,5 +462,52 @@ namespace _02350_Gruppe5.ViewModel
                 new OpenCommand(ClassBoxs, Edges, name);
             }
         }
+        private void newDiagram()
+        {
+            string message = "Vil du gemme ændringer?";
+            MessageBoxButton b = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result = MessageBox.Show(message, "Vil du gemme", b, icon);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                saveBeforeNew = true;
+                saveProgram();
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                clearDiagram();
+            }
+        }
+        // Close program
+        public void CloseProgram()
+        {
+            Application.Current.Shutdown();
+        }
+        //Clear diagram
+        private void clearDiagram()
+        {
+            SelectedClassBox.Clear();
+            ClassBoxs.Clear();
+            Edges.Clear();
+            selectedEdge = null;
+            Status = "Ready";
+            Progress = 0;
+            saveBeforeNew = false;
+            toPaste = null;
+            filename = null;
+        }
+
+
+        // Rekursiv metode der benyttes til at finde et af et grafisk elements forfædre ved hjælp af typen, der ledes højere og højere op indtil en af typen findes.
+        // Syntaksen "() ? () : ()" betyder hvis den første del bliver sand så skal værdien være den anden del, ellers skal den være den tredje del.
+        private static T FindParentOfType<T>(DependencyObject o)
+        {
+            dynamic parent = VisualTreeHelper.GetParent(o);
+            return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
+        }
+        // Bruges til at gøre punkterne gennemsigtige når en ny kant tilføjes.
+        public double ModeOpacity { get { return isAddingEdge ? 0.4 : 1.0; } }
     }
+
 }

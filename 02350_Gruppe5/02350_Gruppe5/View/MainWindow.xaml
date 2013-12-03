@@ -76,6 +76,7 @@
     </Window.Resources>
     <!-- Key gestures -->
     <Window.InputBindings>
+        <KeyBinding Command="{Binding NewCommand}" Gesture="CTRL+n"/>
         <KeyBinding Command="{Binding CopyClassCommand}" Gesture="CTRL+c"/>
         <KeyBinding Command="{Binding PasteClassCommand}" Gesture="CTRL+v"/>
         <KeyBinding Command="{Binding DeleteCommand}" Gesture="Delete"/>
@@ -129,6 +130,8 @@
         <!-- Menu bar -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="{Binding NewCommand}" InputGestureText="Ctrl+n"/>
+                <Separator/>                
                 <MenuItem Header="_Open" Command="{Binding OpenProgram}" InputGestureText="Ctrl+O"/>
                 <Separator/>
                 <MenuItem Header="_Save" Command="{Binding SaveProgram}" InputGestureText="Ctrl+S"/>

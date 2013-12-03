@@ -33,7 +33,7 @@
                 <DataTemplate>
                     <DataGrid Name="attList" ItemsSource="{Binding AttNamesClass}" Width="178" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False" FontStyle="{Binding fStyle}" FontWeight="{Binding fWeight}"/>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="175" Header="Attributes: " CanUserResize="False"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>

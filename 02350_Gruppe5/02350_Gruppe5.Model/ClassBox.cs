@@ -18,7 +18,7 @@ namespace _02350_Gruppe5.Model
         private int x, y, number; // position and id
         public int Number { get { return number; } private set { number = value; } } // skal bruges til at finde nummeret på en enkelt klasse
 
-        public int X { get { return x; } set { x = value; NotifyPropertyChanged("X"); } } // der skal også være noget notify property changed
+        public int X { get { return x; } set { x = value; NotifyPropertyChanged("X"); } } 
         public int Y { get { return y; } set { y = value; NotifyPropertyChanged("Y"); } }
         private int width, height;
         public int Width { get { return width; } set { width = value; NotifyPropertyChanged("Width"); } }
@@ -46,18 +46,12 @@ namespace _02350_Gruppe5.Model
             attNamesClass.Add(new attOrMethodName("- Attribute : Type"));
             methodNamesClass.Add(new attOrMethodName("+ Method( ) : ReturnType"));
             methodNamesClass.Add(new attOrMethodName("- Method( ) : ReturnType"));
-
-            //attNames = new List<string>();
-            //methodNames = new List<string>();
         }
-        // ViewModel properties. Den burde være i sin egen ViewModel klasse som Node klasserne wrappes af, men i dette tilfælde er det her meget lettere.
+        
         private bool isSelected;
         public bool IsSelected
         {
-            get
-            {
-                return isSelected;
-            }
+            get{ return isSelected;}
             set
             {
                 isSelected = value;
@@ -82,16 +76,6 @@ namespace _02350_Gruppe5.Model
             //private FontWeight fWeight;
             //public FontStyle FStyle { get { return fStyle; } set { fStyle = value; } }
             //public FontWeight FWeight { get { return fWeight; } set { fWeight = value; } }
-        }
-
-        public void addAtt(attOrMethodName input)
-        {
-            attNamesClass.Add(input);
-        }
-
-        public void removeAtt(attOrMethodName input)
-        {
-            attNamesClass.Remove(input);
         }
     }
 }

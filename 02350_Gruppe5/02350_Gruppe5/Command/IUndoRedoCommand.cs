@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace _02350_Gruppe5.Command
 {
-    // Dette er interfacet der benyttes til at implementere kommandoer, som kan bruges til undo/redo.
+    //Interface til at implementere undo/redo
     public interface IUndoRedoCommand
     {
         void Execute();

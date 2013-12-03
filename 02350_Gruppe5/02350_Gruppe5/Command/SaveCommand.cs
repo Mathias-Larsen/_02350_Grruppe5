@@ -19,88 +19,71 @@ namespace _02350_Gruppe5.Command
     class SaveCommand
     {
 
-        public SaveCommand(ObservableCollection<ClassBox> classBoxs, ObservableCollection<Edge> edges, object sender, DoWorkEventArgs e)
+        public SaveCommand(ObservableCollection<ClassBox> classBoxs, ObservableCollection<Edge> edges, object sender, DoWorkEventArgs e, String filename)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             
             int num = 100 / (classBoxs.Count + edges.Count);
             int total = 0;
-            
-            // Configure save file dialog box
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".xml"; // Default file extension
-            dlg.Filter = "XML documents (.xml)|*.xml"; // Filter files by extension 
 
-            // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-            string filename = null;
-            // Process save file dialog box results 
-            if (result == true)
-            {
-                // Save document 
-                filename = dlg.FileName;
-
-                XmlSerializer serializer = new XmlSerializer(typeof(ToSave));
-                TextWriter writer = new StreamWriter(filename);
-                ToSave toSave = new ToSave();
+            XmlSerializer serializer = new XmlSerializer(typeof(ToSave));
+            TextWriter writer = new StreamWriter(filename);
+            ToSave toSave = new ToSave();
                 
-                int i = 0;
-                ClassBoxSave[] classes = new ClassBoxSave[classBoxs.Count];
+            int i = 0;
+            ClassBoxSave[] classes = new ClassBoxSave[classBoxs.Count];
 
-                foreach (ClassBox classIn in classBoxs)
+            foreach (ClassBox classIn in classBoxs)
+            {
+                ClassBoxSave cs = new ClassBoxSave();
+
+                cs.x = classIn.X;
+                cs.y = classIn.Y;
+                cs.width = classIn.Width;
+                cs.height = classIn.Height;
+                cs.name = classIn.ClassName;
+                cs.number = classIn.Number;
+                String[] methods = new String[classIn.MethodNamesClass.Count];
+                String[] attributs = new String[classIn.AttNamesClass.Count];
+
+                for (int j = 0; j < classIn.MethodNamesClass.Count; j++)
                 {
-                    ClassBoxSave cs = new ClassBoxSave();
-
-                    cs.x = classIn.X;
-                    cs.y = classIn.Y;
-                    cs.width = classIn.Width;
-                    cs.height = classIn.Height;
-                    cs.name = classIn.ClassName;
-                    cs.number = classIn.Number;
-                    String[] methods = new String[classIn.MethodNamesClass.Count];
-                    String[] attributs = new String[classIn.AttNamesClass.Count];
-
-                    for (int j = 0; j < classIn.MethodNamesClass.Count; j++)
-                    {
-                        String met = classIn.MethodNamesClass.ElementAt(j).Name;
-                        methods[j] = met;
-                    }
-                    for (int j = 0; j < classIn.AttNamesClass.Count; j++)
-                    {
-                        String att = classIn.AttNamesClass.ElementAt(j).Name;
-                        attributs[j] = att;
-                    }
-                    cs.att = attributs;
-                    cs.method = methods;
-                    classes[i] = cs;
-
-                    i++;
-                    total++;
-                    worker.ReportProgress((total * num));
-
+                    String met = classIn.MethodNamesClass.ElementAt(j).Name;
+                    methods[j] = met;
                 }
-                toSave.classes = classes;
-
-                EdgeSave[] edge = new EdgeSave[edges.Count];
-
-                i = 0;
-                foreach (Edge edgeIn in edges)
+                for (int j = 0; j < classIn.AttNamesClass.Count; j++)
                 {
-                    EdgeSave edgeToAdd = new EdgeSave();
-                    edgeToAdd.a = edgeIn.EndA.Number;
-                    edgeToAdd.b = edgeIn.EndB.Number;
-                    edge[i] = edgeToAdd;
-                    i++;
-                    total++;
-                    worker.ReportProgress((total * num));
+                    String att = classIn.AttNamesClass.ElementAt(j).Name;
+                    attributs[j] = att;
                 }
-                toSave.edges = edge;
+                cs.att = attributs;
+                cs.method = methods;
+                classes[i] = cs;
 
-                serializer.Serialize(writer, toSave);
-                writer.Close();
+                i++;
+                total++;
+                worker.ReportProgress((total * num));
+
             }
+            toSave.classes = classes;
+            EdgeSave[] edge = new EdgeSave[edges.Count];
+            i = 0;
+            foreach (Edge edgeIn in edges)
+            {
+                EdgeSave edgeToAdd = new EdgeSave();
+                edgeToAdd.a = edgeIn.EndA.Number;
+                edgeToAdd.b = edgeIn.EndB.Number;
+                edge[i] = edgeToAdd;
+                i++;
+                total++;
+                worker.ReportProgress((total * num));
+            }
+            toSave.edges = edge;
+
+            serializer.Serialize(writer, toSave);
+            writer.Close();
         }
+        
     }
     [XmlRootAttribute("Diagram", Namespace = "http://dtu.programming", IsNullable = false)]
     public class ToSave

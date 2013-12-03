@@ -35,6 +35,7 @@ namespace _02350_Gruppe5.Command
             classBox.X = newX;
             classBox.Y = newY;
 
+            //Move the edges.
             foreach (Edge edge in edges)
             {
                 if (classBox.Equals(edge.EndA))
@@ -53,6 +54,7 @@ namespace _02350_Gruppe5.Command
             classBox.X = x;
             classBox.Y = y;
 
+            //Move the edges. 
             foreach (Edge edge in edges)
             {
                 if (classBox.Equals(edge.EndA))

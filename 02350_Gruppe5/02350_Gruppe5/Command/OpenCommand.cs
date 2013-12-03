@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 namespace _02350_Gruppe5.Command
 {
     //
-    // Class used load a saved project
+    // Class used to load a saved diagram. 
     //
 
     class OpenCommand
@@ -20,52 +20,30 @@ namespace _02350_Gruppe5.Command
         private ObservableCollection<Edge> edges;
         private ToSave toSave;
 
-        public OpenCommand(ObservableCollection<ClassBox> _classBoxs, ObservableCollection<Edge> _edges)
+        public OpenCommand(ObservableCollection<ClassBox> _classBoxs, ObservableCollection<Edge> _edges, string filename)
         {
             classBoxs = _classBoxs;
             edges = _edges;
 
-            // Configure open file dialog box
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = "Document"; // Default file name
-            dlg.DefaultExt = ".txt"; // Default file extension
-            dlg.Filter = "XML documents (.xml)|*.xml"; // Filter files by extension 
+            // Create an instance of the XmlSerializer class;
+            // specify the type of object to be deserialized.
+            XmlSerializer serializer = new XmlSerializer(typeof(ToSave));
 
-            // Show open file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process open file dialog box results 
-            if (result == true)
-            {
-                classBoxs.Clear();
-                edges.Clear();
-
-                // Open document 
-                string filename = dlg.FileName;
-
-
-                // Create an instance of the XmlSerializer class;
-                // specify the type of object to be deserialized.
-
-                XmlSerializer serializer = new XmlSerializer(typeof(ToSave));
-
-
-                /* If the XML document has been altered with unknown nodes or attributes,
-                   handle them with the UnknownNode and UnknownAttribute events.*/
-
-                serializer.UnknownNode += new XmlNodeEventHandler(serializer_UnknownNode);
-                serializer.UnknownAttribute += new XmlAttributeEventHandler(serializer_UnknownAttribute);
-
-                // A FileStream is needed to read the XML document.
-                FileStream fs = new FileStream(filename, FileMode.Open);
-                // Declare an object variable of the type to be deserialized.
-
-                /* Use the Deserialize method to restore the object's state with data from the XML document. */
-                toSave = (ToSave)serializer.Deserialize(fs);
-                deserializeClassBox();
-                deserializeEdge();
-            }
+            /* If the XML document has been altered with unknown nodes or attributes,
+            handle them with the UnknownNode and UnknownAttribute events.*/
+            serializer.UnknownNode += new XmlNodeEventHandler(serializer_UnknownNode);
+            serializer.UnknownAttribute += new XmlAttributeEventHandler(serializer_UnknownAttribute);
+            
+            // A FileStream is needed to read the XML document.
+            FileStream fs = new FileStream(filename, FileMode.Open);
+       
+            /* Use the Deserialize method to restore the object's state with data from the XML document. */
+            toSave = (ToSave)serializer.Deserialize(fs);
+            deserializeClassBox();
+            deserializeEdge();
         }
+        
+        //Method to deserialize all the classes. 
         private void deserializeClassBox()
         {
             foreach (ClassBoxSave cs in toSave.classes)
@@ -98,6 +76,7 @@ namespace _02350_Gruppe5.Command
                 classBoxs.Add(newCb);
             }
         }
+        //Method to deserialize all the edges.
         private void deserializeEdge()
         {
             foreach (EdgeSave ed in toSave.edges)

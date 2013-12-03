@@ -7,8 +7,14 @@ using System.Windows.Input;
 
 namespace _02350_Gruppe5.Command
 {
-    // Holder styr på de kommandoer der er i undo/redo stacken. 
-    // Dette er en singleton, så alle der benytter den bruger samme instans. Det er opnået med Singleton pattern der kræver statisk instans privat konstruktor og statisk GetInstance() metode.
+    /* 
+        Denne klasse holder styr paa kommandoer der kan undo/redoes. 
+        Klassen er en singleton,  saa vi er sikret at der kun er en instans af den i programmet. 
+        Et singleton pattern kraever 
+        - en privat konstruktor saa den ikke kan instatieres
+        - en private statisk instance af controlleren  
+        - statisk GetInstance() metode som returnere controller instancen. 
+     */
     public class UndoRedoController
     {
         // Part of singleton pattern.

@@ -51,7 +51,6 @@ namespace _02350_Gruppe5.Model
             }
             set
             {
-                //System.Windows.Forms.MessageBox.Show("hej");
                 points = setPoints(endA, endB);
                 NotifyPropertyChanged("Points");
             }
@@ -73,6 +72,8 @@ namespace _02350_Gruppe5.Model
         }
         public Brush SelectedColor { get { return IsSelected ? Brushes.Blue : Brushes.Black; } }
         // Metoden der udregner hvordan en kant skal se ud afh. af forholdet mellem de to endepunkter
+        //Kunne evt. være placeret i en controller f.eks. edgeViewModel istedet. 
+        //Vi valgte dog at vi syntes det var mest overskueligt at placere den her. 
         private PointCollection setPoints(ClassBox endA, ClassBox endB)
         {
             int x1 = endA.CenterX, y1 = endA.CenterY, width1 = endA.Width, height1 = endA.Height,

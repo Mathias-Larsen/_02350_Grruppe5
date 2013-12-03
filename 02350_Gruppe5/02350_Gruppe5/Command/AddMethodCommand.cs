@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace _02350_Gruppe5.Command
 {
     //
-    // Class used to add methods to a ClassBox
+    // Class used to add attributes to a ClassBox
     //
 
     class AddMethodCommand : IUndoRedoCommand
@@ -17,34 +17,48 @@ namespace _02350_Gruppe5.Command
 
         private ObservableCollection<ClassBox> classBoxs;
         private ObservableCollection<ClassBox> selectedclassBox;
+        private ClassBox classBox;
+        List<ClassBox.attOrMethodName> oldList; //Used when undo
+        List<ClassBox.attOrMethodName> newList;
 
 
         public AddMethodCommand(ObservableCollection<ClassBox> _classBoxs,
             ObservableCollection<ClassBox> _selectedClassBox)
         {
             classBoxs = _classBoxs;
-
             selectedclassBox = _selectedClassBox;
+            classBox = selectedclassBox.ElementAt(0);
+            oldList = new List<ClassBox.attOrMethodName>();
+            newList = new List<ClassBox.attOrMethodName>();
+
+            foreach (ClassBox.attOrMethodName att in classBox.MethodNamesClass)
+            {
+                oldList.Add(att);
+                newList.Add(att);
+            }
+            newList.Add(new ClassBox.attOrMethodName("+ new Method( ) : ReturnType"));
         }
 
         public void Execute()
         {
-            ClassBox classBox = selectedclassBox.ElementAt(0);
 
             selectedclassBox.Clear();
             classBoxs.Remove(classBox);
 
-            List<ClassBox.attOrMethodName> list = classBox.MethodNamesClass;
-            list.Add(new ClassBox.attOrMethodName("New method"));
-            classBox.MethodNamesClass = list;
+            classBox.MethodNamesClass = newList;
 
             classBoxs.Add(classBox);
             selectedclassBox.Add(classBox);
         }
 
-        // Unused as it is run through the DataGrid containing the list of attributes
         public void UnExecute()
         {
+            selectedclassBox.Clear();
+            classBoxs.Remove(classBox);
+            classBox.MethodNamesClass = oldList;
+
+            classBoxs.Add(classBox);
+            selectedclassBox.Add(classBox);
 
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace _02350_Gruppe5.Command
 {
     //
-    // Class used to add attributes to a ClassBox
+    // Class used to add method to a ClassBox
     //
 
     class AddAttCommand : IUndoRedoCommand
@@ -17,9 +17,9 @@ namespace _02350_Gruppe5.Command
 
         private ObservableCollection<ClassBox> classBoxs;
         private ObservableCollection<ClassBox> selectedclassBox;
-        private ClassBox oldClass;
-        private ClassBox newClass;
-        List<ClassBox.attOrMethodName> oldList;
+        private ClassBox classBox;
+        List<ClassBox.attOrMethodName> oldList; //Used when undo
+        List<ClassBox.attOrMethodName> newList; 
 
 
         public AddAttCommand(ObservableCollection<ClassBox> _classBoxs,
@@ -27,28 +27,38 @@ namespace _02350_Gruppe5.Command
         {
             classBoxs = _classBoxs;
             selectedclassBox = _selectedClassBox;
-            oldClass = selectedclassBox.ElementAt(0);
+            classBox = selectedclassBox.ElementAt(0);
+            oldList = new List<ClassBox.attOrMethodName>();
+            newList = new List<ClassBox.attOrMethodName>();
+
+            foreach (ClassBox.attOrMethodName att in classBox.AttNamesClass)
+            {
+                oldList.Add(att);
+                newList.Add(att);
+            }
+            newList.Add(new ClassBox.attOrMethodName("+ new Attribute : Type"));
         }
 
         public void Execute()
         {
-            newClass = selectedclassBox.ElementAt(0);
 
             selectedclassBox.Clear();
-            classBoxs.Remove(oldClass);
+            classBoxs.Remove(classBox);
+      
+            classBox.AttNamesClass = newList;
 
-            List<ClassBox.attOrMethodName> list = newClass.AttNamesClass;
-            oldList = list;
-            list.Add(new ClassBox.attOrMethodName("New attribute"));
-            newClass.AttNamesClass = list;
-
-            classBoxs.Add(newClass);
-            selectedclassBox.Add(newClass);
+            classBoxs.Add(classBox);
+            selectedclassBox.Add(classBox);
         }
 
-        // Unused as it is run through the DataGrid containing the list of attributes
         public void UnExecute()
         {
+            selectedclassBox.Clear();
+            classBoxs.Remove(classBox);
+            classBox.AttNamesClass = oldList;
+
+            classBoxs.Add(classBox);
+            selectedclassBox.Add(classBox);
 
         }
     }

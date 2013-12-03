@@ -163,6 +163,7 @@ namespace _02350_Gruppe5.ViewModel
             {
                 undoRedoController.AddAndExecute(new ChangeArrowCommand(Edges, selectedEdge));
             }
+            selectedEdge = null;
         }
         // Paste copied class
         public void PasteClass()

@@ -24,13 +24,23 @@ namespace _02350_Gruppe5.Command
         { 
             classBoxs = _classBoxs; 
             edges = _edges; 
-            removeClassBox = _removeClassBox; 
-            removeEdges = _edges.Where(x => x.EndA.Number == removeClassBox.Number || x.EndB.Number == removeClassBox.Number).ToList(); 
+            removeClassBox = _removeClassBox;
+            removeEdges = new List<Edge>();
+            foreach(Edge e in edges)
+            {
+                if (e.EndA.Equals(removeClassBox) || e.EndB.Equals(removeClassBox))
+                {
+                    removeEdges.Add(e);
+                }
+            }
         }
 
         public void Execute()
         {
-            foreach (Edge e in removeEdges) edges.Remove(e);
+            foreach (Edge e in removeEdges)
+            {
+                edges.Remove(e);
+            }
             classBoxs.Remove(removeClassBox);
         }
 
@@ -39,8 +49,8 @@ namespace _02350_Gruppe5.Command
             classBoxs.Add(removeClassBox);
             // Fjerner kanter
             foreach (Edge e in removeEdges) {
-                if (e.EndA == null) e.EndA = removeClassBox;
-                if (e.EndB == null) e.EndB = removeClassBox;
+                if (e.EndA.Equals(removeClassBox)) e.EndA = removeClassBox;
+                if (e.EndB.Equals(removeClassBox) e.EndB = removeClassBox;
                 edges.Add(e);
             }
         }

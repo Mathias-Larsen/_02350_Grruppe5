@@ -86,6 +86,7 @@
         <KeyBinding Command="{Binding SaveProgram}" Gesture="CTRL+s"/>
         <KeyBinding Command="{Binding AddClassCommand}" Gesture="CTRL+b"/>
         <KeyBinding Command="{Binding AddEdgeCommand}" Gesture="CTRL+e"/>
+        <KeyBinding Command="{Binding ReverseEdgeCommand}" Gesture="CTRL+r"/>
         <KeyBinding Command="{Binding SaveToPictureCommand}" Gesture="CTRL+i" CommandParameter="{Binding ElementName=stack}" />
         <KeyBinding Command="{Binding PrintCommand}" Gesture="CTRL+p" CommandParameter="{Binding ElementName=stack}"/>
     </Window.InputBindings>
@@ -145,6 +146,8 @@
                 <MenuItem Header="_Undo" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
                 <MenuItem Header="_Redo" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
                 <Separator/>
+                <MenuItem Header="_Change arrow direction" Command="{Binding ReverseEdgeCommand}" InputGestureText="Ctrl+r"/>
+                <Separator/>
                 <MenuItem Header="_Copy" Command="{Binding CopyClassCommand}" InputGestureText="Ctrl+C"/>
                 <MenuItem Header="_Paste" Command="{Binding PasteClassCommand}" InputGestureText="Ctrl+V"/>
                 <MenuItem Header="_Delete" Command="{Binding DeleteCommand}" InputGestureText="Delete"/>
@@ -189,7 +192,7 @@
                     <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge (CTRL+E)" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/Edge_Symbol.ico"/>
                     </Button>
-                    <Button ToolTip="Switch arrow direction" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
+                    <Button Command="{Binding ReverseEdgeCommand}" ToolTip="Switch arrow direction" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/SwitchArrow.ico"/>
                     </Button>
                     <Button Command="{Binding SaveToPictureCommand}" ToolTip="Save to picture (CTRL+I)" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}" Style="{StaticResource TopButtonStyle}">

@@ -76,6 +76,7 @@
     <Compile Include="Command\AddEdgeCommand.cs" />
     <Compile Include="Command\AddClassCommand.cs" />
     <Compile Include="Command\AddMethodCommand.cs" />
+    <Compile Include="Command\ChangeArrowCommand.cs" />
     <Compile Include="Command\ItalicTextCommand.cs" />
     <Compile Include="Command\OpenCommand.cs" />
     <Compile Include="Command\PasteClassCommand.cs" />

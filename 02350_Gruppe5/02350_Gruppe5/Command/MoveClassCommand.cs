@@ -34,7 +34,7 @@ namespace _02350_Gruppe5.Command
         {
             classBox.X = newX;
             classBox.Y = newY;
-
+            
             //Move the edges.
             foreach (Edge edge in edges)
             {
@@ -47,13 +47,14 @@ namespace _02350_Gruppe5.Command
                     edge.Points = new Edge(edge.EndA, classBox).Points;
                 }
             }
+             
         }
 
         public void UnExecute()
         {
             classBox.X = x;
             classBox.Y = y;
-
+            
             //Move the edges. 
             foreach (Edge edge in edges)
             {
@@ -66,6 +67,7 @@ namespace _02350_Gruppe5.Command
                     edge.Points = new Edge(edge.EndA, classBox).Points;
                 }
             }
+            
         }
     }
 }

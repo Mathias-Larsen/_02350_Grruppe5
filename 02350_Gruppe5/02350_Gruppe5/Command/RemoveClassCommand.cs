@@ -24,14 +24,7 @@ namespace _02350_Gruppe5.Command
         { 
             classBoxs = _classBoxs; 
             edges = _edges;
-            foreach (ClassBox c in classBoxs)
-            {
-                if (c.Number == _removeClassBox.Number)
-                {
-                    removeClassBox = c;
-                }
-   
-            }
+            removeClassBox = _removeClassBox;
            
             removeEdges = new List<Edge>();
             foreach(Edge e in edges)

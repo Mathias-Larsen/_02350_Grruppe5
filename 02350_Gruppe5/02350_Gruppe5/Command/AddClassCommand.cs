@@ -18,11 +18,14 @@ namespace _02350_Gruppe5.Command
         private ObservableCollection<ClassBox> classBoxs;
         private ClassBox classBox;
 
-        public AddClassCommand(ObservableCollection<ClassBox> _classBox) { classBoxs = _classBox; }
+        public AddClassCommand(ObservableCollection<ClassBox> _classBox) { 
+            classBoxs = _classBox;
+            classBox = new ClassBox(classBoxs.Count + 1);
+        }
 
         public void Execute()
         {
-            classBoxs.Add(classBox = new ClassBox(classBoxs.Count+1));
+            classBoxs.Add(classBox);
         }
 
         public void UnExecute()

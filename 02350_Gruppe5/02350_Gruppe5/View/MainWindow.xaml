@@ -6,7 +6,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
-        Title="02350_Gruppe5" Height="600" Width="800">
+        Title="02350_Gruppe5" Height="600" Width="850">
     <!--Ovenover (DataContext="") bindes vinduet til MainViewModel ved hjælp af MVVM Light Toolkits ViewModelLocator.-->
     <!--Derudover defineres de namespaces der skal benyttes ligesom det gøres med Using statements i C# koden.-->
     <Window.Resources>

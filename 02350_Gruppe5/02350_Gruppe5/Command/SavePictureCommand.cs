@@ -47,7 +47,7 @@ namespace _02350_Gruppe5.Command
             {
                 // get path and filename
                 filename = dlg.FileName;
-                string ext = Path.GetExtension(dlg.FileName);
+                string ext = Path.GetExtension(filename);
 
                 // saving the image
                 using (FileStream outStream = new FileStream(filename, FileMode.Create))

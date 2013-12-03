@@ -189,6 +189,9 @@
                     <Button Command="{Binding AddEdgeCommand}" ToolTip="Add new edge (CTRL+E)" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/Edge_Symbol.ico"/>
                     </Button>
+                    <Button ToolTip="Switch arrow direction" Height="30" Width="50" Margin="10,0,0,0" Style="{StaticResource TopButtonStyle}">
+                        <Image Source="pictures/SwitchArrow.ico"/>
+                    </Button>
                     <Button Command="{Binding SaveToPictureCommand}" ToolTip="Save to picture (CTRL+I)" Height="30" Width="50" Margin="10,0,0,0" CommandParameter="{Binding ElementName=stack}" Style="{StaticResource TopButtonStyle}">
                         <Image Source="pictures/SaveToImageIcon.ico"/>
                     </Button>

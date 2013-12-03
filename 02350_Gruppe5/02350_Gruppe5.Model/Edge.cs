@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media;
 
 
@@ -79,17 +80,20 @@ namespace _02350_Gruppe5.Model
             int x1 = endA.CenterX, y1 = endA.CenterY, width1 = endA.Width, height1 = endA.Height,
                 x2 = endB.CenterX, y2 = endB.CenterY, width2 = endB.Width, height2 = endB.Height;
             int STEP = 25, stepX, stepY, xWidth = Math.Abs(x1 - x2), yWidth = Math.Abs(y1 - y2);
+            int arrowLength = 1;
 
-            Point start, second, third, fourth, fifth, end;
+            Point start, second, third, fourth, fifth, end, arrow1, arrow2;
             PointCollection points = new PointCollection();
 
+            // top eller bund
             if (xWidth <= yWidth)
             {
+                // klasse 1 øverst
                 if (y1 <= y2)
                 {
                     start = new Point(x1, y1 + height1 / 2);
                     end = new Point(x2, y2 - height2 / 2);
-                    stepY = Math.Min(STEP, (yWidth - (height1 + height2) / 2) / 10);
+                    stepY = Math.Max(STEP, (yWidth - (height1 + height2) / 2) / 10);
                     second = new Point(x1, y1 + height1 / 2 + stepY);
                     fifth = new Point(x2, y2 - height2 / 2 - stepY);
                     stepX = xWidth / 2;
@@ -99,12 +103,15 @@ namespace _02350_Gruppe5.Model
                     }
                     third = new Point(x1 - stepX, y1 + height1 / 2 + stepY);
                     fourth = new Point(x2 + stepX, y2 - height2 / 2 - stepY);
+                    arrow1 = new Point(x2 - arrowLength, y2 - height2 / 2 - arrowLength);
+                    arrow2 = new Point(x2 + arrowLength, y2 - height2 / 2 - arrowLength);
                 }
+                    // klasse 2 øverst
                 else
                 {
                     start = new Point(x1, y1 - height1 / 2);
                     end = new Point(x2, y2 + height2 / 2);
-                    stepY = Math.Min(STEP, (yWidth - (height1 + height2) / 2) / 10);
+                    stepY = Math.Max(STEP, (yWidth - (height1 + height2) / 2) / 10);
                     second = new Point(x1, y1 - height1 / 2 - stepY);
                     fifth = new Point(x2, y2 + height2 / 2 + stepY);
                     stepX = xWidth / 2;
@@ -114,15 +121,19 @@ namespace _02350_Gruppe5.Model
                     }
                     third = new Point(x1 - stepX, y1 - height1 / 2 - stepY);
                     fourth = new Point(x2 + stepX, y2 + height2 / 2 + stepY);
+                    arrow1 = new Point(x2 - arrowLength, y2 + height2 / 2 + arrowLength);
+                    arrow2 = new Point(x2 + arrowLength, y2 + height2 / 2 + arrowLength);
                 }
             }
+                // højre eller venstre
             else
             {
+                // klasse 1 til venstre
                 if (x1 <= x2)
                 {
                     start = new Point(x1 + width1 / 2, y1);
                     end = new Point(x2 - width2 / 2, y2);
-                    stepX = Math.Min(STEP, (xWidth - (width1 + width2) / 2) / 10);
+                    stepX = Math.Max(STEP, (xWidth - (width1 + width2) / 2) / 10);
                     second = new Point(x1 + width1 / 2 + stepX, y1);
                     fifth = new Point(x2 - width2 / 2 - stepX, y2);
                     stepY = yWidth / 2;
@@ -132,12 +143,15 @@ namespace _02350_Gruppe5.Model
                     }
                     third = new Point(x1 + width1 / 2 + stepX, y1 - stepY);
                     fourth = new Point(x2 - width2 / 2 - stepX, y2 + stepY);
+                    arrow1 = new Point(x2 - width2 / 2 - arrowLength, y2 + arrowLength);
+                    arrow2 = new Point(x2 - width2 / 2 - arrowLength, y2 - arrowLength);
                 }
+                    // klasse 2 til venstre
                 else
                 {
                     start = new Point(x1 - width1 / 2, y1);
                     end = new Point(x2 + width2 / 2, y2);
-                    stepX = Math.Min(STEP, (xWidth - (width1 + width2) / 2) / 10);
+                    stepX = Math.Max(STEP, (xWidth - (width1 + width2) / 2) / 10);
                     second = new Point(x1 - width1 / 2 - stepX, y1);
                     fifth = new Point(x2 + width2 / 2 + stepX, y2);
                     stepY = yWidth / 2;
@@ -147,6 +161,9 @@ namespace _02350_Gruppe5.Model
                     }
                     third = new Point(x1 - width1 / 2 - stepX, y1 - stepY);
                     fourth = new Point(x2 + width2 / 2 + stepX, y2 + stepY);
+                    arrow1 = new Point(x2 + width2 / 2 + arrowLength, y2 - arrowLength);
+                    arrow2 = new Point(x2 + width2 / 2 + arrowLength, y2 + arrowLength);
+
                 }
             }
 
@@ -155,6 +172,10 @@ namespace _02350_Gruppe5.Model
             points.Add(third);
             points.Add(fourth);
             points.Add(fifth);
+            points.Add(end);
+            points.Add(arrow1);
+            points.Add(end);
+            points.Add(arrow2);
             points.Add(end);
 
             return points;
